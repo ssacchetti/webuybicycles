@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------------------------------------------- */
+/*  Brand tokens — change these to re-skin the site.                          */
+/*  Mirrored in tailwind.config.ts under `theme.extend.colors`.               */
+/* -------------------------------------------------------------------------- */
+:root {
+  --color-paper: #f2ebdd;
+  --color-ink: #1a1612;
+  --color-muted: #6b5e4d;
+  --color-oxblood: #7a1f1a;
+  --color-saffron: #d4a03b;
+  --color-rule: rgba(26, 22, 18, 0.12);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Base                                                                       */
+/* -------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--color-oxblood);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-saffron);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Display type — Fraunces tuned for workshop-nameplate character.            */
+/* -------------------------------------------------------------------------- */
+.font-display {
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
+  letter-spacing: -0.018em;
+}
+
+.display-tight {
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+  letter-spacing: -0.028em;
+  line-height: 0.92;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Paper grain — subtle SVG noise overlay.                                    */
+/* -------------------------------------------------------------------------- */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Reusable label                                                              */
+/* -------------------------------------------------------------------------- */
+.eyebrow {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-muted);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Buttons                                                                    */
+/* -------------------------------------------------------------------------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-oxblood);
+  color: var(--color-paper);
+  padding: 0.95rem 1.4rem;
+  font-weight: 500;
+  font-size: 0.94rem;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--color-oxblood);
+  border-radius: 2px;
+  transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 1px 0 rgba(26, 22, 18, 0.18), inset 0 0 0 1px rgba(255, 245, 220, 0.06);
+  position: relative;
+}
+.btn-primary:hover {
+  background: #621712;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px -10px rgba(26, 22, 18, 0.45), inset 0 0 0 1px rgba(255, 245, 220, 0.1);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-ink);
+  padding: 0.95rem 0.25rem;
+  font-size: 0.94rem;
+  border-bottom: 1px solid var(--color-ink);
+  transition: gap 220ms ease, color 220ms ease;
+}
+.btn-ghost:hover {
+  gap: 0.7rem;
+  color: var(--color-oxblood);
+  border-color: var(--color-oxblood);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Form controls — workshop intake aesthetic.                                 */
+/* -------------------------------------------------------------------------- */
+.field-label {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-muted);
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.field-input,
+.field-select,
+.field-textarea {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  border-radius: 0;
+  padding: 0.65rem 0 0.7rem;
+  font-size: 1.05rem;
+  font-family: inherit;
+  color: var(--color-ink);
+  transition: border-color 220ms ease, padding 220ms ease;
+}
+.field-input::placeholder,
+.field-textarea::placeholder {
+  color: rgba(26, 22, 18, 0.35);
+}
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+  outline: none;
+  border-bottom-color: var(--color-ink);
+}
+.field-input:focus-visible,
+.field-select:focus-visible,
+.field-textarea:focus-visible {
+  outline: 2px solid var(--color-saffron);
+  outline-offset: 6px;
+}
+.field-textarea {
+  resize: vertical;
+  min-height: 4.5rem;
+}
+.field-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5l5 5 5-5' fill='none' stroke='%231A1612' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.2rem center;
+  padding-right: 1.5rem;
+}
+
+.field-error[data-show="true"] {
+  color: var(--color-oxblood);
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+.field-has-error .field-input,
+.field-has-error .field-select,
+.field-has-error .field-textarea {
+  border-bottom-color: var(--color-oxblood);
+}
+
+/* Custom radio cluster — "paper form" tick boxes */
+.radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.radio-tile {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 7rem;
+}
+.radio-tile input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+.radio-tile span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 2px;
+  font-size: 0.96rem;
+  cursor: pointer;
+  transition: border-color 220ms ease, background 220ms ease, color 220ms ease;
+}
+.radio-tile span::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-ink);
+  border-radius: 2px;
+  display: inline-block;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.radio-tile input:checked + span {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.radio-tile input:checked + span::before {
+  background: var(--color-saffron);
+  border-color: var(--color-saffron);
+}
+.radio-tile input:focus-visible + span {
+  outline: 2px solid var(--color-saffron);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Decorative                                                                  */
+/* -------------------------------------------------------------------------- */
+.hairline {
+  height: 1px;
+  background: var(--color-rule);
+}
+.hairline-strong {
+  height: 1px;
+  background: var(--color-ink);
+}
+
+.dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: var(--color-oxblood);
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
