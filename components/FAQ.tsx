@@ -68,26 +68,30 @@ export default function FAQ() {
                 <Accordion.Header asChild>
                   <h3 className="m-0">
                     <Accordion.Trigger
-                      className="group flex w-full items-center justify-between gap-6 py-6 text-left transition-colors hover:text-oxblood"
+                      // Grid columns: fixed number col · question · plus icon.
+                      // The fixed first column means the question text starts
+                      // at a known x-offset (col-1 width + gap), which we mirror
+                      // as the answer's left padding below so they align.
+                      className="group grid w-full grid-cols-[2rem_1fr_auto] items-center gap-4 py-6 text-left transition-colors hover:text-oxblood"
                       aria-label={item.q}
                     >
+                      <span
+                        aria-hidden="true"
+                        className="font-mono text-[0.78rem] uppercase tracking-cap text-muted"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
                       <span className="font-display text-[1.4rem] leading-[1.18] sm:text-[1.7rem]">
-                        <span
-                          className="mr-4 font-mono text-[0.78rem] uppercase tracking-cap text-muted align-middle"
-                          aria-hidden="true"
-                        >
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
                         {item.q}
                       </span>
-                      <Plus
-                        className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45"
-                      />
+                      <Plus className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45" />
                     </Accordion.Trigger>
                   </h3>
                 </Accordion.Header>
                 <Accordion.Content className="overflow-hidden data-[state=open]:animate-acc-open data-[state=closed]:animate-acc-close">
-                  <p className="max-w-prose pb-6 pr-10 text-[1rem] leading-relaxed text-ink/80">
+                  {/* pl-12 (3rem) = 2rem number col + 1rem grid gap → aligns
+                      with the question text in the trigger above */}
+                  <p className="max-w-prose pb-6 pl-12 pr-10 text-[1rem] leading-relaxed text-ink/80">
                     {item.a}
                   </p>
                 </Accordion.Content>
