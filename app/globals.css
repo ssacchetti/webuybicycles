@@ -33,6 +33,12 @@ body {
   /* Body optical size + normal width. */
   font-variation-settings: "opsz" 14, "wdth" 100;
   font-feature-settings: "ss01", "cv11";
+  /* Marquee strip extends visually beyond viewport by design (for the
+     looping animation). The strip's parent has overflow-hidden which
+     keeps document.scrollWidth at innerWidth, but macOS Safari's
+     trackpad rubber-band still engages on the visual overflow. Clipping
+     horizontal at the body stops the elastic drift outright. */
+  overflow-x: clip;
 }
 
 ::selection {
