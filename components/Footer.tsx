@@ -9,8 +9,7 @@ export default function Footer() {
               className="font-display text-[clamp(2.6rem,7vw,5.4rem)] leading-[0.95] tracking-tight"
               style={{ fontVariationSettings: '"opsz" 144, "SOFT" 30, "WONK" 0' }}
             >
-              We Buy Bikes
-              <span className="text-saffron">.</span>
+              We Buy Bikes<span className="text-saffron">.</span>
             </p>
             <p className="mt-4 max-w-md text-[0.95rem] text-paper/70">
               Fair offers for road and mountain bikes. Tell us what you have

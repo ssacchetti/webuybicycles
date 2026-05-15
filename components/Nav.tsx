@@ -62,18 +62,15 @@ export default function Nav() {
       <div className="mx-auto flex max-w-page items-center justify-between px-5 py-3.5 sm:px-8 lg:px-12">
         <a
           href="#top"
-          className="font-display text-[1.05rem] tracking-tight sm:text-[1.15rem]"
+          className="font-display text-[1.3rem] font-medium leading-none tracking-tight sm:text-[1.55rem]"
           aria-label="We Buy Bikes — home"
         >
-          We Buy Bikes
-          <span
+          We Buy Bikes<span
             className={cn(
-              "ml-1.5 align-middle transition-colors",
+              "transition-colors",
               onDark ? "text-saffron" : "text-oxblood"
             )}
-          >
-            .
-          </span>
+          >.</span>
         </a>
 
         <nav className="hidden items-center gap-7 md:flex">
