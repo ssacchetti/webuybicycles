@@ -98,17 +98,6 @@ export default function Hero() {
         ref={contentRef}
         className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-page flex-col px-5 pb-14 pt-6 text-paper will-change-transform sm:px-8 sm:pb-20 sm:pt-8 lg:min-h-[760px] lg:px-12 lg:pb-24"
       >
-        {/* Top eyebrow row */}
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[0.72rem] uppercase tracking-cap text-paper/75">
-            <span
-              aria-hidden="true"
-              className="mr-2 inline-block h-[6px] w-[6px] rounded-full bg-saffron align-middle"
-            />
-            Now buying — Road &amp; Mountain
-          </span>
-        </div>
-
         {/* Spacer pushes content to the bottom — poster anchor */}
         <div className="flex-1" />
 
