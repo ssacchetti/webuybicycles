@@ -1,9 +1,11 @@
 "use client";
 
 /* eslint-disable react/no-unescaped-entities */
-// Image-led poster hero with scroll-driven parallax. The hero photo translates
-// at ~0.35× the scroll rate while the text drifts in the opposite direction at
-// ~0.12× — creates separation between the type and the image as you scroll.
+// Type-led poster hero with a treated photo ghost behind the lock-up
+// and a parallax separation between the two layers on scroll:
+//   - Image lags scroll (~0.30×), drifting *with* the page
+//   - Headline leads scroll (~0.10×), drifting *against* the page
+// rAF-throttled, prefers-reduced-motion honoured.
 //
 // PLACEHOLDER PHOTO: sourced from Unsplash. Swap by editing HERO_IMAGE.
 
@@ -12,13 +14,13 @@ import { useEffect, useRef } from "react";
 
 const HERO_IMAGE = {
   src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?w=2400&q=75&auto=format&fit=crop",
-  alt: "A bicycle in the workshop — placeholder image",
+  alt: "",
 };
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -27,17 +29,17 @@ export default function Hero() {
     const apply = () => {
       const section = sectionRef.current;
       const image = imageRef.current;
-      const content = contentRef.current;
-      if (!section || !image || !content) return;
+      const headline = headlineRef.current;
+      if (!section || !image || !headline) return;
 
       const rect = section.getBoundingClientRect();
-      // Skip when the section is far off-screen
+      // Skip when the section is comfortably off-screen
       if (rect.bottom < -200 || rect.top > window.innerHeight + 200) return;
 
-      // Image lags behind scroll (~35% speed)
-      image.style.transform = `translate3d(0, ${-rect.top * 0.35}px, 0)`;
-      // Text drifts up faster than scroll (~12% faster)
-      content.style.transform = `translate3d(0, ${rect.top * 0.12}px, 0)`;
+      // Image lags behind scroll — drifts downward as the page scrolls up
+      image.style.transform = `translate3d(0, ${-rect.top * 0.3}px, 0)`;
+      // Headline leads scroll — drifts upward faster than the page
+      headline.style.transform = `translate3d(0, ${rect.top * 0.1}px, 0)`;
     };
 
     const onScroll = () => {
@@ -58,93 +60,112 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      data-nav-bg="dark"
-      className="relative isolate overflow-hidden"
+      className="relative isolate overflow-hidden border-b-[1.5px] border-ink bg-paper"
     >
-      {/* Image layer — extended above & below so it can translate without exposing edges */}
+      {/* Photo ghost — extended bounds so the parallax translate doesn't
+          expose the section edges. Treated to high-contrast grayscale at
+          low opacity so the type stays the dominant element. */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 -bottom-[20%] -top-[20%] -z-10"
+        className="absolute inset-x-0 -bottom-[25%] -top-[25%] -z-10"
       >
-        <div
-          ref={imageRef}
-          className="relative h-full w-full will-change-transform"
-        >
+        <div ref={imageRef} className="relative h-full w-full will-change-transform">
           <Image
             src={HERO_IMAGE.src}
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover"
-            style={{ filter: "saturate(0.85) contrast(1.05)" }}
+            className="object-cover object-[center_30%] opacity-[0.22]"
+            style={{ filter: "grayscale(1) contrast(1.35) brightness(0.92)" }}
           />
         </div>
       </div>
 
-      {/* Scrims (do not translate — stay locked to the section bounds) */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink/40" />
+      {/* Bottom fade — locked to the section, does NOT translate, so the
+          CTA strap always sits on a clean field of paper. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/75 to-ink/10"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/55 via-ink/10 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-paper to-transparent"
       />
 
-      {/* Content frame */}
-      <div
-        ref={contentRef}
-        className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-page flex-col px-5 pb-14 pt-6 text-paper will-change-transform sm:px-8 sm:pb-20 sm:pt-8 lg:min-h-[760px] lg:px-12 lg:pb-24"
-      >
-        {/* Spacer pushes content to the bottom — poster anchor */}
-        <div className="flex-1" />
-
-        {/* Headline */}
-        <h1 className="font-display display-tight max-w-[16ch] text-[clamp(3.2rem,11vw,9rem)] font-medium">
-          <span className="block animate-fade-up opacity-0 [animation-delay:60ms]">
-            We&nbsp;buy
+      <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-page flex-col px-5 pb-10 pt-8 sm:px-8 sm:pb-14 sm:pt-12 lg:min-h-[820px] lg:px-12">
+        {/* Top strip — SKU + status pill */}
+        <div className="flex items-start justify-between gap-4">
+          <span className="font-mono text-[0.7rem] uppercase tracking-cap text-ink">
+            <span className="text-muted">SVC</span> 001
+            <span className="mx-2 text-muted">/</span>
+            <span className="text-muted">EST</span> 2026
           </span>
-          <span className="block animate-fade-up opacity-0 [animation-delay:220ms]">
-            your old{" "}
-            <em
-              className="not-italic font-display"
-              style={{
-                fontVariationSettings:
-                  '"opsz" 144, "SOFT" 100, "WONK" 1, "slnt" -8',
-                color: "var(--color-saffron)",
-              }}
-            >
-              bikes
-            </em>
-            .
-          </span>
-        </h1>
+          <NowBuyingPill />
+        </div>
 
-        {/* Sub-deck + CTAs */}
-        <div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-8 sm:mt-10 lg:grid-cols-12">
-          <p className="max-w-prose animate-fade-up text-[1.15rem] leading-[1.5] text-paper/85 opacity-0 [animation-delay:380ms] sm:text-[1.3rem] lg:col-span-7">
-            Got a road or mountain bike sitting in the garage? We&apos;ll take a
-            look, make you a fair offer, and pick it up. Any condition — even
-            the ones you&apos;d call &ldquo;parts only.&rdquo;
-          </p>
-          <div className="flex animate-fade-up flex-wrap items-center gap-x-7 gap-y-4 opacity-0 [animation-delay:540ms] lg:col-span-5 lg:justify-end">
-            <a href="#sell" className="btn-primary">
-              Sell your bike
-              <ArrowRight />
-            </a>
-            <a
-              href="#how-it-works"
-              className="inline-flex items-center gap-2 border-b border-paper/65 pb-1 text-[0.94rem] text-paper transition hover:gap-3 hover:border-saffron hover:text-saffron"
-            >
-              How it works
-              <ArrowDown />
-            </a>
+        {/* The poster — spacer above pushes lock-up toward middle */}
+        <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
+          <h1
+            ref={headlineRef}
+            className="display-mega text-[clamp(4rem,16vw,13rem)] will-change-transform"
+          >
+            <span className="block animate-fade-up opacity-0 [animation-delay:40ms]">
+              We&nbsp;Buy
+            </span>
+            <span className="block animate-fade-up opacity-0 [animation-delay:200ms]">
+              <span className="highlight">Bikes</span>
+              <span className="text-ink">.</span>
+            </span>
+          </h1>
+        </div>
+
+        {/* Bottom — strap of three scopes + CTA cluster */}
+        <div className="mt-auto border-t-[1.5px] border-ink pt-6 sm:pt-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:gap-6">
+            {/* Scope strap */}
+            <div className="sm:col-span-7 lg:col-span-7">
+              <p className="display-tight text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.05] text-ink">
+                Road <Dot /> Mountain <Dot /> Any condition
+              </p>
+              <p className="mt-4 max-w-prose text-[1rem] leading-[1.55] text-ink/75">
+                Got an old bike going to waste? Tell us what you've got and
+                we'll make you a cash offer. Pickup included. No haggling.
+              </p>
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:col-span-5 sm:justify-end lg:col-span-5">
+              <a href="#sell" className="btn-yellow">
+                Talk to us
+                <ArrowRight />
+              </a>
+              <a href="#how-it-works" className="btn-ghost">
+                How it works
+                <ArrowDown />
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Dot() {
+  return (
+    <span
+      aria-hidden="true"
+      className="mx-3 inline-block h-[0.45em] w-[0.45em] translate-y-[-0.18em] bg-accent"
+    />
+  );
+}
+
+function NowBuyingPill() {
+  return (
+    <span
+      aria-label="Now buying"
+      className="inline-flex items-center gap-2 border-[1.5px] border-ink bg-accent px-3 py-1.5 font-mono text-[0.68rem] uppercase tracking-cap text-ink"
+    >
+      <span className="inline-block h-[0.42rem] w-[0.42rem] animate-ticker-pulse rounded-full bg-ink" />
+      Now buying
+    </span>
   );
 }
 
@@ -156,7 +177,7 @@ function ArrowRight() {
       viewBox="0 0 14 14"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.6"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
@@ -165,6 +186,7 @@ function ArrowRight() {
     </svg>
   );
 }
+
 function ArrowDown() {
   return (
     <svg
@@ -173,7 +195,7 @@ function ArrowDown() {
       viewBox="0 0 14 14"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.6"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"

@@ -6,7 +6,7 @@ import { useState } from "react";
 const faqs = [
   {
     q: "How do you calculate an offer?",
-    a: "We start with what the bike (or its parts) is realistically worth on the second-hand market, then factor in the work it'll need: a service, replacements, refinishing. You'll see the logic — we'll tell you what we're seeing and what we're offering, not just a number.",
+    a: "We start with what the bike (or its parts) is worth on the second-hand market, then factor in the work it'll need: a service, replacements, refinishing. You see the logic — we tell you what we're seeing and what we're offering, not just a number.",
   },
   {
     q: "What if the bike isn't worth taking?",
@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "What area do you cover?",
-    a: "We'll travel for anything worth picking up. Most pickups happen within an hour's drive of the workshop; further afield we'll work it out as part of the offer. WhatsApp us with your suburb and we'll let you know.",
+    a: "We travel for anything worth picking up. Most pickups happen within an hour's drive; further afield we work it out as part of the offer. WhatsApp us with your suburb and we'll let you know.",
   },
   {
     q: "How does payment work?",
@@ -38,15 +38,21 @@ export default function FAQ() {
   const [open, setOpen] = useState<string>("");
 
   return (
-    <section id="faq" className="relative border-t border-rule">
-      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <header className="mb-12 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <h2 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
-            Common questions.
-          </h2>
-          <p className="max-w-sm text-[1rem] leading-relaxed text-muted">
-            The stuff people ask before sending us a bike. If yours isn&apos;t
-            here, just put it in the notes when you submit.
+    <section
+      id="faq"
+      className="relative border-b-[1.5px] border-ink bg-paper"
+    >
+      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
+        <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="eyebrow">§ 04 — Questions</span>
+            <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
+              Common questions.
+            </h2>
+          </div>
+          <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
+            The stuff people ask before sending us a bike. If yours
+            isn&apos;t here, put it in the notes when you submit.
           </p>
         </header>
 
@@ -55,7 +61,7 @@ export default function FAQ() {
           collapsible
           value={open}
           onValueChange={setOpen}
-          className="border-t border-rule"
+          className="border-t-[1.5px] border-ink"
         >
           {faqs.map((item, i) => {
             const v = `item-${i}`;
@@ -63,7 +69,7 @@ export default function FAQ() {
               <Accordion.Item
                 key={v}
                 value={v}
-                className="border-b border-rule"
+                className="border-b-[1.5px] border-ink"
               >
                 <Accordion.Header asChild>
                   <h3 className="m-0">
@@ -72,7 +78,7 @@ export default function FAQ() {
                       // The fixed first column means the question text starts
                       // at a known x-offset (col-1 width + gap), which we mirror
                       // as the answer's left padding below so they align.
-                      className="group grid w-full grid-cols-[2rem_1fr_auto] items-center gap-4 py-6 text-left transition-colors hover:text-oxblood"
+                      className="group grid w-full grid-cols-[2.5rem_1fr_auto] items-center gap-4 py-7 text-left transition-colors hover:bg-accent/15 data-[state=open]:bg-accent/15"
                       aria-label={item.q}
                     >
                       <span
@@ -81,7 +87,14 @@ export default function FAQ() {
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="font-display text-[1.4rem] leading-[1.18] sm:text-[1.7rem]">
+                      <span
+                        className="text-[1.35rem] uppercase leading-[1.1] sm:text-[1.6rem]"
+                        style={{
+                          fontVariationSettings: '"wdth" 80, "opsz" 48',
+                          fontWeight: 700,
+                          letterSpacing: "-0.025em",
+                        }}
+                      >
                         {item.q}
                       </span>
                       <Plus className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45" />
@@ -89,9 +102,9 @@ export default function FAQ() {
                   </h3>
                 </Accordion.Header>
                 <Accordion.Content className="overflow-hidden data-[state=open]:animate-acc-open data-[state=closed]:animate-acc-close">
-                  {/* pl-12 (3rem) = 2rem number col + 1rem grid gap → aligns
-                      with the question text in the trigger above */}
-                  <p className="max-w-prose pb-6 pl-12 pr-10 text-[1rem] leading-relaxed text-ink/80">
+                  {/* pl-[3.5rem] = 2.5rem number col + 1rem grid gap →
+                      aligns with the question text in the trigger above */}
+                  <p className="max-w-prose pb-7 pl-[3.5rem] pr-10 text-[1rem] leading-relaxed text-ink/75">
                     {item.a}
                   </p>
                 </Accordion.Content>
@@ -101,12 +114,19 @@ export default function FAQ() {
         </Accordion.Root>
 
         {/* Final nudge */}
-        <div className="mt-14 flex flex-col items-start gap-4 border-t border-rule pt-10 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-display text-[1.5rem] leading-tight sm:text-[1.85rem]">
+        <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p
+            className="text-[1.5rem] uppercase leading-tight sm:text-[1.9rem]"
+            style={{
+              fontVariationSettings: '"wdth" 80, "opsz" 48',
+              fontWeight: 700,
+              letterSpacing: "-0.025em",
+            }}
+          >
             Still wondering if it&apos;s worth our time?
           </p>
-          <a href="#sell" className="btn-primary">
-            Send it through anyway
+          <a href="#sell" className="btn-yellow">
+            Send it anyway
             <Arrow />
           </a>
         </div>
@@ -127,13 +147,13 @@ function Plus({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="20"
-      height="20"
+      width="22"
+      height="22"
       viewBox="0 0 20 20"
       aria-hidden="true"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.4"
+      strokeWidth="1.6"
       strokeLinecap="round"
     >
       <path d="M10 4v12M4 10h12" />
@@ -149,7 +169,7 @@ function Arrow() {
       viewBox="0 0 14 14"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.6"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"

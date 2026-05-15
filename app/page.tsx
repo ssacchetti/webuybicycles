@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <>
       <Nav />
-      <main id="top" className="paper-grain relative overflow-clip">
+      <main id="top" className="relative overflow-clip">
         <Hero />
         <MarqueeStrip />
         <HowItWorks />

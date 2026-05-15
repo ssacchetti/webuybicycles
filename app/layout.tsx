@@ -1,20 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-// Display: Fraunces variable. We dial OPSZ + SOFT via CSS for workshop character.
-const fraunces = Fraunces({
+// Single variable family for display + body. We push wght/wdth/opsz axes
+// via CSS to switch between condensed signage display and refined body text.
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
+  axes: ["opsz", "wdth"],
   display: "swap",
-  variable: "--font-fraunces",
-});
-
-const hanken = Hanken_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-hanken",
+  variable: "--font-bricolage",
 });
 
 const jetbrains = JetBrains_Mono({
@@ -25,20 +19,20 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "We Buy Bikes — Road and mountain bikes, any condition.",
+  title: "We Buy Bikes — Cash for road and mountain bikes.",
   description:
-    "We buy unused road and mountain bikes. Tell us what you've got and we'll make you a fair offer.",
+    "We buy unused road and mountain bikes. Tell us what you've got and we'll make you a cash offer.",
   metadataBase: new URL("https://webuybikes.com"),
   openGraph: {
     title: "We Buy Bikes",
     description:
-      "We buy unused road and mountain bikes. Tell us what you've got and we'll make you an offer.",
+      "We buy unused road and mountain bikes. Tell us what you've got and we'll make you a cash offer.",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F2EBDD",
+  themeColor: "#FFFFFF",
   width: "device-width",
   initialScale: 1,
 };
@@ -51,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${hanken.variable} ${jetbrains.variable}`}
+      className={`${bricolage.variable} ${jetbrains.variable}`}
     >
       <body>{children}</body>
     </html>

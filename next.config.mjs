@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    // Placeholder photos are pulled from Unsplash's CDN. Swap with /public
-    // assets later and you can remove this whole `images` block.
+    // Placeholder hero photo is pulled from Unsplash's CDN. Swap with a
+    // /public asset later and remove this whole `images` block.
     remotePatterns: [
       {
         protocol: "https",

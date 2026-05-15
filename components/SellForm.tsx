@@ -80,12 +80,12 @@ function buildMessage(f: FormState): string {
 
 function validate(f: FormState): ErrorMap {
   const errs: ErrorMap = {};
-  if (!f.name.trim()) errs.name = "Please add your name.";
-  if (!f.suburb.trim()) errs.suburb = "Where are you based?";
-  if (!f.type) errs.type = "Pick the closest bike type.";
-  if (!f.brand.trim()) errs.brand = "Brand helps us price it.";
+  if (!f.name.trim()) errs.name = "Add your name";
+  if (!f.suburb.trim()) errs.suburb = "Where are you?";
+  if (!f.type) errs.type = "Pick a type";
+  if (!f.brand.trim()) errs.brand = "Brand helps us price";
   if (!f.age) errs.age = "Roughly how old?";
-  if (!f.condition) errs.condition = "Honest is fine — pick one.";
+  if (!f.condition) errs.condition = "Honest is fine";
   return errs;
 }
 
@@ -112,7 +112,6 @@ export default function SellForm() {
     const errs = validate(form);
     setErrors(errs);
     if (Object.keys(errs).length > 0) {
-      // focus first error
       const first = Object.keys(errs)[0];
       const el = document.getElementById(`f-${first}`);
       el?.focus();
@@ -126,19 +125,31 @@ export default function SellForm() {
   }
 
   return (
-    <section id="sell" className="relative bg-paper">
-      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <header className="mb-12 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <h2 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
-            Sell your bike.
-          </h2>
-          <p className="max-w-sm text-[1rem] leading-relaxed text-muted">
-            Fill in what you know. We&apos;ll use the rest of the conversation to
-            sort out the details over WhatsApp.
+    <section
+      id="sell"
+      className="relative border-b-[1.5px] border-ink bg-paper"
+    >
+      <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
+        <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="eyebrow">§ 03 — Intake</span>
+            <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
+              Sell your bike.
+            </h2>
+          </div>
+          <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
+            Fill in what you know. The rest we&apos;ll sort out over WhatsApp.
+            <span className="mt-2 block text-[0.85rem] text-muted">
+              Required fields are marked
+              <span className="ml-1 inline-block bg-accent px-[0.3em] text-ink">
+                ✱
+              </span>
+              .
+            </span>
           </p>
         </header>
 
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-10">
+        <div className="grid grid-cols-1 gap-12 border-t-[1.5px] border-ink pt-10 md:grid-cols-12 md:gap-10 md:pt-12">
           {/* The form */}
           <form
             onSubmit={onSubmit}
@@ -146,13 +157,7 @@ export default function SellForm() {
             className="md:col-span-7 lg:col-span-8"
             aria-describedby="form-helper"
           >
-            <p className="mb-10 max-w-prose text-[0.95rem] leading-relaxed text-muted">
-              Required fields are marked
-              <span className="ml-1 text-oxblood">*</span>. Everything else
-              is helpful but optional.
-            </p>
-
-            <div className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
               <Field
                 id="f-name"
                 label="Your name"
@@ -161,6 +166,7 @@ export default function SellForm() {
                 value={form.name}
                 onChange={(v) => update("name", v)}
                 autoComplete="name"
+                placeholder="First name's fine"
               />
               <Field
                 id="f-suburb"
@@ -170,6 +176,7 @@ export default function SellForm() {
                 value={form.suburb}
                 onChange={(v) => update("suburb", v)}
                 autoComplete="address-level2"
+                placeholder="e.g. Newlands, CT"
               />
 
               {/* Bike type radio cluster — full width */}
@@ -237,7 +244,7 @@ export default function SellForm() {
                 label="Frame size"
                 value={form.size}
                 onChange={(v) => update("size", v)}
-                placeholder="e.g. 54cm, M, 17in, or 'not sure'"
+                placeholder="54cm, M, 17in, or 'not sure'"
               />
 
               <SelectField
@@ -255,7 +262,7 @@ export default function SellForm() {
                 label="Asking price"
                 value={form.price}
                 onChange={(v) => update("price", v)}
-                placeholder="Leave blank if you're not sure"
+                placeholder="Leave blank if unsure"
                 inputMode="text"
               />
 
@@ -274,16 +281,16 @@ export default function SellForm() {
               </div>
             </div>
 
-            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <button type="submit" className="btn-primary w-full sm:w-auto">
+            <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <button type="submit" className="btn-yellow w-full sm:w-auto">
                 <WhatsAppGlyph />
                 Send via WhatsApp
               </button>
               <p
                 id="form-helper"
-                className="max-w-xs text-[0.88rem] leading-relaxed text-muted"
+                className="max-w-xs font-mono text-[0.7rem] uppercase leading-relaxed tracking-cap text-muted"
               >
-                Opens WhatsApp with your details prefilled. You send the
+                Opens WhatsApp with your details pre-filled. You send the
                 message yourself.
               </p>
             </div>
@@ -291,28 +298,47 @@ export default function SellForm() {
             {submitted && (
               <p
                 role="status"
-                className="mt-6 border-l-2 border-saffron pl-3 text-[0.92rem] text-muted"
+                className="mt-6 border-l-[3px] border-accent bg-accent/10 py-2 pl-3 text-[0.9rem] text-ink"
               >
-                If WhatsApp didn&apos;t open, check your browser blocked the popup —
-                or try again.
+                If WhatsApp didn&apos;t open, check your browser blocked the
+                popup — or try again.
               </p>
             )}
           </form>
 
-          {/* Live preview — refined, no workshop framing */}
+          {/* Live preview — receipt-style */}
           <aside
             aria-hidden="true"
             className="md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-9"
           >
             <div className="sticky top-24">
-              <h3 className="mb-4 font-display text-[1.4rem] leading-tight">
-                Your message
-              </h3>
-              <pre className="whitespace-pre-wrap break-words rounded-md border border-rule bg-ink/[0.025] p-5 font-mono text-[0.82rem] leading-relaxed text-ink/80">
-                {previewMsg}
-              </pre>
-              <p className="mt-3 text-[0.85rem] text-muted">
-                This is what we&apos;ll receive on WhatsApp once you hit send.
+              <div className="border-[1.5px] border-ink bg-paper">
+                {/* Receipt header */}
+                <div className="flex items-center justify-between border-b-[1.5px] border-ink bg-ink px-4 py-2.5">
+                  <span className="font-mono text-[0.7rem] uppercase tracking-cap text-accent">
+                    ▮ Outgoing
+                  </span>
+                  <span className="font-mono text-[0.7rem] uppercase tracking-cap text-paper/65">
+                    via WhatsApp
+                  </span>
+                </div>
+
+                {/* Receipt body */}
+                <pre className="whitespace-pre-wrap break-words p-5 font-mono text-[0.78rem] leading-[1.7] text-ink/80">
+                  {previewMsg}
+                </pre>
+
+                {/* Receipt footer perforation */}
+                <div
+                  aria-hidden="true"
+                  className="border-t-[1.5px] border-dashed border-ink/30 px-4 py-2.5 text-center font-mono text-[0.65rem] uppercase tracking-cap text-muted"
+                >
+                  — Tear here —
+                </div>
+              </div>
+
+              <p className="mt-3 font-mono text-[0.68rem] uppercase tracking-cap text-muted">
+                This is what we&apos;ll receive on WhatsApp.
               </p>
             </div>
           </aside>
@@ -328,8 +354,11 @@ export default function SellForm() {
 
 function Req() {
   return (
-    <span className="ml-1 text-oxblood" aria-hidden="true">
-      *
+    <span
+      aria-hidden="true"
+      className="ml-1 inline-block bg-accent px-[0.35em] text-ink"
+    >
+      ✱
     </span>
   );
 }
@@ -341,7 +370,7 @@ function ErrorLine({ error }: { error?: string }) {
       data-show={Boolean(error)}
       role={error ? "alert" : undefined}
     >
-      {error ?? " "}
+      {error ?? " "}
     </p>
   );
 }
@@ -390,7 +419,7 @@ function Field({
         data-show={Boolean(error)}
         role={error ? "alert" : undefined}
       >
-        {error ?? " "}
+        {error ?? " "}
       </p>
     </div>
   );
@@ -443,7 +472,7 @@ function SelectField({
         data-show={Boolean(error)}
         role={error ? "alert" : undefined}
       >
-        {error ?? " "}
+        {error ?? " "}
       </p>
     </div>
   );

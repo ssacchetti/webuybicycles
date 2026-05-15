@@ -2,43 +2,79 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="bg-ink text-paper">
-      <div className="mx-auto max-w-page px-5 py-14 sm:px-8 sm:py-20 lg:px-12">
-        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p
-              className="font-display text-[clamp(2.6rem,7vw,5.4rem)] leading-[0.95] tracking-tight"
-              style={{ fontVariationSettings: '"opsz" 144, "SOFT" 30, "WONK" 0' }}
-            >
-              We Buy Bikes<span className="text-saffron">.</span>
-            </p>
-            <p className="mt-4 max-w-md text-[0.95rem] text-paper/70">
-              Fair offers for road and mountain bikes. Tell us what you have
-              and we&apos;ll come to you.
+      <div className="mx-auto max-w-page px-5 pt-16 sm:px-8 sm:pt-20 lg:px-12 lg:pt-24">
+        {/* Massive footer lock-up — last big chance to leave a mark */}
+        <p className="display-mega text-[clamp(3.5rem,15vw,12rem)] leading-[0.85]">
+          We Buy Bikes
+          <span className="text-accent">.</span>
+        </p>
+
+        <div className="mt-10 grid grid-cols-1 gap-10 border-t-[1.5px] border-paper/25 pt-10 md:grid-cols-12 md:gap-6">
+          <div className="md:col-span-5">
+            <p className="max-w-md text-[1rem] leading-relaxed text-paper/75">
+              Cash offers for road and mountain bikes. Tell us what you&apos;ve
+              got and we&apos;ll come to you.
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 text-[0.92rem]">
-            <span className="font-mono text-[0.7rem] uppercase tracking-cap text-paper/55">
+          <div className="md:col-span-3">
+            <span className="font-mono text-[0.7rem] uppercase tracking-cap text-accent">
               Get in touch
             </span>
-            <a
-              href="#sell"
-              className="text-paper underline-offset-4 transition hover:text-saffron hover:underline"
-            >
-              Sell your bike →
-            </a>
-            <a
-              href="mailto:hello@webuybikes.com"
-              className="text-paper/85 underline-offset-4 transition hover:text-saffron hover:underline"
-            >
-              hello@webuybikes.com
-            </a>
-            <span className="text-paper/55">WhatsApp via the form above</span>
+            <ul className="mt-3 space-y-2 text-[0.95rem]">
+              <li>
+                <a
+                  href="#sell"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-accent"
+                >
+                  Sell your bike →
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@webuybikes.com"
+                  className="text-paper/85 transition-colors hover:text-accent"
+                >
+                  hello@webuybikes.com
+                </a>
+              </li>
+              <li className="text-paper/55">WhatsApp via the form above</li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-4">
+            <span className="font-mono text-[0.7rem] uppercase tracking-cap text-accent">
+              Navigate
+            </span>
+            <ul className="mt-3 grid grid-cols-2 gap-2 text-[0.95rem]">
+              <li>
+                <a href="#how-it-works" className="text-paper/85 hover:text-accent">
+                  How it works
+                </a>
+              </li>
+              <li>
+                <a href="#what-we-buy" className="text-paper/85 hover:text-accent">
+                  What we buy
+                </a>
+              </li>
+              <li>
+                <a href="#sell" className="text-paper/85 hover:text-accent">
+                  Sell
+                </a>
+              </li>
+              <li>
+                <a href="#faq" className="text-paper/85 hover:text-accent">
+                  FAQ
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col-reverse items-start justify-between gap-3 border-t border-paper/15 pt-6 text-[0.78rem] text-paper/55 sm:flex-row sm:items-center">
-          <span>© {year} We Buy Bikes. All rights reserved.</span>
+        <div className="mt-14 flex flex-col-reverse items-start justify-between gap-3 border-t border-paper/15 py-6 text-[0.74rem] text-paper/55 sm:flex-row sm:items-center">
+          <span className="font-mono uppercase tracking-cap">
+            © {year} We Buy Bikes
+          </span>
           <span className="font-mono uppercase tracking-cap">
             webuybikes.com
           </span>
