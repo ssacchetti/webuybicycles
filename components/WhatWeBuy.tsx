@@ -1,5 +1,7 @@
 // Two columns — what we buy / what we don't. Reads like a parts list.
 
+import Reveal from "@/components/Reveal";
+
 const inScope = [
   "Road bikes — any era, any groupset",
   "Mountain bikes — hardtail or full-sus",
@@ -24,21 +26,23 @@ export default function WhatWeBuy() {
       className="relative border-b-[1.5px] border-ink bg-ink text-paper"
     >
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
-        <header className="mb-14 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="font-mono text-[0.7rem] uppercase tracking-cap text-accent">
-              § 02 — Scope
-            </span>
-            <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
-              What we buy.
-            </h2>
-          </div>
-          <p className="max-w-sm text-[0.98rem] leading-relaxed text-paper/70">
-            Road and mountain bikes, any condition. If it has frame or parts
-            value, it&apos;s worth a conversation. Honest about the few things
-            we can&apos;t take.
-          </p>
-        </header>
+        <Reveal>
+          <header className="mb-14 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between reveal-fade">
+            <div>
+              <span className="font-mono text-[0.7rem] uppercase tracking-cap text-accent">
+                § 02 — Scope
+              </span>
+              <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
+                What we buy.
+              </h2>
+            </div>
+            <p className="max-w-sm text-[0.98rem] leading-relaxed text-paper/70">
+              Road and mountain bikes, any condition. If it has frame or parts
+              value, it&apos;s worth a conversation. Honest about the few things
+              we can&apos;t take.
+            </p>
+          </header>
+        </Reveal>
 
         <div className="grid grid-cols-1 border-t-[1.5px] border-paper/25 md:grid-cols-2">
           {/* YES column */}

@@ -2,6 +2,7 @@
 
 import { useMemo, useState, type FormEvent } from "react";
 import { cn } from "@/lib/utils";
+import Reveal from "@/components/Reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  CONFIG — change me when you have the real number.                          */
@@ -124,32 +125,44 @@ export default function SellForm() {
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
+  function resetForm() {
+    setForm(EMPTY);
+    setErrors({});
+    setSubmitted(false);
+  }
+
   return (
     <section
       id="sell"
       className="relative border-b-[1.5px] border-ink bg-paper"
     >
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
-        <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="eyebrow">§ 03 — Intake</span>
-            <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
-              Sell your bike.
-            </h2>
-          </div>
-          <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
-            Fill in what you know. The rest we&apos;ll sort out over WhatsApp.
-            <span className="mt-2 block text-[0.85rem] text-muted">
-              Required fields are marked
-              <span className="ml-1 inline-block bg-accent px-[0.3em] text-ink">
-                ✱
+        <Reveal>
+          <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between reveal-fade">
+            <div>
+              <span className="eyebrow">§ 03 — Intake</span>
+              <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
+                Sell your bike.
+              </h2>
+            </div>
+            <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
+              Fill in what you know. The rest we&apos;ll sort out over WhatsApp.
+              <span className="mt-2 block text-[0.85rem] text-muted">
+                Required fields are marked
+                <span className="ml-1 inline-block bg-accent px-[0.3em] text-ink">
+                  ✱
+                </span>
+                .
               </span>
-              .
-            </span>
-          </p>
-        </header>
+            </p>
+          </header>
+        </Reveal>
 
         <div className="grid grid-cols-1 gap-12 border-t-[1.5px] border-ink pt-10 md:grid-cols-12 md:gap-10 md:pt-12">
+          {submitted ? (
+            <SubmittedPanel onReset={resetForm} />
+          ) : (
+          <>
           {/* The form */}
           <form
             onSubmit={onSubmit}
@@ -295,15 +308,10 @@ export default function SellForm() {
               </p>
             </div>
 
-            {submitted && (
-              <p
-                role="status"
-                className="mt-6 border-l-[3px] border-accent bg-accent/10 py-2 pl-3 text-[0.9rem] text-ink"
-              >
-                If WhatsApp didn&apos;t open, check your browser blocked the
-                popup — or try again.
-              </p>
-            )}
+            <p className="mt-6 max-w-md text-[0.78rem] leading-relaxed text-muted">
+              Your details go straight to WhatsApp — we don&apos;t store them
+              anywhere on this site.
+            </p>
           </form>
 
           {/* Live preview — receipt-style */}
@@ -342,9 +350,73 @@ export default function SellForm() {
               </p>
             </div>
           </aside>
+          </>
+          )}
         </div>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Submitted state — replaces the form once the WhatsApp window has opened.   */
+/* -------------------------------------------------------------------------- */
+function SubmittedPanel({ onReset }: { onReset: () => void }) {
+  return (
+    <div className="md:col-span-12" role="status" aria-live="polite">
+      <div className="border-[1.5px] border-ink bg-paper p-8 sm:p-12 lg:p-16">
+        <div className="flex items-baseline gap-3">
+          <span className="font-mono text-[0.7rem] uppercase tracking-cap text-muted">
+            Status
+          </span>
+          <span className="inline-flex items-center gap-2 border-[1.5px] border-ink bg-accent px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-cap text-ink">
+            <span className="inline-block h-[0.42rem] w-[0.42rem] rounded-full bg-ink" />
+            Sent
+          </span>
+        </div>
+
+        <h3 className="display-mega mt-6 text-[clamp(2.4rem,6.5vw,5.2rem)]">
+          Off it goes.
+        </h3>
+
+        <p className="mt-5 max-w-prose text-[1.05rem] leading-relaxed text-ink/80">
+          We&apos;ve handed you off to WhatsApp with your details pre-filled.
+          Hit send there and we&apos;ll get back to you within 24-48 hours.
+        </p>
+        <p className="mt-3 max-w-prose text-[0.95rem] leading-relaxed text-muted">
+          If WhatsApp didn&apos;t open, your browser may have blocked the
+          popup — give it another try below.
+        </p>
+
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <button onClick={onReset} className="btn-primary">
+            Send another
+            <ArrowRight />
+          </button>
+          <a href="#top" className="btn-ghost">
+            Back to top
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2.5 7h9M7.5 3l4 4-4 4" />
+    </svg>
   );
 }
 

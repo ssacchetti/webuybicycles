@@ -12,8 +12,12 @@ export default function Footer() {
         <div className="mt-10 grid grid-cols-1 gap-10 border-t-[1.5px] border-paper/25 pt-10 md:grid-cols-12 md:gap-6">
           <div className="md:col-span-5">
             <p className="max-w-md text-[1rem] leading-relaxed text-paper/75">
-              Cash offers for road and mountain bikes. Tell us what you&apos;ve
-              got and we&apos;ll come to you.
+              Cash offers for road and mountain bikes across Melbourne.
+              Tell us what you&apos;ve got and we&apos;ll come to you.
+            </p>
+            <p className="mt-4 max-w-md text-[0.78rem] leading-relaxed text-paper/55">
+              We don&apos;t store any of the details you submit — they go
+              straight to WhatsApp and never touch a database.
             </p>
           </div>
 
@@ -73,7 +77,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col-reverse items-start justify-between gap-3 border-t border-paper/15 py-6 text-[0.74rem] text-paper/55 sm:flex-row sm:items-center">
           <span className="font-mono uppercase tracking-cap">
-            © {year} We Buy Bikes
+            © {year} We Buy Bikes · Melbourne, AU
           </span>
           <span className="font-mono uppercase tracking-cap">
             webuybikes.com

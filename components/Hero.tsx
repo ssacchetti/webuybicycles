@@ -14,7 +14,7 @@ import { useEffect, useRef } from "react";
 
 const HERO_IMAGE = {
   src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?w=2400&q=75&auto=format&fit=crop",
-  alt: "",
+  alt: "A used bicycle",
 };
 
 export default function Hero() {
@@ -72,11 +72,11 @@ export default function Hero() {
         <div ref={imageRef} className="relative h-full w-full will-change-transform">
           <Image
             src={HERO_IMAGE.src}
-            alt=""
+            alt={HERO_IMAGE.alt}
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_30%] opacity-[0.22]"
+            className="object-cover object-[center_30%] opacity-40"
             style={{ filter: "grayscale(1) contrast(1.35) brightness(0.92)" }}
           />
         </div>
@@ -90,13 +90,8 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-page flex-col px-5 pb-10 pt-8 sm:px-8 sm:pb-14 sm:pt-12 lg:min-h-[820px] lg:px-12">
-        {/* Top strip — SKU + status pill */}
-        <div className="flex items-start justify-between gap-4">
-          <span className="font-mono text-[0.7rem] uppercase tracking-cap text-ink">
-            <span className="text-muted">SVC</span> 001
-            <span className="mx-2 text-muted">/</span>
-            <span className="text-muted">EST</span> 2026
-          </span>
+        {/* Top strip — status pill only */}
+        <div className="flex items-start justify-end gap-4">
           <NowBuyingPill />
         </div>
 
@@ -104,12 +99,12 @@ export default function Hero() {
         <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
           <h1
             ref={headlineRef}
-            className="display-mega text-[clamp(4rem,16vw,13rem)] will-change-transform"
+            className="display-mega text-[clamp(4.5rem,20vw,13rem)] will-change-transform"
           >
-            <span className="block animate-fade-up opacity-0 [animation-delay:40ms]">
+            <span className="block animate-fade-up opacity-0 [animation-delay:500ms]">
               We&nbsp;Buy
             </span>
-            <span className="block animate-fade-up opacity-0 [animation-delay:200ms]">
+            <span className="block animate-fade-up opacity-0 [animation-delay:700ms]">
               <span className="highlight">Bikes</span>
               <span className="text-ink">.</span>
             </span>

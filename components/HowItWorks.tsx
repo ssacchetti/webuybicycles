@@ -1,5 +1,12 @@
+"use client";
+
 // Four steps. Huge sans-serif numerals do the visual heavy lifting.
 // One column on mobile, four-up grid on desktop with hard rules between.
+// As the list scrolls into view each cell receives a yellow rule that
+// slides in from the left, staggered by index.
+
+import { useEffect, useRef, useState } from "react";
+import Reveal from "@/components/Reveal";
 
 const steps = [
   {
@@ -29,36 +36,62 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const olRef = useRef<HTMLOListElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = olRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <section
       id="how-it-works"
       className="relative border-b-[1.5px] border-ink bg-paper"
     >
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
-        <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="eyebrow">§ 01 — Process</span>
-            <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
-              Four steps. <span className="text-muted">That&apos;s it.</span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
-            From &ldquo;it&apos;s been in the shed for two years&rdquo; to paid and gone.
-            No back-and-forth. No haggling games.
-          </p>
-        </header>
+        <Reveal>
+          <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between reveal-fade">
+            <div>
+              <span className="eyebrow">§ 01 — Process</span>
+              <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
+                Four steps. <span className="text-muted">That&apos;s it.</span>
+              </h2>
+            </div>
+            <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
+              From &ldquo;it&apos;s been in the shed for two years&rdquo; to paid and gone.
+              No back-and-forth. No haggling games.
+            </p>
+          </header>
+        </Reveal>
 
-        <ol className="grid grid-cols-1 border-t-[1.5px] border-ink md:grid-cols-2 lg:grid-cols-4">
+        <ol
+          ref={olRef}
+          className={`steps grid grid-cols-1 border-t-[1.5px] border-ink md:grid-cols-2 lg:grid-cols-4 ${
+            visible ? "is-visible" : ""
+          }`}
+        >
           {steps.map((s, i) => (
             <li
               key={s.n}
               className={`group relative flex flex-col gap-6 border-ink p-6 transition-colors hover:bg-accent/15 sm:p-7 lg:p-8 ${
-                // hard rules between cells — bottom on all, right on every except last per row
                 "border-b-[1.5px]"
               } ${i % 2 === 0 ? "md:border-r-[1.5px]" : ""} ${
                 i < 2 ? "lg:border-r-[1.5px]" : ""
               } ${i === 2 ? "lg:border-r-[1.5px]" : ""}`}
             >
+              <span className="step-rule" aria-hidden="true" />
               <span
                 aria-hidden="true"
                 className="numeral block text-[clamp(4.5rem,10vw,7.5rem)] text-ink"

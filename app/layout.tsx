@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
 // Single variable family for display + body. We push wght/wdth/opsz axes
@@ -19,15 +20,24 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "We Buy Bikes — Cash for road and mountain bikes.",
+  title: "We Buy Bikes — Cash for road & mountain bikes across Melbourne",
   description:
-    "We buy unused road and mountain bikes. Tell us what you've got and we'll make you a cash offer.",
+    "We pay cash for unused road and mountain bikes around Melbourne. Tell us what you've got via WhatsApp, get a fair offer in 24–48 hours, and we'll come to you.",
   metadataBase: new URL("https://webuybikes.com"),
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "We Buy Bikes",
+    title: "We Buy Bikes — Cash for road & mountain bikes across Melbourne",
     description:
-      "We buy unused road and mountain bikes. Tell us what you've got and we'll make you a cash offer.",
+      "Cash on the day for road and mountain bikes across Melbourne. WhatsApp us, get an offer in 24–48 hours, pickup included.",
     type: "website",
+    url: "https://webuybikes.com",
+    siteName: "We Buy Bikes",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "We Buy Bikes — Cash for road & mountain bikes across Melbourne",
+    description:
+      "Cash on the day for road and mountain bikes across Melbourne. WhatsApp us, get an offer in 24–48 hours.",
   },
 };
 
@@ -47,6 +57,9 @@ export default function RootLayout({
       lang="en"
       className={`${bricolage.variable} ${jetbrains.variable}`}
     >
+      <head>
+        <JsonLd />
+      </head>
       <body>{children}</body>
     </html>
   );

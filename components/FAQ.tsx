@@ -2,37 +2,8 @@
 
 import * as Accordion from "@radix-ui/react-accordion";
 import { useState } from "react";
-
-const faqs = [
-  {
-    q: "How do you calculate an offer?",
-    a: "We start with what the bike (or its parts) is worth on the second-hand market, then factor in the work it'll need: a service, replacements, refinishing. You see the logic — we tell you what we're seeing and what we're offering, not just a number.",
-  },
-  {
-    q: "What if the bike isn't worth taking?",
-    a: "Sometimes that happens. We'll tell you honestly and, where we can, point you somewhere it might find a better home — a local club, a charity, or a parts forum. No fee, no pressure.",
-  },
-  {
-    q: "Do I need to clean it or service it first?",
-    a: "No. We'd rather see it as it is. A wipe-down is fine if you're feeling thorough, but please don't pay anyone to service or fix it before selling — that money is rarely recovered in the price.",
-  },
-  {
-    q: "What area do you cover?",
-    a: "We travel for anything worth picking up. Most pickups happen within an hour's drive; further afield we work it out as part of the offer. WhatsApp us with your suburb and we'll let you know.",
-  },
-  {
-    q: "How does payment work?",
-    a: "Cash on the day, or EFT / bank transfer before we leave with the bike — your call. No instalments, no holding deposits, no waiting on consignment.",
-  },
-  {
-    q: "Do you buy just frames or just parts?",
-    a: "Yes. A bare frame in good shape is useful to us, and so are wheelsets, groupsets, and high-end components. Send what you have and we'll look at it the same way we'd look at a complete bike.",
-  },
-  {
-    q: "How quickly will I hear back?",
-    a: "Usually within 24 to 48 hours of receiving your message. If we need more info or photos, we'll just ask in the same WhatsApp thread.",
-  },
-];
+import Reveal from "@/components/Reveal";
+import { faqs } from "@/lib/faqs";
 
 export default function FAQ() {
   const [open, setOpen] = useState<string>("");
@@ -43,18 +14,20 @@ export default function FAQ() {
       className="relative border-b-[1.5px] border-ink bg-paper"
     >
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
-        <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="eyebrow">§ 04 — Questions</span>
-            <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
-              Common questions.
-            </h2>
-          </div>
-          <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
-            The stuff people ask before sending us a bike. If yours
-            isn&apos;t here, put it in the notes when you submit.
-          </p>
-        </header>
+        <Reveal>
+          <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between reveal-fade">
+            <div>
+              <span className="eyebrow">§ 04 — Questions</span>
+              <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
+                Common questions.
+              </h2>
+            </div>
+            <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
+              The stuff people ask before sending us a bike. If yours
+              isn&apos;t here, put it in the notes when you submit.
+            </p>
+          </header>
+        </Reveal>
 
         <Accordion.Root
           type="single"
@@ -97,7 +70,7 @@ export default function FAQ() {
                       >
                         {item.q}
                       </span>
-                      <Plus className="shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-45" />
+                      <Plus className="shrink-0 transition-transform duration-[420ms] [transition-timing-function:cubic-bezier(.34,1.56,.64,1)] group-data-[state=open]:rotate-45" />
                     </Accordion.Trigger>
                   </h3>
                 </Accordion.Header>
