@@ -103,25 +103,12 @@ export default function Nav() {
             <span className="text-accent">.</span>
           </a>
 
-          {/* Mobile centered SELL — prominent, fills the middle */}
-          <a
-            href="#sell"
-            className={cn(
-              "flex flex-1 items-center justify-center gap-2 border-[1.5px] px-3 py-2 text-[0.78rem] font-semibold uppercase tracking-[0.08em] transition-colors md:hidden",
-              onDark
-                ? "border-accent bg-accent text-ink hover:bg-paper"
-                : "border-ink bg-ink text-paper hover:bg-accent hover:text-ink"
-            )}
-          >
-            <span className={cn(onDark ? "text-ink" : "text-accent")}>▮</span>
-            Sell your bike
-          </a>
-
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger — sticky CTA at the bottom of the viewport
+              handles the SELL action, so the bar stays clean. */}
           <button
             type="button"
             className={cn(
-              "flex h-10 w-10 shrink-0 items-center justify-center border-[1.5px] transition-colors md:hidden",
+              "ml-auto flex h-10 w-10 shrink-0 items-center justify-center border-[1.5px] transition-colors md:hidden",
               onDark
                 ? "border-paper text-paper hover:bg-paper hover:text-ink"
                 : "border-ink text-ink hover:bg-ink hover:text-paper"
