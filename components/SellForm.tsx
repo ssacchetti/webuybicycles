@@ -129,12 +129,9 @@ export default function SellForm() {
     <section id="sell" className="relative bg-paper">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
         <header className="mb-12 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="eyebrow">Section 03 — Intake</span>
-            <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
-              Sell your bike.
-            </h2>
-          </div>
+          <h2 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
+            Sell your bike.
+          </h2>
           <p className="max-w-sm text-[1rem] leading-relaxed text-muted">
             Fill in what you know. We&apos;ll use the rest of the conversation to
             sort out the details over WhatsApp.
@@ -149,15 +146,11 @@ export default function SellForm() {
             className="md:col-span-7 lg:col-span-8"
             aria-describedby="form-helper"
           >
-            <div className="hairline-strong mb-1" />
-            <div className="mb-8 flex items-baseline justify-between pt-3">
-              <span className="font-mono text-[0.72rem] uppercase tracking-cap text-muted">
-                Form 01 / Bike intake
-              </span>
-              <span className="font-mono text-[0.72rem] uppercase tracking-cap text-muted">
-                ↘ via WhatsApp
-              </span>
-            </div>
+            <p className="mb-10 max-w-prose text-[0.95rem] leading-relaxed text-muted">
+              Required fields are marked
+              <span className="ml-1 text-oxblood">*</span>. Everything else
+              is helpful but optional.
+            </p>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
               <Field
@@ -288,9 +281,10 @@ export default function SellForm() {
               </button>
               <p
                 id="form-helper"
-                className="font-mono text-[0.72rem] uppercase tracking-cap text-muted"
+                className="max-w-xs text-[0.88rem] leading-relaxed text-muted"
               >
-                Opens WhatsApp with details prefilled. You send the message.
+                Opens WhatsApp with your details prefilled. You send the
+                message yourself.
               </p>
             </div>
 
@@ -305,26 +299,20 @@ export default function SellForm() {
             )}
           </form>
 
-          {/* Live preview — feels like the carbon copy on a workshop intake pad */}
+          {/* Live preview — refined, no workshop framing */}
           <aside
             aria-hidden="true"
             className="md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-9"
           >
             <div className="sticky top-24">
-              <div className="hairline-strong mb-1" />
-              <div className="mb-4 flex items-baseline justify-between pt-3">
-                <span className="font-mono text-[0.72rem] uppercase tracking-cap text-muted">
-                  Preview · message
-                </span>
-                <span className="font-mono text-[0.72rem] uppercase tracking-cap text-oxblood">
-                  Carbon copy
-                </span>
-              </div>
-              <pre className="whitespace-pre-wrap break-words border border-rule bg-ink/[0.02] p-5 font-mono text-[0.8rem] leading-relaxed text-ink/80">
+              <h3 className="mb-4 font-display text-[1.4rem] leading-tight">
+                Your message
+              </h3>
+              <pre className="whitespace-pre-wrap break-words rounded-md border border-rule bg-ink/[0.025] p-5 font-mono text-[0.82rem] leading-relaxed text-ink/80">
                 {previewMsg}
               </pre>
-              <p className="mt-3 font-mono text-[0.7rem] uppercase tracking-cap text-muted">
-                ↑ This is what we&apos;ll receive.
+              <p className="mt-3 text-[0.85rem] text-muted">
+                This is what we&apos;ll receive on WhatsApp once you hit send.
               </p>
             </div>
           </aside>

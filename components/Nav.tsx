@@ -10,28 +10,53 @@ const links = [
   { href: "#faq", label: "FAQ" },
 ];
 
+/**
+ * The nav reads the page sections beneath it (marked `data-nav-bg="dark"`)
+ * on each scroll and flips its colour so the text is never invisible.
+ *  - Over a dark section: transparent bg, paper text, saffron accent
+ *  - Over a light section: paper-with-blur bg, ink text, oxblood accent
+ */
 export default function Nav() {
-  // Two state flags so the nav can adapt to (a) the dark hero behind it at
-  // the top of the page and (b) the lighter paper sections once scrolled.
-  const [scrolled, setScrolled] = useState(false);
+  // Assume the page starts over a dark hero so SSR matches the common case.
+  const [onDark, setOnDark] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const NAV_PROBE_Y = 56; // a little more than the nav's visible height
 
-  // When at the top, the nav sits over the dark hero image — invert to paper.
-  const onDark = !scrolled;
+    const compute = () => {
+      const sections = document.querySelectorAll('[data-nav-bg="dark"]');
+      let dark = false;
+      sections.forEach((sec) => {
+        const r = sec.getBoundingClientRect();
+        // Section overlaps the nav strip if it crosses y in [0, NAV_PROBE_Y].
+        if (r.top < NAV_PROBE_Y && r.bottom > 0) dark = true;
+      });
+      setOnDark(dark);
+    };
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(compute);
+    };
+
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <header
       className={cn(
         "sticky top-0 z-40 w-full transition-colors duration-300",
-        scrolled
-          ? "border-b border-rule bg-paper/85 backdrop-blur-sm text-ink"
-          : "border-b border-transparent bg-transparent text-paper"
+        onDark
+          ? "border-b border-transparent bg-transparent text-paper"
+          : "border-b border-rule bg-paper/85 text-ink backdrop-blur-sm"
       )}
     >
       <div className="mx-auto flex max-w-page items-center justify-between px-5 py-3.5 sm:px-8 lg:px-12">

@@ -1,22 +1,4 @@
 // Two columns — what we buy / what we don't. Reads like a parts list.
-//
-// PLACEHOLDER PHOTOS: the before/after strip pulls from Unsplash. Swap with
-// real workshop photos by editing `BEFORE_AFTER` below.
-
-import Image from "next/image";
-
-const BEFORE_AFTER = [
-  {
-    label: "Before",
-    src: "https://images.unsplash.com/photo-1595697541361-38ade4692c90?w=900&q=70&auto=format&fit=crop",
-    alt: "A rusty old bicycle — placeholder before photo",
-  },
-  {
-    label: "After",
-    src: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=900&q=70&auto=format&fit=crop",
-    alt: "A clean, restored bicycle — placeholder after photo",
-  },
-];
 
 const inScope = [
   "Road bikes — any era, any groupset",
@@ -36,15 +18,16 @@ const outOfScope = [
 
 export default function WhatWeBuy() {
   return (
-    <section id="what-we-buy" className="relative bg-ink text-paper">
+    <section
+      id="what-we-buy"
+      data-nav-bg="dark"
+      className="relative bg-ink text-paper"
+    >
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
         <header className="mb-14 flex flex-col gap-4 md:mb-20 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="eyebrow !text-paper/55">Section 02 — Scope</span>
-            <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
-              What we buy.
-            </h2>
-          </div>
+          <h2 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
+            What we buy.
+          </h2>
           <p className="max-w-md text-[1rem] leading-relaxed text-paper/70">
             Road and mountain bikes, any condition. If it has frame or parts
             value, it&apos;s worth a conversation. Honest about the few things we
@@ -101,38 +84,11 @@ export default function WhatWeBuy() {
           </div>
         </div>
 
-        {/* Before / after strip. Replace by editing BEFORE_AFTER at the top of this file. */}
-        <div
-          aria-label="Before and after workshop photos"
-          className="mt-16 grid grid-cols-2 gap-3 sm:mt-20 sm:gap-5"
-        >
-          {BEFORE_AFTER.map((item) => (
-            <figure
-              key={item.label}
-              className="relative aspect-[4/3] overflow-hidden border border-paper/20"
-            >
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                sizes="(min-width: 1024px) 560px, 50vw"
-                className="object-cover"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent"
-              />
-              <figcaption className="absolute bottom-3 left-4 right-4 z-10 flex items-baseline justify-between">
-                <span className="font-mono text-[0.7rem] uppercase tracking-cap text-paper">
-                  {item.label}
-                </span>
-                <span className="font-mono text-[0.65rem] uppercase tracking-cap text-paper/55">
-                  Placeholder · Unsplash
-                </span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        {/* Closing line — quiet trust signal, no imagery */}
+        <p className="mt-16 max-w-2xl border-t border-paper/15 pt-8 text-[1.05rem] leading-relaxed text-paper/75 sm:mt-20">
+          Not sure if yours fits? Send the details anyway. We&apos;d rather
+          tell you straight than have you wonder.
+        </p>
       </div>
     </section>
   );

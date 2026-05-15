@@ -23,7 +23,7 @@ const steps = [
     n: "04",
     title: "You get paid",
     body:
-      "Cash or bank transfer on the spot, your choice. The bike heads back to the workshop for a second life.",
+      "Cash or bank transfer on the spot, your choice. That's the whole thing — no paperwork to chase, no waiting around.",
   },
 ];
 
@@ -32,12 +32,9 @@ export default function HowItWorks() {
     <section id="how-it-works" className="relative">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
         <header className="mb-14 flex flex-col gap-4 md:mb-20 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="eyebrow">Section 01 — Process</span>
-            <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
-              How it works.
-            </h2>
-          </div>
+          <h2 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
+            How it works.
+          </h2>
           <p className="max-w-sm text-[1rem] leading-relaxed text-muted">
             Four steps from &ldquo;it&apos;s been in the shed for two years&rdquo; to
             paid and gone. No back-and-forth, no haggling games.

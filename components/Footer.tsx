@@ -13,8 +13,8 @@ export default function Footer() {
               <span className="text-saffron">.</span>
             </p>
             <p className="mt-4 max-w-md text-[0.95rem] text-paper/70">
-              An honest second life for road and mountain bikes. Refurbished in
-              the workshop. Stripped for parts when it makes more sense.
+              Fair offers for road and mountain bikes. Tell us what you have
+              and we&apos;ll come to you.
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default function Footer() {
         <div className="mt-14 flex flex-col-reverse items-start justify-between gap-3 border-t border-paper/15 pt-6 text-[0.78rem] text-paper/55 sm:flex-row sm:items-center">
           <span>© {year} We Buy Bikes. All rights reserved.</span>
           <span className="font-mono uppercase tracking-cap">
-            Made in the workshop · webuybikes.com
+            webuybikes.com
           </span>
         </div>
       </div>

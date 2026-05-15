@@ -41,12 +41,9 @@ export default function FAQ() {
     <section id="faq" className="relative border-t border-rule">
       <div className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
         <header className="mb-12 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <span className="eyebrow">Section 04 — Questions</span>
-            <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
-              Common questions.
-            </h2>
-          </div>
+          <h2 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.02] tracking-tight">
+            Common questions.
+          </h2>
           <p className="max-w-sm text-[1rem] leading-relaxed text-muted">
             The stuff people ask before sending us a bike. If yours isn&apos;t
             here, just put it in the notes when you submit.

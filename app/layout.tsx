@@ -27,7 +27,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "We Buy Bikes — Road and mountain bikes, any condition.",
   description:
-    "We buy unused road and mountain bikes, refurbish them, and give them a second life. Tell us what you've got and we'll make you an offer.",
+    "We buy unused road and mountain bikes. Tell us what you've got and we'll make you a fair offer.",
   metadataBase: new URL("https://webuybikes.com"),
   openGraph: {
     title: "We Buy Bikes",
