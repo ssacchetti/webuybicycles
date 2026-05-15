@@ -97,15 +97,24 @@ plain data arrays at the top of the file:
 | FAQ items        | `components/FAQ.tsx`              |
 | Footer contact   | `components/Footer.tsx`           |
 
-### Replacing placeholder photo slots
+### Replacing placeholder photos
 
-Two slots are clearly marked in-page (`hero` and a `before` / `after` strip):
+Three placeholder images are loaded from **Unsplash** (free to use under the
+Unsplash License) and rendered through `next/image`. Each one is defined as
+a small `const` at the top of its component file so they're trivial to swap:
 
-- `components/Hero.tsx` — bottom of file, look for `Hero photo · workshop`.
-- `components/WhatWeBuy.tsx` — bottom of file, look for `Before / after placeholder strip`.
+| Slot           | File                            | Constant         |
+|----------------|---------------------------------|------------------|
+| Hero photo     | `components/Hero.tsx`           | `HERO_IMAGE`     |
+| Before / After | `components/WhatWeBuy.tsx`      | `BEFORE_AFTER`   |
 
-Drop real images into `public/` and swap the placeholder `<div>`s for
-`<Image>` tags from `next/image`.
+To replace with your own workshop photography:
+
+1. Drop the file(s) into `public/` (e.g. `public/hero.jpg`).
+2. Change the `src` to a root-relative path: `"/hero.jpg"`.
+3. Update the `alt` text to describe the actual photo.
+4. Once all Unsplash URLs are gone, you can delete the
+   `images.remotePatterns` block in `next.config.mjs`.
 
 ---
 

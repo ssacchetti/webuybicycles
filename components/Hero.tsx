@@ -1,6 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 // Masthead-style hero. Wordmark anchors the page. Single italic accent on
-// "bikes" to give the typography a moment of warmth. No stock photos, no icons.
+// "bikes" to give the typography a moment of warmth.
+//
+// PLACEHOLDER PHOTO: the hero image is sourced from Unsplash. Replace with a
+// real workshop shot by dropping a file into /public and swapping `HERO_IMAGE`.
+
+import Image from "next/image";
+
+const HERO_IMAGE = {
+  src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?w=1800&q=70&auto=format&fit=crop",
+  alt: "A bicycle workshop interior — placeholder image",
+};
 
 export default function Hero() {
   return (
@@ -95,14 +105,25 @@ export default function Hero() {
           </aside>
         </div>
 
-        {/* Hero photo placeholder slot — clearly marked, sits below the fold on mobile */}
-        <div
-          className="mt-16 hidden aspect-[16/7] w-full items-end justify-between border border-rule bg-ink/[0.04] p-6 md:flex"
-          aria-label="Workshop hero photo slot"
-        >
-          <span className="eyebrow">[ Hero photo · workshop / bike on stand ]</span>
-          <span className="eyebrow">replace via public/hero.jpg</span>
-        </div>
+        {/* Hero photo. Replace by editing HERO_IMAGE at the top of this file. */}
+        <figure className="relative mt-16 hidden aspect-[16/7] w-full overflow-hidden border border-rule md:block">
+          <Image
+            src={HERO_IMAGE.src}
+            alt={HERO_IMAGE.alt}
+            fill
+            priority
+            sizes="(min-width: 1024px) 1280px, 100vw"
+            className="object-cover"
+          />
+          {/* Warm ink overlay so the cream palette stays dominant */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-ink/40 via-ink/10 to-transparent"
+          />
+          <figcaption className="absolute bottom-3 right-4 z-10 font-mono text-[0.65rem] uppercase tracking-cap text-paper/80">
+            Placeholder · Unsplash
+          </figcaption>
+        </figure>
       </div>
 
       <div className="hairline mx-auto max-w-page" />

@@ -1,4 +1,22 @@
 // Two columns — what we buy / what we don't. Reads like a parts list.
+//
+// PLACEHOLDER PHOTOS: the before/after strip pulls from Unsplash. Swap with
+// real workshop photos by editing `BEFORE_AFTER` below.
+
+import Image from "next/image";
+
+const BEFORE_AFTER = [
+  {
+    label: "Before",
+    src: "https://images.unsplash.com/photo-1595697541361-38ade4692c90?w=900&q=70&auto=format&fit=crop",
+    alt: "A rusty old bicycle — placeholder before photo",
+  },
+  {
+    label: "After",
+    src: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=900&q=70&auto=format&fit=crop",
+    alt: "A clean, restored bicycle — placeholder after photo",
+  },
+];
 
 const inScope = [
   "Road bikes — any era, any groupset",
@@ -83,23 +101,36 @@ export default function WhatWeBuy() {
           </div>
         </div>
 
-        {/* Before/after placeholder strip — clearly marked for real photos later */}
+        {/* Before / after strip. Replace by editing BEFORE_AFTER at the top of this file. */}
         <div
-          aria-label="Before / after placeholder strip"
+          aria-label="Before and after workshop photos"
           className="mt-16 grid grid-cols-2 gap-3 sm:mt-20 sm:gap-5"
         >
-          {["Before", "After"].map((label) => (
-            <div
-              key={label}
-              className="relative flex aspect-[4/3] items-end justify-between border border-paper/20 bg-paper/[0.04] p-4"
+          {BEFORE_AFTER.map((item) => (
+            <figure
+              key={item.label}
+              className="relative aspect-[4/3] overflow-hidden border border-paper/20"
             >
-              <span className="font-mono text-[0.7rem] uppercase tracking-cap text-paper/55">
-                [ {label} · workshop photo ]
-              </span>
-              <span className="font-mono text-[0.7rem] uppercase tracking-cap text-paper/40">
-                /public/{label.toLowerCase()}.jpg
-              </span>
-            </div>
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                sizes="(min-width: 1024px) 560px, 50vw"
+                className="object-cover"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent"
+              />
+              <figcaption className="absolute bottom-3 left-4 right-4 z-10 flex items-baseline justify-between">
+                <span className="font-mono text-[0.7rem] uppercase tracking-cap text-paper">
+                  {item.label}
+                </span>
+                <span className="font-mono text-[0.65rem] uppercase tracking-cap text-paper/55">
+                  Placeholder · Unsplash
+                </span>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </div>
