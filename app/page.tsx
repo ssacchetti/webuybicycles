@@ -6,7 +6,6 @@ import WhatWeBuy from "@/components/WhatWeBuy";
 import SellForm from "@/components/SellForm";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import StickyMobileCTA from "@/components/StickyMobileCTA";
 
 export default function Page() {
   return (
@@ -21,7 +20,6 @@ export default function Page() {
         <FAQ />
       </main>
       <Footer />
-      <StickyMobileCTA />
     </>
   );
 }
