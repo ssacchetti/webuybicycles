@@ -55,7 +55,9 @@ body {
 .display-tight {
   font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
   letter-spacing: -0.028em;
-  line-height: 0.92;
+  /* 1.0 keeps the display tight but clears descender/ascender collisions
+     between adjacent lines (e.g. 'y' in 'buy' over 'l' in 'old'). */
+  line-height: 1;
 }
 
 /* -------------------------------------------------------------------------- */
