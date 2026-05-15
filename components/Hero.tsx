@@ -1,43 +1,71 @@
 /* eslint-disable react/no-unescaped-entities */
-// Masthead-style hero. Wordmark anchors the page. Single italic accent on
-// "bikes" to give the typography a moment of warmth.
+// Image-led poster hero. A single atmospheric photo fills the viewport with
+// layered scrims so the type stays legible. The italic 'bikes' accent shifts
+// from oxblood to saffron — saffron reads better on the dark image.
 //
-// PLACEHOLDER PHOTO: the hero image is sourced from Unsplash. Replace with a
-// real workshop shot by dropping a file into /public and swapping `HERO_IMAGE`.
+// PLACEHOLDER PHOTO: sourced from Unsplash. Swap by editing HERO_IMAGE.
 
 import Image from "next/image";
 
 const HERO_IMAGE = {
-  src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?w=1800&q=70&auto=format&fit=crop",
-  alt: "A bicycle workshop interior — placeholder image",
+  src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?w=2400&q=75&auto=format&fit=crop",
+  alt: "A bicycle in the workshop — placeholder image",
 };
 
 export default function Hero() {
   return (
-    <section className="relative">
-      <div className="mx-auto max-w-page px-5 pb-14 pt-10 sm:px-8 sm:pb-20 sm:pt-14 lg:px-12 lg:pb-28 lg:pt-20">
-        {/* Top eyebrow row — feels like a masthead dateline */}
-        <div className="mb-10 flex flex-wrap items-center justify-between gap-3 sm:mb-16">
-          <span className="eyebrow">
-            <span className="dot mr-2" />
+    <section className="relative isolate overflow-hidden">
+      {/* Background image + layered scrims for legibility */}
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        <Image
+          src={HERO_IMAGE.src}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ filter: "saturate(0.85) contrast(1.05)" }}
+        />
+        {/* Base ink wash — keeps the image atmospheric without going monochrome */}
+        <div className="absolute inset-0 bg-ink/40" />
+        {/* Bottom-up gradient so the headline area reads cleanly */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 via-40% to-ink/10" />
+        {/* Left side gradient — extra darkness behind the type column */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/55 via-ink/10 to-transparent" />
+      </div>
+
+      {/* Content frame */}
+      <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-page flex-col px-5 pb-14 pt-6 text-paper sm:px-8 sm:pb-20 sm:pt-8 lg:min-h-[760px] lg:px-12 lg:pb-24">
+        {/* Top eyebrow row — masthead dateline */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span className="font-mono text-[0.72rem] uppercase tracking-cap text-paper/75">
+            <span
+              aria-hidden="true"
+              className="mr-2 inline-block h-[6px] w-[6px] rounded-full bg-saffron align-middle"
+            />
             Now buying — Road &amp; Mountain
           </span>
-          <span className="eyebrow hidden sm:inline">
+          <span className="hidden font-mono text-[0.72rem] uppercase tracking-cap text-paper/55 sm:inline">
             Vol. 01 · The Workshop
           </span>
         </div>
 
-        <h1 className="font-display display-tight text-[clamp(3.4rem,11vw,9.5rem)] font-medium">
-          <span className="block opacity-0 [animation-delay:60ms] animate-fade-up">
+        {/* Spacer pushes content to the bottom — poster anchor */}
+        <div className="flex-1" />
+
+        {/* Headline */}
+        <h1 className="font-display display-tight max-w-[16ch] text-[clamp(3.2rem,11vw,9rem)] font-medium">
+          <span className="block animate-fade-up opacity-0 [animation-delay:60ms]">
             We&nbsp;buy
           </span>
-          <span className="block opacity-0 [animation-delay:220ms] animate-fade-up">
-            your&nbsp;old{" "}
+          <span className="block animate-fade-up opacity-0 [animation-delay:220ms]">
+            your old{" "}
             <em
               className="not-italic font-display"
               style={{
-                fontVariationSettings: '"opsz" 144, "SOFT" 100, "WONK" 1, "slnt" -8',
-                color: "var(--color-oxblood)",
+                fontVariationSettings:
+                  '"opsz" 144, "SOFT" 100, "WONK" 1, "slnt" -8',
+                color: "var(--color-saffron)",
               }}
             >
               bikes
@@ -46,87 +74,28 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* Sub-deck */}
-        <div className="mt-10 grid grid-cols-1 gap-10 sm:mt-14 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-7 lg:col-span-6 opacity-0 [animation-delay:380ms] animate-fade-up">
-            <p className="max-w-prose text-[1.2rem] leading-[1.5] text-ink sm:text-[1.32rem]">
-              Got a road or mountain bike sitting in the garage? We&apos;ll take a
-              look, make you a fair offer, and pick it up. Any condition — even
-              the ones you&apos;d call &ldquo;parts only.&rdquo;
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <a href="#sell" className="btn-primary">
-                Sell your bike
-                <ArrowRight />
-              </a>
-              <a href="#how-it-works" className="btn-ghost">
-                How it works
-                <ArrowDown />
-              </a>
-            </div>
+        {/* Sub-deck + CTAs */}
+        <div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-8 sm:mt-10 lg:grid-cols-12">
+          <p className="max-w-prose animate-fade-up text-[1.15rem] leading-[1.5] text-paper/85 opacity-0 [animation-delay:380ms] sm:text-[1.3rem] lg:col-span-7">
+            Got a road or mountain bike sitting in the garage? We&apos;ll take a
+            look, make you a fair offer, and pick it up. Any condition — even
+            the ones you&apos;d call &ldquo;parts only.&rdquo;
+          </p>
+          <div className="flex animate-fade-up flex-wrap items-center gap-x-7 gap-y-4 opacity-0 [animation-delay:540ms] lg:col-span-5 lg:justify-end">
+            <a href="#sell" className="btn-primary">
+              Sell your bike
+              <ArrowRight />
+            </a>
+            <a
+              href="#how-it-works"
+              className="inline-flex items-center gap-2 border-b border-paper/65 pb-1 text-[0.94rem] text-paper transition hover:gap-3 hover:border-saffron hover:text-saffron"
+            >
+              How it works
+              <ArrowDown />
+            </a>
           </div>
-
-          {/* Right-side notation — feels like a clipped-on workshop tag */}
-          <aside
-            aria-hidden="true"
-            className="hidden md:col-span-5 md:col-start-8 md:block lg:col-span-4 lg:col-start-9"
-          >
-            <div className="relative border border-rule bg-paper/40 p-6 opacity-0 [animation-delay:540ms] animate-fade-up">
-              <div className="absolute -top-3 left-5 bg-paper px-2">
-                <span className="eyebrow">Workshop notes</span>
-              </div>
-              <ul className="space-y-3.5 text-[0.95rem]">
-                <li className="flex justify-between gap-4 border-b border-rule pb-3">
-                  <span className="font-mono text-[0.72rem] uppercase tracking-cap text-muted">
-                    Offer in
-                  </span>
-                  <span>24–48 hrs</span>
-                </li>
-                <li className="flex justify-between gap-4 border-b border-rule pb-3">
-                  <span className="font-mono text-[0.72rem] uppercase tracking-cap text-muted">
-                    Pickup
-                  </span>
-                  <span>We come to you</span>
-                </li>
-                <li className="flex justify-between gap-4 border-b border-rule pb-3">
-                  <span className="font-mono text-[0.72rem] uppercase tracking-cap text-muted">
-                    Payment
-                  </span>
-                  <span>Cash or transfer</span>
-                </li>
-                <li className="flex justify-between gap-4">
-                  <span className="font-mono text-[0.72rem] uppercase tracking-cap text-muted">
-                    Condition
-                  </span>
-                  <span>Anything goes</span>
-                </li>
-              </ul>
-            </div>
-          </aside>
         </div>
-
-        {/* Hero photo. Replace by editing HERO_IMAGE at the top of this file. */}
-        <figure className="relative mt-16 hidden aspect-[16/7] w-full overflow-hidden border border-rule md:block">
-          <Image
-            src={HERO_IMAGE.src}
-            alt={HERO_IMAGE.alt}
-            fill
-            priority
-            sizes="(min-width: 1024px) 1280px, 100vw"
-            className="object-cover"
-          />
-          {/* Warm ink overlay so the cream palette stays dominant */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-ink/40 via-ink/10 to-transparent"
-          />
-          <figcaption className="absolute bottom-3 right-4 z-10 font-mono text-[0.65rem] uppercase tracking-cap text-paper/80">
-            Placeholder · Unsplash
-          </figcaption>
-        </figure>
       </div>
-
-      <div className="hairline mx-auto max-w-page" />
     </section>
   );
 }
