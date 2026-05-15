@@ -91,15 +91,15 @@ export default function Nav() {
           {/* Wordmark */}
           <a
             href="#top"
-            aria-label="We Buy Bikes — home"
-            className="font-display shrink-0 text-[1.25rem] uppercase leading-none sm:text-[1.55rem]"
+            aria-label="We Buy Bicycles — home"
+            className="font-display shrink-0 text-[1.1rem] uppercase leading-none sm:text-[1.4rem]"
             style={{
               fontVariationSettings: '"wdth" 75, "opsz" 96',
               fontWeight: 800,
               letterSpacing: "-0.025em",
             }}
           >
-            We Buy Bikes
+            We Buy Bicycles
             <span className="text-accent">.</span>
           </a>
 
@@ -239,10 +239,10 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           Or email us
         </span>
         <a
-          href="mailto:hello@webuybikes.com"
+          href="mailto:hello@webuybicycles.com"
           className="mt-1 block text-[1rem] text-paper hover:text-accent"
         >
-          hello@webuybikes.com
+          hello@webuybicycles.com
         </a>
       </div>
     </div>

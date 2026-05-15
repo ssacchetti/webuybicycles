@@ -6,13 +6,13 @@ import { faqs } from "@/lib/faqs";
 //   - FAQPage     (uses the same source-of-truth FAQ list as the section)
 //   - Service     (declares "used bicycle buying" as a structured service)
 
-const SITE_URL = "https://webuybikes.com";
+const SITE_URL = "https://webuybicycles.com";
 
 const localBusiness = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": `${SITE_URL}/#business`,
-  name: "We Buy Bikes",
+  name: "We Buy Bicycles",
   description:
     "Cash buyers of used road and mountain bikes across Melbourne.",
   url: SITE_URL,
@@ -37,7 +37,7 @@ const localBusiness = {
   // TODO: fill these in once the business has real contact details
   // telephone: "+61-...",
   // openingHoursSpecification: [...],
-  email: "hello@webuybikes.com",
+  email: "hello@webuybicycles.com",
 };
 
 const faqPage = {

@@ -1,4 +1,4 @@
-# We Buy Bikes — webuybikes.com
+# We Buy Bicycles — webuybicycles.com
 
 A single-page marketing site for a workshop that buys, refurbishes, and resells
 road and mountain bikes. The submission form opens WhatsApp with a prefilled
@@ -33,7 +33,7 @@ This project deploys to Vercel with **zero configuration**:
 1. Push the repo to GitHub / GitLab / Bitbucket.
 2. In the Vercel dashboard, *Add New Project* → import the repo.
 3. Accept the defaults (Vercel detects Next.js) and *Deploy*.
-4. Point the `webuybikes.com` domain at the project in *Settings → Domains*.
+4. Point the `webuybicycles.com` domain at the project in *Settings → Domains*.
 
 No environment variables. No build overrides.
 

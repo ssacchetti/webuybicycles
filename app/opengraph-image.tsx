@@ -9,7 +9,7 @@ import { join } from "node:path";
 // wordmark in massive condensed type. Designed to read as a *stamp* at
 // thumb-scale in a feed, not as a shrunk-down homepage.
 
-export const alt = "We Buy Bikes — Cash for road and mountain bikes";
+export const alt = "We Buy Bicycles — Cash for road and mountain bikes";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -63,15 +63,15 @@ export default async function Image() {
             letterSpacing: "-0.015em",
           }}
         >
-          <div style={{ fontSize: 280 }}>We Buy</div>
+          <div style={{ fontSize: 220 }}>We Buy</div>
           <div
             style={{
-              fontSize: 280,
+              fontSize: 220,
               display: "flex",
               alignItems: "baseline",
             }}
           >
-            <span>Bikes</span>
+            <span>Bicycles</span>
             <span>.</span>
           </div>
         </div>

@@ -99,13 +99,13 @@ export default function Hero() {
         <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
           <h1
             ref={headlineRef}
-            className="display-mega text-[clamp(4.5rem,20vw,13rem)] will-change-transform"
+            className="display-mega text-[clamp(3.4rem,15vw,11rem)] will-change-transform"
           >
             <span className="block animate-fade-up opacity-0 [animation-delay:500ms]">
               We&nbsp;Buy
             </span>
             <span className="block animate-fade-up opacity-0 [animation-delay:700ms]">
-              <span className="highlight">Bikes</span>
+              <span className="highlight">Bicycles</span>
               <span className="text-ink">.</span>
             </span>
           </h1>

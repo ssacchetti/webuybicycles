@@ -4,8 +4,8 @@ export default function Footer() {
     <footer className="bg-ink text-paper">
       <div className="mx-auto max-w-page px-5 pt-16 sm:px-8 sm:pt-20 lg:px-12 lg:pt-24">
         {/* Massive footer lock-up — last big chance to leave a mark */}
-        <p className="display-mega text-[clamp(3.5rem,15vw,12rem)] leading-[0.85]">
-          We Buy Bikes
+        <p className="display-mega text-[clamp(2.8rem,11.5vw,10rem)] leading-[0.85]">
+          We Buy Bicycles
           <span className="text-accent">.</span>
         </p>
 
@@ -36,10 +36,10 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:hello@webuybikes.com"
+                  href="mailto:hello@webuybicycles.com"
                   className="text-paper/85 transition-colors hover:text-accent"
                 >
-                  hello@webuybikes.com
+                  hello@webuybicycles.com
                 </a>
               </li>
               <li className="text-paper/55">WhatsApp via the form above</li>
@@ -77,10 +77,10 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col-reverse items-start justify-between gap-3 border-t border-paper/15 py-6 text-[0.74rem] text-paper/55 sm:flex-row sm:items-center">
           <span className="font-mono uppercase tracking-cap">
-            © {year} We Buy Bikes · Melbourne, AU
+            © {year} We Buy Bicycles · Melbourne, AU
           </span>
           <span className="font-mono uppercase tracking-cap">
-            webuybikes.com
+            webuybicycles.com
           </span>
         </div>
       </div>

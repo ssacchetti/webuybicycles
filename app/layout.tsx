@@ -20,22 +20,22 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "We Buy Bikes — Cash for road & mountain bikes across Melbourne",
+  title: "We Buy Bicycles — Cash for road & mountain bikes across Melbourne",
   description:
     "We pay cash for unused road and mountain bikes around Melbourne. Tell us what you've got via WhatsApp, get a fair offer in 24–48 hours, and we'll come to you.",
-  metadataBase: new URL("https://webuybikes.com"),
+  metadataBase: new URL("https://webuybicycles.com"),
   alternates: { canonical: "/" },
   openGraph: {
-    title: "We Buy Bikes — Cash for road & mountain bikes across Melbourne",
+    title: "We Buy Bicycles — Cash for road & mountain bikes across Melbourne",
     description:
       "Cash on the day for road and mountain bikes across Melbourne. WhatsApp us, get an offer in 24–48 hours, pickup included.",
     type: "website",
-    url: "https://webuybikes.com",
-    siteName: "We Buy Bikes",
+    url: "https://webuybicycles.com",
+    siteName: "We Buy Bicycles",
   },
   twitter: {
     card: "summary_large_image",
-    title: "We Buy Bikes — Cash for road & mountain bikes across Melbourne",
+    title: "We Buy Bicycles — Cash for road & mountain bikes across Melbourne",
     description:
       "Cash on the day for road and mountain bikes across Melbourne. WhatsApp us, get an offer in 24–48 hours.",
   },
