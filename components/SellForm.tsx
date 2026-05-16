@@ -125,7 +125,7 @@ export default function SellForm() {
     window.open(url, "_blank", "noopener,noreferrer");
     requestAnimationFrame(() => {
       document
-        .getElementById("sell")
+        .getElementById("sell-form")
         ?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
@@ -163,7 +163,10 @@ export default function SellForm() {
           </header>
         </Reveal>
 
-        <div className="grid grid-cols-1 gap-12 border-t-[1.5px] border-ink pt-10 md:grid-cols-12 md:gap-10 md:pt-12">
+        <div
+          id="sell-form"
+          className="grid grid-cols-1 gap-12 border-t-[1.5px] border-ink pt-10 md:grid-cols-12 md:gap-10 md:pt-12"
+        >
           {submitted ? (
             <SubmittedPanel onReset={resetForm} />
           ) : (
