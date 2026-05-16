@@ -23,14 +23,14 @@ export const metadata: Metadata = {
   title: "We Buy Bicycles — Cash for road & mountain bikes across Melbourne",
   description:
     "We pay cash for unused road and mountain bikes around Melbourne. Tell us what you've got via WhatsApp, get a fair offer in 24–48 hours, and we'll come to you.",
-  metadataBase: new URL("https://webuybicycles.com"),
+  metadataBase: new URL("https://webuybicycles.com.au"),
   alternates: { canonical: "/" },
   openGraph: {
     title: "We Buy Bicycles — Cash for road & mountain bikes across Melbourne",
     description:
       "Cash on the day for road and mountain bikes across Melbourne. WhatsApp us, get an offer in 24–48 hours, pickup included.",
     type: "website",
-    url: "https://webuybicycles.com",
+    url: "https://webuybicycles.com.au",
     siteName: "We Buy Bicycles",
   },
   twitter: {

@@ -80,7 +80,7 @@ export default function Footer() {
             © {year} We Buy Bicycles · Melbourne, AU
           </span>
           <span className="font-mono uppercase tracking-cap">
-            webuybicycles.com
+            webuybicycles.com.au
           </span>
         </div>
       </div>

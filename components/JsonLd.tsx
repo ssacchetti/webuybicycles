@@ -6,7 +6,7 @@ import { faqs } from "@/lib/faqs";
 //   - FAQPage     (uses the same source-of-truth FAQ list as the section)
 //   - Service     (declares "used bicycle buying" as a structured service)
 
-const SITE_URL = "https://webuybicycles.com";
+const SITE_URL = "https://webuybicycles.com.au";
 
 const localBusiness = {
   "@context": "https://schema.org",
