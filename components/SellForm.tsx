@@ -124,9 +124,11 @@ export default function SellForm() {
     )}`;
     window.open(url, "_blank", "noopener,noreferrer");
     requestAnimationFrame(() => {
-      document
-        .getElementById("sell-form")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const el = document.getElementById("sell-form");
+      if (!el) return;
+      // Tuck the hairline ~4px under the ~64px sticky nav so it isn't visible.
+      const top = el.getBoundingClientRect().top + window.scrollY - 60;
+      window.scrollTo({ top, behavior: "smooth" });
     });
   }
 
