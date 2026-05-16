@@ -19,6 +19,9 @@
 /*  Base                                                                       */
 /* -------------------------------------------------------------------------- */
 html {
+  /* Explicit bg so iOS 26 Safari's toolbar doesn't fall back to white
+     sampling for areas where no fixed element is present. */
+  background-color: var(--color-paper);
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   -webkit-font-smoothing: antialiased;
