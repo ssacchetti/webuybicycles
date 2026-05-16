@@ -26,10 +26,12 @@ npm run build
 npm run start
 ```
 
-The site is server-rendered on Vercel's Node runtime. There are no API routes
-or server actions — the WhatsApp handoff happens client-side via `wa.me` deep
-links — so any Node-capable host works, but Vercel is the path of least
-resistance.
+Every route is statically prerendered at build time (the build trace lists
+each one as `○ Static`), including the dynamic-looking ones like
+`/sitemap.xml`, `/robots.txt`, `/opengraph-image`, and the favicons —
+those are all `next/og` and Metadata routes that resolve to PNGs / text
+at build. Output is therefore CDN-friendly and Node-free at request time;
+Vercel just serves it.
 
 ## Deploy to Vercel
 
