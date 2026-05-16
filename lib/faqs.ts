@@ -15,7 +15,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "What area do you cover?",
-    a: "We cover the greater Melbourne metro. Most pickups happen within an hour's drive of the CBD; further afield we work it out as part of the offer. WhatsApp us with your suburb and we'll let you know.",
+    a: "We cover the greater Melbourne and Geelong metros, Bellarine included. Most pickups happen within an hour's drive of either CBD; further afield we work it out as part of the offer. WhatsApp us with your suburb and we'll let you know.",
   },
   {
     q: "How does payment work?",
