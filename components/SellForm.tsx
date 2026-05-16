@@ -8,7 +8,7 @@ import Reveal from "@/components/Reveal";
 /*  CONFIG — change me when you have the real number.                          */
 /*  Use international format with no '+', spaces, or hyphens. e.g. 27821234567 */
 /* -------------------------------------------------------------------------- */
-const WHATSAPP_NUMBER = "0000000000"; // TODO: replace with real number
+const WHATSAPP_NUMBER = "61422880536";
 
 /* -------------------------------------------------------------------------- */
 /*  Field options                                                              */
@@ -123,6 +123,11 @@ export default function SellForm() {
       buildMessage(form)
     )}`;
     window.open(url, "_blank", "noopener,noreferrer");
+    requestAnimationFrame(() => {
+      document
+        .getElementById("sell")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
 
   function resetForm() {

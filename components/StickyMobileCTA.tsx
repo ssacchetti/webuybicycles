@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 
 /**
- * Mobile-only sticky CTA that floats just above the bottom edge once the
- * user has scrolled past the hero. Ink black with yellow type so it reads
- * as intentional dark chrome — and so iOS Safari's bottom toolbar samples
- * black rather than tinting yellow.
+ * Mobile-only floating CTA pill. Without viewport-fit: cover the iOS Safari
+ * viewport stops above the URL bar, so this fixed element sits naturally
+ * above the toolbar rather than being sampled by it.
  *
  * Hides when the sell form itself is in view so it doesn't cover the
  * submit button.
@@ -34,13 +33,13 @@ export default function StickyMobileCTA() {
   return (
     <div
       aria-hidden={!show}
-      className={`pointer-events-none fixed inset-x-0 bottom-0 z-30 px-3 pb-3 transition-transform duration-300 md:hidden ${
+      className={`pointer-events-none fixed inset-x-0 bottom-0 z-30 px-4 pb-3 pt-3 transition-transform duration-300 md:hidden ${
         show ? "translate-y-0" : "translate-y-[140%]"
       }`}
     >
       <a
         href="#sell"
-        className="pointer-events-auto flex w-full items-center justify-center gap-3 border-t-[2px] border-accent bg-ink py-4 text-accent shadow-[0_-12px_28px_-14px_rgba(10,10,10,0.55)]"
+        className="pointer-events-auto mx-auto flex max-w-sm items-center justify-center gap-3 rounded-full bg-ink py-3 text-accent shadow-[0_10px_30px_-10px_rgba(10,10,10,0.55)]"
       >
         <span className="font-mono text-[0.7rem] uppercase tracking-cap">
           ▮
