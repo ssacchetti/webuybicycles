@@ -24,7 +24,10 @@ npm run build
 npm run start
 ```
 
-The page is statically prerendered, so output works on any static host.
+The site is server-rendered on Vercel's Node runtime. There are no API
+routes or server actions — the WhatsApp handoff happens client-side via
+`wa.me` deep links — so any Node-capable host will work, but Vercel is
+the path of least resistance.
 
 ## Deploy to Vercel
 
