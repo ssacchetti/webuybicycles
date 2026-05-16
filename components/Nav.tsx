@@ -25,6 +25,19 @@ const mobileLinks = [
 export default function Nav() {
   const [onDark, setOnDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Keep the fullscreen overlay mounted just long enough to play its
+  // fade-out, then unmount. While unmounted Safari (iOS 26) can't sample
+  // its bg-ink for toolbar tinting — opacity:0 alone isn't enough there.
+  const [menuMounted, setMenuMounted] = useState(false);
+
+  useEffect(() => {
+    if (menuOpen) {
+      setMenuMounted(true);
+      return;
+    }
+    const t = window.setTimeout(() => setMenuMounted(false), 220);
+    return () => window.clearTimeout(t);
+  }, [menuOpen]);
 
   // Background detection (existing logic)
   useEffect(() => {
@@ -163,13 +176,28 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* Mobile fullscreen menu */}
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      {/* Mobile fullscreen menu — only mounted while opening / open / fading out */}
+      {menuMounted && (
+        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      )}
     </>
   );
 }
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+  // `open` flips immediately when the user clicks, but on first mount the
+  // CSS transition has nothing to animate from. Mirror it on the next
+  // frame so opacity actually transitions 0 → 1.
+  const [entered, setEntered] = useState(false);
+  useEffect(() => {
+    if (!open) {
+      setEntered(false);
+      return;
+    }
+    const r = requestAnimationFrame(() => setEntered(true));
+    return () => cancelAnimationFrame(r);
+  }, [open]);
+
   return (
     <div
       id="mobile-menu"
@@ -178,7 +206,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       aria-label="Menu"
       className={cn(
         "fixed inset-0 z-50 flex flex-col bg-ink text-paper transition-opacity duration-200 md:hidden",
-        open
+        entered
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0"
       )}
@@ -205,7 +233,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             onClick={onClose}
             className={cn(
               "block text-[clamp(2.6rem,9vw,4rem)] transition-colors hover:text-accent",
-              open
+              entered
                 ? "translate-y-0 opacity-100"
                 : "translate-y-3 opacity-0"
             )}
@@ -216,9 +244,9 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               textTransform: "uppercase",
               lineHeight: 1,
               transition: `opacity 320ms cubic-bezier(.16,1,.3,1) ${
-                open ? 80 + i * 60 : 0
+                entered ? 80 + i * 60 : 0
               }ms, transform 320ms cubic-bezier(.16,1,.3,1) ${
-                open ? 80 + i * 60 : 0
+                entered ? 80 + i * 60 : 0
               }ms, color 180ms`,
             }}
           >
