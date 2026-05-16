@@ -36,6 +36,24 @@ export default function Footer() {
               </li>
               <li className="text-paper/55">WhatsApp via the form above</li>
             </ul>
+
+            <span className="mt-8 block font-mono text-[0.7rem] uppercase tracking-cap text-accent">
+              Follow
+            </span>
+            <ul className="mt-3 space-y-2 text-[0.95rem]">
+              <li>
+                <a
+                  href="https://www.instagram.com/webuybicycles"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="We Buy Bicycles on Instagram"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-accent"
+                >
+                  <InstagramIcon />
+                  Instagram
+                </a>
+              </li>
+            </ul>
           </div>
 
           <div className="md:col-span-4">
@@ -77,5 +95,25 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
   );
 }
