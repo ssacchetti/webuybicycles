@@ -13,7 +13,7 @@ const WHATSAPP_NUMBER = "61422880536";
 /* -------------------------------------------------------------------------- */
 /*  Field options                                                              */
 /* -------------------------------------------------------------------------- */
-const BIKE_TYPES = ["Road", "Gravel / CX", "Other"] as const;
+const BIKE_TYPES = ["Road", "Gravel", "Other"] as const;
 type BikeType = (typeof BIKE_TYPES)[number];
 
 const AGE_OPTIONS = [
