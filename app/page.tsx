@@ -7,6 +7,7 @@ import SellForm from "@/components/SellForm";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import ToolbarBottomTint from "@/components/ToolbarBottomTint";
 
 export default function Page() {
   return (
@@ -22,6 +23,7 @@ export default function Page() {
       </main>
       <Footer />
       <StickyMobileCTA />
+      <ToolbarBottomTint />
     </>
   );
 }
