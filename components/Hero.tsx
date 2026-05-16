@@ -117,7 +117,9 @@ export default function Hero() {
             {/* Scope strap */}
             <div className="sm:col-span-7 lg:col-span-7">
               <p className="display-tight text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.05] text-ink">
-                Road bikes <Dot /> Any era <Dot /> Any condition
+                <span className="whitespace-nowrap">Road bikes</span> <Dot />{" "}
+                <span className="whitespace-nowrap">Any era</span> <Dot />{" "}
+                <span className="whitespace-nowrap">Any condition</span>
               </p>
               <p className="mt-4 max-w-prose text-[1rem] leading-[1.55] text-ink/75">
                 Got an old bike going to waste? Tell us what you've got and
