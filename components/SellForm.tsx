@@ -76,7 +76,7 @@ function buildMessage(f: FormState): string {
     `Asking price: ${f.price || "Open to offers"}`,
     "",
     `Notes: ${f.notes || "—"}`,
-  ].join("\n");
+  ].join("\r\n");
 }
 
 function validate(f: FormState): ErrorMap {
