@@ -204,7 +204,7 @@ export default function SellForm() {
                 onChange={(v) => update("suburb", v)}
                 autoComplete="address-level2"
                 autoCapitalize="words"
-                placeholder="e.g. Newlands, CT"
+                placeholder="eg. Melbourne"
               />
 
               {/* Bike type radio cluster — full width */}
