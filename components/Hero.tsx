@@ -13,8 +13,8 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 const HERO_IMAGE = {
-  src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?w=2400&q=75&auto=format&fit=crop",
-  alt: "A used bicycle",
+  src: "/hero.jpg",
+  alt: "A used road bicycle",
 };
 
 export default function Hero() {
