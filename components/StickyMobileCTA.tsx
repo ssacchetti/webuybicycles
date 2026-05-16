@@ -17,30 +17,62 @@ import { useEffect, useState } from "react";
  *      but the wrapper must actually be removed (unmounted / display:none)
  *      when not shown — otherwise its descendants still get sampled.
  *
+ * Colour also flips: over a `data-nav-bg="dark"` section the pill wears
+ * the accent (yellow on ink-text) so it stays legible.
+ *
  * Hides when the sell form itself is in view so it doesn't cover the
  * submit button.
  */
 export default function StickyMobileCTA() {
   const [show, setShow] = useState(false);
+  const [onDark, setOnDark] = useState(false);
   // Keeps the element mounted long enough for the slide-out transition
   // to play before we actually remove it from the DOM.
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
+    // Vertical band the pill occupies on screen — roughly the bottom
+    // ~80px above the home indicator. We test if any dark section
+    // currently overlaps this band.
+    const PILL_BAND_HEIGHT = 80;
+
+    const compute = () => {
       const form = document.getElementById("sell");
+      let nextShow: boolean;
       if (!form) {
-        setShow(window.scrollY > 320);
-        return;
+        nextShow = window.scrollY > 320;
+      } else {
+        const rect = form.getBoundingClientRect();
+        const formInView =
+          rect.top < window.innerHeight - 80 && rect.bottom > 120;
+        nextShow = window.scrollY > 320 && !formInView;
       }
-      const rect = form.getBoundingClientRect();
-      const formInView =
-        rect.top < window.innerHeight - 80 && rect.bottom > 120;
-      setShow(window.scrollY > 320 && !formInView);
+      setShow(nextShow);
+
+      const bandTop = window.innerHeight - PILL_BAND_HEIGHT;
+      const bandBottom = window.innerHeight;
+      let dark = false;
+      document.querySelectorAll('[data-nav-bg="dark"]').forEach((sec) => {
+        const r = (sec as HTMLElement).getBoundingClientRect();
+        if (r.top < bandBottom && r.bottom > bandTop) dark = true;
+      });
+      setOnDark(dark);
     };
-    onScroll();
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(compute);
+    };
+
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   // Mount/unmount around the visibility state so Safari can't sample the
@@ -68,7 +100,9 @@ export default function StickyMobileCTA() {
         style={{
           bottom: "max(env(safe-area-inset-bottom), 0.75rem)",
         }}
-        className="pointer-events-auto absolute left-1/2 flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 items-center justify-center gap-3 rounded-full bg-ink py-3 text-accent shadow-[0_10px_30px_-10px_rgba(10,10,10,0.55)]"
+        className={`pointer-events-auto absolute left-1/2 flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 items-center justify-center gap-3 rounded-full py-3 transition-colors duration-200 ${
+          onDark ? "bg-accent text-ink" : "bg-ink text-accent"
+        }`}
       >
         <span className="font-mono text-[0.7rem] uppercase tracking-cap">
           ▮
