@@ -3,7 +3,7 @@
 
 const items = [
   "Cash on the day",
-  "Road & mountain",
+  "Road bikes",
   "Any condition",
   "Free pickup",
   "Offer in 24–48 hrs",

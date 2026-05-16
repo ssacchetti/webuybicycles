@@ -12,8 +12,8 @@ export default function Footer() {
         <div className="mt-10 grid grid-cols-1 gap-10 border-t-[1.5px] border-paper/25 pt-10 md:grid-cols-12 md:gap-6">
           <div className="md:col-span-5">
             <p className="max-w-md text-[1rem] leading-relaxed text-paper/75">
-              Cash offers for road and mountain bikes across Melbourne and
-              Geelong. Tell us what you&apos;ve got and we&apos;ll come to you.
+              Cash offers for road bikes across Melbourne and Geelong.
+              Tell us what you&apos;ve got and we&apos;ll come to you.
             </p>
             <p className="mt-4 max-w-md text-[0.78rem] leading-relaxed text-paper/55">
               We don&apos;t store any of the details you submit — they go

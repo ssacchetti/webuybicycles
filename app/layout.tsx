@@ -21,16 +21,16 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title:
-    "We Buy Bicycles — Cash for road & mountain bikes across Melbourne & Geelong",
+    "We Buy Bicycles — Cash for road bikes across Melbourne & Geelong",
   description:
-    "We pay cash for unused road and mountain bikes around Melbourne and Geelong. Tell us what you've got via WhatsApp, get a fair offer in 24–48 hours, and we'll come to you.",
+    "We pay cash for unused road bikes around Melbourne and Geelong. Tell us what you've got via WhatsApp, get a fair offer in 24–48 hours, and we'll come to you.",
   metadataBase: new URL("https://webuybicycles.com.au"),
   alternates: { canonical: "/" },
   openGraph: {
     title:
-      "We Buy Bicycles — Cash for road & mountain bikes across Melbourne & Geelong",
+      "We Buy Bicycles — Cash for road bikes across Melbourne & Geelong",
     description:
-      "Cash on the day for road and mountain bikes across Melbourne and Geelong. WhatsApp us, get an offer in 24–48 hours, pickup included.",
+      "Cash on the day for road bikes across Melbourne and Geelong. WhatsApp us, get an offer in 24–48 hours, pickup included.",
     type: "website",
     url: "https://webuybicycles.com.au",
     siteName: "We Buy Bicycles",
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "We Buy Bicycles — Cash for road & mountain bikes across Melbourne & Geelong",
+      "We Buy Bicycles — Cash for road bikes across Melbourne & Geelong",
     description:
-      "Cash on the day for road and mountain bikes across Melbourne and Geelong. WhatsApp us, get an offer in 24–48 hours.",
+      "Cash on the day for road bikes across Melbourne and Geelong. WhatsApp us, get an offer in 24–48 hours.",
   },
 };
 

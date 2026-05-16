@@ -4,7 +4,6 @@ import Reveal from "@/components/Reveal";
 
 const inScope = [
   "Road bikes — any era, any groupset",
-  "Mountain bikes — hardtail or full-sus",
   "Gravel & cyclocross frames",
   "Frames with decent parts, even if it doesn't roll",
   "Carbon frames with cosmetic damage (we'll assess)",
@@ -12,6 +11,7 @@ const inScope = [
 ];
 
 const outOfScope = [
+  "Mountain bikes — hardtail or full-sus",
   "Kids' bikes & BMX",
   "Department-store / supermarket bikes",
   "E-bikes (for now — ask us anyway)",
@@ -37,9 +37,9 @@ export default function WhatWeBuy() {
               </h2>
             </div>
             <p className="max-w-sm text-[0.98rem] leading-relaxed text-paper/70">
-              Road and mountain bikes, any condition. If it has frame or parts
-              value, it&apos;s worth a conversation. Honest about the few things
-              we can&apos;t take.
+              Road bikes, any condition — plus the bits that come off them. If
+              it has frame or parts value, it&apos;s worth a conversation.
+              Honest about the few things we can&apos;t take.
             </p>
           </header>
         </Reveal>

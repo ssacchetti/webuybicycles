@@ -41,7 +41,7 @@ const localBusiness = {
   "@id": `${SITE_URL}/#business`,
   name: "We Buy Bicycles",
   description:
-    "Cash buyers of used road and mountain bikes across the Melbourne and Geelong metros. Messages answered 24/7 on WhatsApp; pickups by appointment.",
+    "Cash buyers of used road bikes across the Melbourne and Geelong metros. Messages answered 24/7 on WhatsApp; pickups by appointment.",
   url: SITE_URL,
   image: `${SITE_URL}/opengraph-image`,
   priceRange: "$$",
@@ -93,7 +93,7 @@ const service = {
   name: "Used bicycle buying",
   serviceType: "Used bicycle purchase",
   description:
-    "We buy used road and mountain bikes, frames, and components for cash. Free pickup across the Melbourne and Geelong metros.",
+    "We buy used road bikes, frames, and high-end components for cash. Free pickup across the Melbourne and Geelong metros.",
   provider: { "@id": `${SITE_URL}/#business` },
   areaServed: serviceAreas,
   offers: {

@@ -1,9 +1,9 @@
 # We Buy Bicycles — webuybicycles.com.au
 
 Single-page marketing site for a Melbourne + Geelong business that pays cash
-for used road and mountain bikes. The intake form opens WhatsApp with a
-pre-filled message — there's no backend, no database, no API routes, no
-analytics, no cookies.
+for used road bikes. The intake form opens WhatsApp with a pre-filled
+message — there's no backend, no database, no API routes, no analytics, no
+cookies.
 
 Built with **Next.js 14 (App Router) · TypeScript · Tailwind CSS**, deployed
 on Vercel, domain at GoDaddy.
