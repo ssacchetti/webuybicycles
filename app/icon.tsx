@@ -4,8 +4,12 @@ import { join } from "node:path";
 
 // Favicon — generated at build time. Hi-vis yellow stamp with ink "WB."
 // matches the loud-knock OG card so the site has a consistent mark.
+//
+// Size is 192px (a multiple of 48) so Google will accept it for the
+// favicon in search results — Google filters anything that isn't a
+// multiple of 48, which is why 16/32/64 versions don't show up.
 
-export const size = { width: 64, height: 64 };
+export const size = { width: 192, height: 192 };
 export const contentType = "image/png";
 
 export default async function Icon() {
@@ -25,7 +29,7 @@ export default async function Icon() {
           background: "#EAFF00",
           color: "#0A0A0A",
           fontFamily: "Bricolage",
-          fontSize: 38,
+          fontSize: 114,
           letterSpacing: "-0.05em",
           textTransform: "uppercase",
           lineHeight: 1,
