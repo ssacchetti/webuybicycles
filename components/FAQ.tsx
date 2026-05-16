@@ -17,7 +17,7 @@ export default function FAQ() {
         <Reveal>
           <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between reveal-fade">
             <div>
-              <span className="eyebrow">§ 04 — Questions</span>
+              <span className="eyebrow">§ 04 – Questions</span>
               <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
                 Common questions.
               </h2>

@@ -2,11 +2,11 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-// Favicon — generated at build time. Hi-vis yellow stamp with ink "WB."
+// Favicon – generated at build time. Hi-vis yellow stamp with ink "WB."
 // matches the loud-knock OG card so the site has a consistent mark.
 //
 // Size is 192px (a multiple of 48) so Google will accept it for the
-// favicon in search results — Google filters anything that isn't a
+// favicon in search results – Google filters anything that isn't a
 // multiple of 48, which is why 16/32/64 versions don't show up.
 
 export const size = { width: 192, height: 192 };

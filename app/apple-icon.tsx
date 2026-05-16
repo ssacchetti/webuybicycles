@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-// Apple touch icon — generated at build time. Used by iOS when the site
+// Apple touch icon – generated at build time. Used by iOS when the site
 // is added to the home screen. Same hi-vis stamp as the favicon, scaled.
 
 export const size = { width: 180, height: 180 };

@@ -27,7 +27,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   // Keep the fullscreen overlay mounted just long enough to play its
   // fade-out, then unmount. While unmounted Safari (iOS 26) can't sample
-  // its bg-ink for toolbar tinting — opacity:0 alone isn't enough there.
+  // its bg-ink for toolbar tinting – opacity:0 alone isn't enough there.
   const [menuMounted, setMenuMounted] = useState(false);
 
   useEffect(() => {
@@ -104,7 +104,7 @@ export default function Nav() {
           {/* Wordmark */}
           <a
             href="#top"
-            aria-label="We Buy Bicycles — home"
+            aria-label="We Buy Bicycles – home"
             className="font-display shrink-0 text-[1.1rem] uppercase leading-none sm:text-[1.4rem]"
             style={{
               fontVariationSettings: '"wdth" 75, "opsz" 96',
@@ -116,7 +116,7 @@ export default function Nav() {
             <span className="text-accent">.</span>
           </a>
 
-          {/* Mobile hamburger — sticky CTA at the bottom of the viewport
+          {/* Mobile hamburger – sticky CTA at the bottom of the viewport
               handles the SELL action, so the bar stays clean. */}
           <button
             type="button"
@@ -176,7 +176,7 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* Mobile fullscreen menu — only mounted while opening / open / fading out */}
+      {/* Mobile fullscreen menu – only mounted while opening / open / fading out */}
       {menuMounted && (
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
       )}

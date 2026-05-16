@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer data-nav-bg="dark" className="bg-ink text-paper">
       <div className="mx-auto max-w-page px-5 pb-24 pt-16 sm:px-8 sm:pt-20 md:pb-0 lg:px-12 lg:pt-24">
-        {/* Massive footer lock-up — last big chance to leave a mark */}
+        {/* Massive footer lock-up – last big chance to leave a mark */}
         <p className="display-mega text-[clamp(2.8rem,11.5vw,10rem)] leading-[0.85]">
           We Buy Bicycles
           <span className="text-accent">.</span>
@@ -20,7 +20,7 @@ export default function Footer() {
               Tell us what you&apos;ve got and we&apos;ll come to you.
             </p>
             <p className="mt-4 max-w-md text-[0.78rem] leading-relaxed text-paper/55">
-              We don&apos;t store any of the details you submit — they go
+              We don&apos;t store any of the details you submit – they go
               straight to WhatsApp and never touch a database.
             </p>
           </div>

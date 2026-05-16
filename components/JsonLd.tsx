@@ -2,14 +2,14 @@ import { faqs } from "@/lib/faqs";
 
 // Emits three schema.org graphs in a single <script> tag:
 //   - LocalBusiness (mobile / service-area business; no fixed trading address
-//     or phone — WhatsApp-only, by-appointment pickups across Melbourne and
+//     or phone – WhatsApp-only, by-appointment pickups across Melbourne and
 //     Geelong metros)
 //   - FAQPage     (uses the same source-of-truth FAQ list as the section)
 //   - Service     (declares "used bicycle buying" as a structured service)
 
 const SITE_URL = "https://webuybicycles.com.au";
 
-// Two geographic service areas — Melbourne metro and Geelong metro. A single
+// Two geographic service areas – Melbourne metro and Geelong metro. A single
 // radius from Melbourne can't cover Geelong without also sweeping in far-north
 // suburbs we don't service, so each city gets its own GeoCircle.
 const serviceAreas = [

@@ -4,7 +4,7 @@ const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      // Brand tokens — change these to re-skin the site.
+      // Brand tokens – change these to re-skin the site.
       // Also mirrored in app/globals.css as CSS variables.
       //
       // Naming kept from the previous (workshop) palette for diff-clarity;

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
  * iOS 26 Safari picks the toolbar tint by sampling the background colour
  * of `position: fixed` / `position: sticky` elements near the viewport
  * edge. Without a stable anchor it falls back to body bg, but the
- * sampling timing is loose — the bar can get "stuck" on the last
+ * sampling timing is loose – the bar can get "stuck" on the last
  * colour after the user scrolls between light and dark sections.
  *
  * This renders a 12px-tall fixed strip pinned to the viewport bottom,
@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
  * sees it for sampling.
  *
  * Net effect: the bar visually merges with whatever section is at the
- * bottom of the viewport — looks transparent over both light and dark
+ * bottom of the viewport – looks transparent over both light and dark
  * sections instead of getting stuck.
  *
  * The top toolbar is already deterministic because the Nav itself is

@@ -8,7 +8,7 @@ import { track } from "@vercel/analytics";
  *
  * iOS 26 Safari tints its toolbar from the `background-color` /
  * `backdrop-filter` of any `position: fixed` element near the viewport
- * edge — and that sampling traverses static descendants too. The pattern
+ * edge – and that sampling traverses static descendants too. The pattern
  * that keeps the toolbar untinted:
  *
  *   1. The fixed wrapper must have no background and no backdrop-filter.
@@ -16,7 +16,7 @@ import { track } from "@vercel/analytics";
  *      treats as out-of-flow and skips when sampling.
  *   3. `transform` / `opacity` on the fixed wrapper are safe for animation,
  *      but the wrapper must actually be removed (unmounted / display:none)
- *      when not shown — otherwise its descendants still get sampled.
+ *      when not shown – otherwise its descendants still get sampled.
  *
  * Colour also flips: over a `data-nav-bg="dark"` section the pill wears
  * the accent (yellow on ink-text) so it stays legible.
@@ -32,7 +32,7 @@ export default function StickyMobileCTA() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Vertical band the pill occupies on screen — roughly the bottom
+    // Vertical band the pill occupies on screen – roughly the bottom
     // ~80px above the home indicator. We test if any dark section
     // currently overlaps this band.
     const PILL_BAND_HEIGHT = 80;

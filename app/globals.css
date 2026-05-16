@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* -------------------------------------------------------------------------- */
-/*  Brand tokens — change these to re-skin the site.                          */
+/*  Brand tokens – change these to re-skin the site.                          */
 /*  Mirrored in tailwind.config.ts under `theme.extend.colors`.               */
 /* -------------------------------------------------------------------------- */
 :root {
@@ -67,7 +67,7 @@ label.radio-tile,
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Display type — Bricolage tuned wide-to-condensed for signage character.   */
+/*  Display type – Bricolage tuned wide-to-condensed for signage character.   */
 /*  Use `.display-*` utilities to switch optical sizes.                        */
 /* -------------------------------------------------------------------------- */
 .font-display {
@@ -87,7 +87,7 @@ label.radio-tile,
   text-transform: uppercase;
 }
 
-/* Sub-headers — slightly more open than mega. */
+/* Sub-headers – slightly more open than mega. */
 .display-tight {
   font-variation-settings: "opsz" 48, "wdth" 80;
   letter-spacing: -0.03em;
@@ -96,7 +96,7 @@ label.radio-tile,
   text-transform: uppercase;
 }
 
-/* For numerals — gives them weight without being condensed. */
+/* For numerals – gives them weight without being condensed. */
 .numeral {
   font-variation-settings: "opsz" 96, "wdth" 85;
   font-weight: 800;
@@ -112,7 +112,7 @@ label.radio-tile,
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Reusable label — mono SKU style.                                           */
+/*  Reusable label – mono SKU style.                                           */
 /* -------------------------------------------------------------------------- */
 .eyebrow {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
@@ -123,7 +123,7 @@ label.radio-tile,
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Buttons — blunt black slabs with a yellow strap variant.                   */
+/*  Buttons – blunt black slabs with a yellow strap variant.                   */
 /* -------------------------------------------------------------------------- */
 .btn-primary {
   display: inline-flex;
@@ -194,7 +194,7 @@ label.radio-tile,
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Form controls — confident blocks. Big, bordered, transactional.            */
+/*  Form controls – confident blocks. Big, bordered, transactional.            */
 /* -------------------------------------------------------------------------- */
 .field-label {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
@@ -273,7 +273,7 @@ label.radio-tile,
   box-shadow: inset 0 -4px 0 var(--color-accent);
 }
 
-/* Radio chips — blocky pills, no glyphs */
+/* Radio chips – blocky pills, no glyphs */
 .radio-row {
   display: flex;
   flex-wrap: wrap;
@@ -342,7 +342,7 @@ label.radio-tile,
   vertical-align: middle;
 }
 
-/* Yellow highlighter — wraps a span of text in a yellow strap */
+/* Yellow highlighter – wraps a span of text in a yellow strap */
 .highlight {
   background: var(--color-accent);
   box-shadow: 0.2em 0 0 var(--color-accent), -0.2em 0 0 var(--color-accent);

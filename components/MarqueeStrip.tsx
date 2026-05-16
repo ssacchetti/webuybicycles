@@ -1,4 +1,4 @@
-// Black ticker tape — runs beneath the hero like a SALE banner.
+// Black ticker tape – runs beneath the hero like a SALE banner.
 // CSS-only, pauses for reduced motion.
 
 const items = [

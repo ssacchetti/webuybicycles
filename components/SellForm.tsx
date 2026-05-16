@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
 
 /* -------------------------------------------------------------------------- */
-/*  CONFIG — change me when you have the real number.                          */
+/*  CONFIG – change me when you have the real number.                          */
 /*  Use international format with no '+', spaces, or hyphens. e.g. 27821234567 */
 /* -------------------------------------------------------------------------- */
 const WHATSAPP_NUMBER = "61422880536";
@@ -70,13 +70,13 @@ function buildMessage(f: FormState): string {
     `Location: ${f.suburb}`,
     `Type: ${f.type}`,
     `Brand: ${f.brand}`,
-    `Model: ${f.model || "—"}`,
+    `Model: ${f.model || "–"}`,
     `Age: ${f.age}`,
-    `Frame size: ${f.size || "—"}`,
+    `Frame size: ${f.size || "–"}`,
     `Condition: ${f.condition}`,
     `Asking price: ${f.price || "Open to offers"}`,
     "",
-    `Notes: ${f.notes || "—"}`,
+    `Notes: ${f.notes || "–"}`,
   ].join("\r\n");
 }
 
@@ -120,7 +120,7 @@ export default function SellForm() {
       return;
     }
     // Open WhatsApp FIRST while we're still inside the click's transient
-    // activation window — iOS 26 Safari shrinks this to ~0.5s, so any
+    // activation window – iOS 26 Safari shrinks this to ~0.5s, so any
     // state-update work before window.open can risk a blocked popup.
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
       buildMessage(form)
@@ -155,7 +155,7 @@ export default function SellForm() {
         <Reveal>
           <header className="mb-12 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between reveal-fade">
             <div>
-              <span className="eyebrow">§ 03 — Intake</span>
+              <span className="eyebrow">§ 03 – Intake</span>
               <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
                 Sell your bike.
               </h2>
@@ -212,7 +212,7 @@ export default function SellForm() {
                 placeholder="eg. Melbourne"
               />
 
-              {/* Bike type radio cluster — full width */}
+              {/* Bike type radio cluster – full width */}
               <div
                 className={cn(
                   "col-span-full",
@@ -313,7 +313,7 @@ export default function SellForm() {
                   rows={3}
                   value={form.notes}
                   onChange={(e) => update("notes", e.target.value)}
-                  placeholder="Tell us anything we should know — extras included, known issues, recent service, etc."
+                  placeholder="Tell us anything we should know – extras included, known issues, recent service, etc."
                 />
               </div>
             </div>
@@ -333,12 +333,12 @@ export default function SellForm() {
             </div>
 
             <p className="mt-6 max-w-md text-[0.78rem] leading-relaxed text-muted">
-              Your details go straight to WhatsApp — we don&apos;t store them
+              Your details go straight to WhatsApp – we don&apos;t store them
               anywhere on this site.
             </p>
           </form>
 
-          {/* Live preview — receipt-style */}
+          {/* Live preview – receipt-style */}
           <aside
             aria-hidden="true"
             className="md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-9"
@@ -365,7 +365,7 @@ export default function SellForm() {
                   aria-hidden="true"
                   className="border-t-[1.5px] border-dashed border-ink/30 px-4 py-2.5 text-center font-mono text-[0.65rem] uppercase tracking-cap text-muted"
                 >
-                  — Tear here —
+                  – Tear here –
                 </div>
               </div>
 
@@ -383,7 +383,7 @@ export default function SellForm() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Submitted state — replaces the form once the WhatsApp window has opened.   */
+/*  Submitted state – replaces the form once the WhatsApp window has opened.   */
 /* -------------------------------------------------------------------------- */
 function SubmittedPanel({ onReset }: { onReset: () => void }) {
   return (
@@ -409,7 +409,7 @@ function SubmittedPanel({ onReset }: { onReset: () => void }) {
         </p>
         <p className="mt-3 max-w-prose text-[0.95rem] leading-relaxed text-muted">
           If WhatsApp didn&apos;t open, your browser may have blocked the
-          popup — give it another try below.
+          popup – give it another try below.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">

@@ -1,9 +1,9 @@
-// Two columns — what we buy / what we don't. Reads like a parts list.
+// Two columns – what we buy / what we don't. Reads like a parts list.
 
 import Reveal from "@/components/Reveal";
 
 const inScope = [
-  "Road bikes — any era, any groupset",
+  "Road bikes – any era, any groupset",
   "Gravel & cyclocross frames",
   "Frames with decent parts, even if it doesn't roll",
   "Carbon frames with cosmetic damage (we'll assess)",
@@ -11,10 +11,10 @@ const inScope = [
 ];
 
 const outOfScope = [
-  "Mountain bikes — hardtail or full-sus",
+  "Mountain bikes – hardtail or full-sus",
   "Kids' bikes & BMX",
   "Department-store / supermarket bikes",
-  "E-bikes (for now — ask us anyway)",
+  "E-bikes (for now – ask us anyway)",
   "Frames with structural cracks or unsafe damage",
 ];
 
@@ -30,14 +30,14 @@ export default function WhatWeBuy() {
           <header className="mb-14 flex flex-col gap-5 md:mb-16 md:flex-row md:items-end md:justify-between reveal-fade">
             <div>
               <span className="font-mono text-[0.7rem] uppercase tracking-cap text-accent">
-                § 02 — Scope
+                § 02 – Scope
               </span>
               <h2 className="display-mega mt-3 max-w-3xl text-[clamp(2.6rem,7.5vw,6rem)]">
                 What we buy.
               </h2>
             </div>
             <p className="max-w-sm text-[0.98rem] leading-relaxed text-paper/70">
-              Road bikes, any condition — plus the bits that come off them. If
+              Road bikes, any condition – plus the bits that come off them. If
               it has frame or parts value, it&apos;s worth a conversation.
               Honest about the few things we can&apos;t take.
             </p>

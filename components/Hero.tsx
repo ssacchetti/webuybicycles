@@ -36,9 +36,9 @@ export default function Hero() {
       // Skip when the section is comfortably off-screen
       if (rect.bottom < -200 || rect.top > window.innerHeight + 200) return;
 
-      // Image lags behind scroll — drifts downward as the page scrolls up
+      // Image lags behind scroll – drifts downward as the page scrolls up
       image.style.transform = `translate3d(0, ${-rect.top * 0.3}px, 0)`;
-      // Headline leads scroll — drifts upward faster than the page
+      // Headline leads scroll – drifts upward faster than the page
       headline.style.transform = `translate3d(0, ${rect.top * 0.1}px, 0)`;
     };
 
@@ -62,7 +62,7 @@ export default function Hero() {
       ref={sectionRef}
       className="relative isolate overflow-hidden border-b-[1.5px] border-ink bg-paper"
     >
-      {/* Photo ghost — extended bounds so the parallax translate doesn't
+      {/* Photo ghost – extended bounds so the parallax translate doesn't
           expose the section edges. Treated to high-contrast grayscale at
           low opacity so the type stays the dominant element. */}
       <div
@@ -82,7 +82,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom fade — locked to the section, does NOT translate, so the
+      {/* Bottom fade – locked to the section, does NOT translate, so the
           CTA strap always sits on a clean field of paper. */}
       <div
         aria-hidden="true"
@@ -90,12 +90,12 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-page flex-col px-5 pb-10 pt-8 sm:px-8 sm:pb-14 sm:pt-12 lg:min-h-[820px] lg:px-12">
-        {/* Top strip — status pill only */}
+        {/* Top strip – status pill only */}
         <div className="flex items-start justify-end gap-4">
           <NowBuyingPill />
         </div>
 
-        {/* The poster — spacer above pushes lock-up toward middle */}
+        {/* The poster – spacer above pushes lock-up toward middle */}
         <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
           <h1
             ref={headlineRef}
@@ -111,7 +111,7 @@ export default function Hero() {
           </h1>
         </div>
 
-        {/* Bottom — strap of three scopes + CTA cluster */}
+        {/* Bottom – strap of three scopes + CTA cluster */}
         <div className="mt-auto border-t-[1.5px] border-ink pt-6 sm:pt-8">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:gap-6">
             {/* Scope strap */}

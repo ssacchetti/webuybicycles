@@ -11,7 +11,7 @@ export default function Error({
   return (
     <main className="flex min-h-[100svh] flex-col items-center justify-center bg-paper px-5 py-20 text-ink">
       <div className="max-w-prose text-center">
-        <span className="eyebrow">§ Error — Off the chain</span>
+        <span className="eyebrow">§ Error – Off the chain</span>
         <h1 className="display-mega mt-4 text-[clamp(3rem,10vw,7rem)]">
           Something broke<span className="text-accent">.</span>
         </h1>

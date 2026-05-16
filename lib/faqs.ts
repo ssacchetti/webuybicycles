@@ -3,15 +3,15 @@ export type Faq = { q: string; a: string };
 export const faqs: Faq[] = [
   {
     q: "How do you calculate an offer?",
-    a: "We start with what the bike (or its parts) is worth on the second-hand market, then factor in the work it'll need: a service, replacements, refinishing. You see the logic — we tell you what we're seeing and what we're offering, not just a number.",
+    a: "We start with what the bike (or its parts) is worth on the second-hand market, then factor in the work it'll need: a service, replacements, refinishing. You see the logic – we tell you what we're seeing and what we're offering, not just a number.",
   },
   {
     q: "What if the bike isn't worth taking?",
-    a: "Sometimes that happens. We'll tell you honestly and, where we can, point you somewhere it might find a better home — a local club, a charity, or a parts forum. No fee, no pressure.",
+    a: "Sometimes that happens. We'll tell you honestly and, where we can, point you somewhere it might find a better home – a local club, a charity, or a parts forum. No fee, no pressure.",
   },
   {
     q: "Do I need to clean it or service it first?",
-    a: "No. We'd rather see it as it is. A wipe-down is fine if you're feeling thorough, but please don't pay anyone to service or fix it before selling — that money is rarely recovered in the price.",
+    a: "No. We'd rather see it as it is. A wipe-down is fine if you're feeling thorough, but please don't pay anyone to service or fix it before selling – that money is rarely recovered in the price.",
   },
   {
     q: "What area do you cover?",
@@ -19,7 +19,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How does payment work?",
-    a: "Cash on the day, or bank transfer before we leave with the bike — your call. No instalments, no holding deposits, no waiting on consignment.",
+    a: "Cash on the day, or bank transfer before we leave with the bike – your call. No instalments, no holding deposits, no waiting on consignment.",
   },
   {
     q: "Do you buy just frames or just parts?",
