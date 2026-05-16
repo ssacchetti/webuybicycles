@@ -55,6 +55,17 @@ body {
   border-radius: 0;
 }
 
+/* Suppress iOS Safari's default blue tap-highlight rectangle on
+   interactive elements. The site uses `:active { transform }` for
+   tactile feedback instead. */
+a,
+button,
+[role="button"],
+label.radio-tile,
+.field-select {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* -------------------------------------------------------------------------- */
 /*  Display type — Bricolage tuned wide-to-condensed for signage character.   */
 /*  Use `.display-*` utilities to switch optical sizes.                        */
