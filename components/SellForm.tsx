@@ -118,11 +118,14 @@ export default function SellForm() {
       el?.focus();
       return;
     }
-    setSubmitted(true);
+    // Open WhatsApp FIRST while we're still inside the click's transient
+    // activation window — iOS 26 Safari shrinks this to ~0.5s, so any
+    // state-update work before window.open can risk a blocked popup.
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
       buildMessage(form)
     )}`;
     window.open(url, "_blank", "noopener,noreferrer");
+    setSubmitted(true);
     requestAnimationFrame(() => {
       const el = document.getElementById("sell-form");
       if (!el) return;
@@ -189,6 +192,7 @@ export default function SellForm() {
                 value={form.name}
                 onChange={(v) => update("name", v)}
                 autoComplete="name"
+                autoCapitalize="words"
                 placeholder="First name's fine"
               />
               <Field
@@ -199,6 +203,7 @@ export default function SellForm() {
                 value={form.suburb}
                 onChange={(v) => update("suburb", v)}
                 autoComplete="address-level2"
+                autoCapitalize="words"
                 placeholder="e.g. Newlands, CT"
               />
 
@@ -242,6 +247,8 @@ export default function SellForm() {
                 error={errors.brand}
                 value={form.brand}
                 onChange={(v) => update("brand", v)}
+                autoCapitalize="words"
+                spellCheck={false}
                 placeholder="Specialized, Trek, Giant…"
               />
               <Field
@@ -249,6 +256,8 @@ export default function SellForm() {
                 label="Model"
                 value={form.model}
                 onChange={(v) => update("model", v)}
+                autoCapitalize="words"
+                spellCheck={false}
                 placeholder="Optional"
               />
 
@@ -466,6 +475,8 @@ function Field({
   onChange,
   placeholder,
   autoComplete,
+  autoCapitalize,
+  spellCheck,
   inputMode,
 }: {
   id: string;
@@ -476,6 +487,8 @@ function Field({
   onChange: (v: string) => void;
   placeholder?: string;
   autoComplete?: string;
+  autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters";
+  spellCheck?: boolean;
   inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
 }) {
   return (
@@ -493,6 +506,8 @@ function Field({
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-err` : undefined}
         autoComplete={autoComplete}
+        autoCapitalize={autoCapitalize}
+        spellCheck={spellCheck}
         inputMode={inputMode}
       />
       <p
