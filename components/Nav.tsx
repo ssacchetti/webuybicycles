@@ -261,18 +261,6 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           Sell your bike →
         </a>
       </nav>
-
-      <div className="border-t-[1.5px] border-paper/20 px-6 py-5 sm:px-10">
-        <span className="font-mono text-[0.7rem] uppercase tracking-cap text-paper/55">
-          Or email us
-        </span>
-        <a
-          href="mailto:hello@webuybicycles.com"
-          className="mt-1 block text-[1rem] text-paper hover:text-accent"
-        >
-          hello@webuybicycles.com
-        </a>
-      </div>
     </div>
   );
 }

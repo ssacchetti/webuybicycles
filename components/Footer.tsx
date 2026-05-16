@@ -34,14 +34,6 @@ export default function Footer() {
                   Sell your bike →
                 </a>
               </li>
-              <li>
-                <a
-                  href="mailto:hello@webuybicycles.com"
-                  className="text-paper/85 transition-colors hover:text-accent"
-                >
-                  hello@webuybicycles.com
-                </a>
-              </li>
               <li className="text-paper/55">WhatsApp via the form above</li>
             </ul>
           </div>

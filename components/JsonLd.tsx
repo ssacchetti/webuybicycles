@@ -34,10 +34,6 @@ const localBusiness = {
     addressRegion: "VIC",
     addressCountry: "AU",
   },
-  // TODO: fill these in once the business has real contact details
-  // telephone: "+61-...",
-  // openingHoursSpecification: [...],
-  email: "hello@webuybicycles.com",
 };
 
 const faqPage = {
