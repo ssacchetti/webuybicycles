@@ -2,7 +2,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer data-nav-bg="dark" className="bg-ink text-paper">
-      <div className="mx-auto max-w-page px-5 pt-16 sm:px-8 sm:pt-20 lg:px-12 lg:pt-24">
+      <div className="mx-auto max-w-page px-5 pb-24 pt-16 sm:px-8 sm:pt-20 md:pb-0 lg:px-12 lg:pt-24">
         {/* Massive footer lock-up — last big chance to leave a mark */}
         <p className="display-mega text-[clamp(2.8rem,11.5vw,10rem)] leading-[0.85]">
           We Buy Bicycles
