@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
 
@@ -125,6 +126,10 @@ export default function SellForm() {
       buildMessage(form)
     )}`;
     window.open(url, "_blank", "noopener,noreferrer");
+    track("whatsapp_open", {
+      type: form.type || "unknown",
+      condition: form.condition || "unknown",
+    });
     setSubmitted(true);
     requestAnimationFrame(() => {
       const el = document.getElementById("sell-form");

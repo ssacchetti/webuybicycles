@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { track } from "@vercel/analytics";
 
 /**
  * Mobile-only floating CTA pill.
@@ -97,6 +98,7 @@ export default function StickyMobileCTA() {
     >
       <a
         href="#sell"
+        onClick={() => track("sticky_cta_tap")}
         style={{
           bottom: "max(env(safe-area-inset-bottom), 0.75rem)",
         }}

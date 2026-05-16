@@ -1,3 +1,7 @@
+"use client";
+
+import { track } from "@vercel/analytics";
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -47,6 +51,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="We Buy Bicycles on Instagram"
+                  onClick={() => track("instagram_click")}
                   className="inline-flex items-center gap-2 transition-colors hover:text-accent"
                 >
                   <InstagramIcon />
