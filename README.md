@@ -1,10 +1,12 @@
 # We Buy Bicycles — webuybicycles.com.au
 
-A single-page marketing site for a workshop that buys, refurbishes, and resells
-road and mountain bikes. The submission form opens WhatsApp with a prefilled
-message — there is no backend, no database, and no API routes.
+Single-page marketing site for a Melbourne + Geelong business that pays cash
+for used road and mountain bikes. The intake form opens WhatsApp with a
+pre-filled message — there's no backend, no database, no API routes, no
+analytics, no cookies.
 
-Built with **Next.js (App Router) · TypeScript · Tailwind CSS**.
+Built with **Next.js 14 (App Router) · TypeScript · Tailwind CSS**, deployed
+on Vercel, domain at GoDaddy.
 
 ---
 
@@ -24,100 +26,133 @@ npm run build
 npm run start
 ```
 
-The site is server-rendered on Vercel's Node runtime. There are no API
-routes or server actions — the WhatsApp handoff happens client-side via
-`wa.me` deep links — so any Node-capable host will work, but Vercel is
-the path of least resistance.
+The site is server-rendered on Vercel's Node runtime. There are no API routes
+or server actions — the WhatsApp handoff happens client-side via `wa.me` deep
+links — so any Node-capable host works, but Vercel is the path of least
+resistance.
 
 ## Deploy to Vercel
 
-This project deploys to Vercel with **zero configuration**:
+Zero configuration:
 
 1. Push the repo to GitHub / GitLab / Bitbucket.
-2. In the Vercel dashboard, *Add New Project* → import the repo.
-3. Accept the defaults (Vercel detects Next.js) and *Deploy*.
-4. Point the `webuybicycles.com.au` domain at the project in *Settings → Domains*.
+2. In the Vercel dashboard, **Add New Project** → import the repo.
+3. Accept the defaults (Vercel auto-detects Next.js) and **Deploy**.
+4. Add `webuybicycles.com.au` (and `www.webuybicycles.com.au`) in
+   **Settings → Domains**. Vercel will print the exact DNS values you need.
+5. At GoDaddy, go to **DNS Management** (NOT the "Connect to any website"
+   / "Forward to any site" wizard — that's a 301 redirect, not real
+   hosting). Either:
+   - **Easiest:** switch nameservers to `ns1.vercel-dns.com` +
+     `ns2.vercel-dns.com`. DNS becomes Vercel's problem after that.
+   - **Or:** keep GoDaddy's nameservers and add the A / CNAME records
+     Vercel shows you.
+6. Wait for propagation (usually minutes; up to 48h worst case). Vercel
+   auto-issues an SSL cert once DNS resolves.
 
-No environment variables. No build overrides.
+No environment variables. No build overrides. No `vercel.json`.
 
 ---
 
 ## What to change, and where
 
-All customization points are intentionally small and obvious.
+All customisation points are intentionally small and obvious.
 
 ### WhatsApp number
 
 **File:** `components/SellForm.tsx` (top of file)
 
 ```ts
-const WHATSAPP_NUMBER = "0000000000"; // TODO: replace with real number
+const WHATSAPP_NUMBER = "61422880536";
 ```
 
-Use international format with no `+`, spaces, or hyphens. For example, a South
-African number `+27 82 123 4567` becomes `27821234567`.
+International format, no `+`, no spaces, no hyphens. (e.g. `+61 422 880 536`
+becomes `61422880536`.)
 
 ### Brand colours
 
-Defined in **two synced places** — change both:
-
-**File:** `app/globals.css` (CSS variables at the top, lines ~10–17)
+Defined as CSS custom properties at the top of `app/globals.css` and read
+through Tailwind via `tailwind.config.ts`. Editing `globals.css` is enough —
+Tailwind classes (`bg-paper`, `text-ink`, `text-accent`, etc.) pick up the
+change automatically.
 
 ```css
 :root {
-  --color-paper: #f2ebdd;
-  --color-ink: #1a1612;
-  --color-muted: #6b5e4d;
-  --color-oxblood: #7a1f1a;
-  --color-saffron: #d4a03b;
-  --color-rule: rgba(26, 22, 18, 0.12);
+  --color-paper:        #ffffff;            /* page background  */
+  --color-ink:          #0a0a0a;            /* type, borders    */
+  --color-muted:        #6e6e6e;            /* secondary text   */
+  --color-accent:       #eaff00;            /* hi-vis yellow    */
+  --color-rule:         rgba(10,10,10,.10); /* hairline rule    */
+  --color-rule-strong:  rgba(10,10,10,.85);
 }
 ```
 
-**File:** `tailwind.config.ts` — the `theme.extend.colors` block already reads
-from those CSS variables, so editing `globals.css` is enough.
-
 ### Fonts
 
-**File:** `app/layout.tsx` (lines ~5–28). Currently uses
-**Fraunces** (display), **Hanken Grotesk** (body), and **JetBrains Mono**
-(labels). All Google Fonts, loaded with `next/font` — no licence concerns.
+**File:** `app/layout.tsx`. Two Google Fonts loaded via `next/font` (no
+licence or runtime-call concerns):
+
+- **Bricolage Grotesque** — variable font (axes: `opsz`, `wdth`). Used for
+  both display and body, with CSS `font-variation-settings` switching
+  between condensed-poster mode for headings and normal-width mode for
+  paragraph text.
+- **JetBrains Mono** — used for eyebrows, form labels, and the marquee
+  ticker.
+
+The Bricolage TTF is also self-hosted at `public/fonts/` as a fallback.
 
 ### Copy
 
-Each section is in its own file under `components/`, with the copy held in
-plain data arrays at the top of the file:
+Each section is its own file under `components/`, with copy held in plain
+data arrays / strings at the top:
 
-| Section          | File                              |
-|------------------|-----------------------------------|
-| Top nav links    | `components/Nav.tsx`              |
-| Marquee strip    | `components/MarqueeStrip.tsx`     |
-| Hero copy        | `components/Hero.tsx`             |
-| Process steps    | `components/HowItWorks.tsx`       |
-| In/out of scope  | `components/WhatWeBuy.tsx`        |
-| Form fields      | `components/SellForm.tsx`         |
-| WhatsApp message | `components/SellForm.tsx` → `buildMessage()` |
-| FAQ items        | `components/FAQ.tsx`              |
-| Footer contact   | `components/Footer.tsx`           |
+| Section            | File                                                |
+| ------------------ | --------------------------------------------------- |
+| Top nav links      | `components/Nav.tsx`                                |
+| Marquee strip      | `components/MarqueeStrip.tsx`                       |
+| Hero copy          | `components/Hero.tsx`                               |
+| Process steps      | `components/HowItWorks.tsx`                         |
+| In/out of scope    | `components/WhatWeBuy.tsx`                          |
+| Form fields        | `components/SellForm.tsx`                           |
+| WhatsApp message   | `components/SellForm.tsx` → `buildMessage()`        |
+| FAQ items          | `lib/faqs.ts` (rendered by `components/FAQ.tsx`)    |
+| Footer             | `components/Footer.tsx`                             |
+| 404 page           | `app/not-found.tsx`                                 |
+| Runtime error page | `app/error.tsx`                                     |
 
-### Replacing placeholder photos
+### Hero image
 
-Three placeholder images are loaded from **Unsplash** (free to use under the
-Unsplash License) and rendered through `next/image`. Each one is defined as
-a small `const` at the top of its component file so they're trivial to swap:
+**File:** `components/Hero.tsx`
 
-| Slot           | File                            | Constant         |
-|----------------|---------------------------------|------------------|
-| Hero photo     | `components/Hero.tsx`           | `HERO_IMAGE`     |
-| Before / After | `components/WhatWeBuy.tsx`      | `BEFORE_AFTER`   |
+```ts
+const HERO_IMAGE = {
+  src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?...",
+  alt: "A used bicycle",
+};
+```
 
-To replace with your own workshop photography:
+Currently an Unsplash placeholder (free under the Unsplash License, treated
+to high-contrast grayscale at opacity 0.4 so it sits behind the type). To
+swap to a local photo:
 
-1. Drop the file(s) into `public/` (e.g. `public/hero.jpg`).
-2. Change the `src` to a root-relative path: `"/hero.jpg"`.
-3. Update the `alt` text to describe the actual photo.
-4. Once all Unsplash URLs are gone, you can delete the
-   `images.remotePatterns` block in `next.config.mjs`.
+1. Drop the file into `public/` (e.g. `public/hero.jpg`).
+2. Change `HERO_IMAGE.src` to `"/hero.jpg"`.
+3. Update `HERO_IMAGE.alt` to describe the actual photo.
+4. Remove the `images.remotePatterns` block in `next.config.mjs` — no longer
+   needed once nothing's hotlinking Unsplash.
+
+### Structured data / JSON-LD
+
+**File:** `components/JsonLd.tsx`
+
+Emits LocalBusiness + FAQPage + Service in a single `<script>` tag. The
+service-area is encoded as two `GeoCircle` entries (Melbourne CBD with a
+50km radius and Geelong CBD with a 25km radius) rather than a single
+larger circle, because a Melbourne-centred radius that covered Geelong
+would also sweep in far-north suburbs that aren't actually serviced.
+
+Update the constants at the top (`SITE_URL`, `serviceAreas`, `sameAs`) when
+adding social profiles or expanding the service area.
 
 ---
 
@@ -125,73 +160,126 @@ To replace with your own workshop photography:
 
 ```
 app/
-  layout.tsx       Root layout — fonts and metadata
-  page.tsx         Composition of all sections
-  globals.css      Brand tokens, base styles, form styles, paper-grain texture
+  apple-icon.tsx         180×180 home-screen icon, generated by next/og
+  error.tsx              Runtime error boundary ("Something broke.")
+  globals.css            Brand tokens, base styles, .eyebrow, .btn-*,
+                         form styles, scroll-reveal classes, motion-reduce
+  icon.tsx               64×64 favicon, generated by next/og
+  layout.tsx             Root layout — fonts, metadata, viewport, JsonLd
+  not-found.tsx          404 ("Off the map.")
+  opengraph-image.tsx    1200×630 social card, generated by next/og
+  page.tsx               Composition of all sections, in order
+  robots.ts              Built-in robots.txt route
+  sitemap.ts             Built-in sitemap.xml route
 
 components/
-  Nav.tsx              Sticky top nav, scroll-aware blur
-  Hero.tsx             Masthead-style hero
-  MarqueeStrip.tsx     Black/cream marquee under hero
-  HowItWorks.tsx       Four numbered steps
-  WhatWeBuy.tsx        Two-column scope (dark section)
-  SellForm.tsx         Intake form + live message preview + WhatsApp deep link
-  FAQ.tsx              Accordion (Radix primitive)
-  Footer.tsx           Wordmark, contact, copyright
-  StickyMobileCTA.tsx  Bottom bar, mobile only, hides while form is in view
+  Nav.tsx              Sticky top nav, scroll-driven dark/light theming,
+                       mobile hamburger → fullscreen overlay (unmounts when
+                       closed for iOS 26 toolbar-tinting safety)
+  Hero.tsx             Poster hero with parallax image + headline
+                       (prefers-reduced-motion honoured)
+  MarqueeStrip.tsx     Black/yellow ticker (CSS animation, pauses for
+                       prefers-reduced-motion)
+  HowItWorks.tsx       Four numbered cards with staggered rule-reveal on
+                       scroll-into-view (IntersectionObserver)
+  WhatWeBuy.tsx        Two-column in-scope / out-of-scope list, dark section
+  SellForm.tsx         Intake form with radio tiles, selects, validation,
+                       live message preview (desktop only), WhatsApp deep
+                       link with CRLF newlines for iOS WhatsApp's URL
+                       handler
+  FAQ.tsx              Radix Accordion, custom inline keyframes for the
+                       height transition
+  Footer.tsx           Big wordmark, contact column, navigation column,
+                       dark section
+  StickyMobileCTA.tsx  Mobile-only floating pill (rounded-full bg-ink, or
+                       bg-accent when over a dark section). Transparent
+                       fixed wrapper + absolute child + unmount-when-hidden
+                       so iOS 26 Safari can't sample its colour for the
+                       URL-bar tint.
+  JsonLd.tsx           Schema.org graphs — LocalBusiness, FAQPage, Service
+  Reveal.tsx           IntersectionObserver wrapper that toggles
+                       data-revealed on its children, used with the
+                       .reveal-fade CSS class
 
 lib/
-  utils.ts             `cn()` className helper
+  faqs.ts              Source-of-truth FAQ array (rendered by FAQ.tsx and
+                       embedded in the FAQPage schema)
+  utils.ts             cn() className helper
+
+public/
+  fonts/               Self-hosted Bricolage Grotesque TTF
 ```
 
 ---
 
-## Design direction (the brief, summarised)
+## Design direction
 
-- **Concept:** workshop intake form meets editorial masthead. Trustworthy local
-  trade business with a quiet sense of craft — not "modern SaaS."
-- **Palette:** warm paper cream background (`#F2EBDD`), espresso ink type
-  (`#1A1612`), deep oxblood primary (`#7A1F1A`), sharp saffron accent
-  (`#D4A03B`).
-- **Typography:** Fraunces (display, variable — tuned softer and chunkier at
-  large sizes), Hanken Grotesk (body), JetBrains Mono (eyebrows / form labels).
-- **Differentiator:** the form is treated as a real paper intake document with
-  monospace uppercase labels and underline-only inputs, paired with a live
-  "carbon copy" preview of the WhatsApp message.
-
-## Decisions I made
-
-A few judgement calls where the brief left room:
-
-- **Tailwind v3 over v4** for ecosystem stability and Vercel build determinism.
-- **Next 14.2.x over Next 15.** Next 14 is on React 18 with widest deployment
-  history; the site needs nothing 15-only.
-- **No `lucide-react` dependency.** The few icons (WhatsApp glyph, arrows,
-  plus) are inlined SVGs. Keeps the dependency list to four runtime packages.
-- **shadcn/ui scoped to one component.** Form controls are custom-styled to
-  match the intake-document aesthetic — default shadcn inputs would have
-  clashed. The FAQ uses Radix Accordion (the same primitive shadcn wraps) for
-  smooth, accessible expand / collapse.
-- **No phone field in the form.** The user is already on WhatsApp at the
-  point of submit; asking for a number again would be friction with no value.
-  The phone number reaches us automatically when they hit send.
-- **Live "carbon copy" preview on desktop** of the WhatsApp message. Reinforces
-  the workshop-intake metaphor and reassures the user what's about to be sent.
-  Hidden on mobile to save vertical space.
-- **Marquee strip pauses for `prefers-reduced-motion`** rather than being
-  removed entirely — the static content still reads as a list of trust signals.
-- **Sticky mobile CTA hides while the form is in view** so it never overlaps
-  the actual submit button.
+- **Concept:** a hi-vis classified ad. Loud, confident, plainspoken — not
+  a "modern SaaS" landing page and not a craftsy workshop site. The
+  hierarchy puts the wordmark and the action first.
+- **Palette:** white paper (`#FFFFFF`), ink black (`#0A0A0A`), hi-vis
+  highway yellow (`#EAFF00`) as the only accent. No gradients, no soft
+  pastels, no oxblood/saffron warmth. Sections alternate light and dark
+  for rhythm.
+- **Typography:** Bricolage Grotesque used across both display and body,
+  with the variable axes (`opsz`, `wdth`) flipping between condensed
+  poster-mode for headings and normal mode for paragraphs. JetBrains Mono
+  for eyebrows and form labels (the "§ 01 — Process" pattern).
+- **Voice:** short, blunt, dry. "Four steps. That's it." / "Off it goes." /
+  "Off the map." Half the copy is one or two words.
+- **Motion:** scroll-reveals (opacity + small translateY), a parallax hero,
+  a staggered yellow-rule reveal on the steps, an infinite marquee. All
+  honour `prefers-reduced-motion`.
 
 ---
 
-## Lighthouse notes
+## Decisions
 
-- Static prerendered (no client-side route logic).
-- Fonts loaded via `next/font` with `display: swap` — no layout shift.
-- One client-side dependency (Radix Accordion) gated behind a small interactive
-  section. Everything else is server-rendered HTML and CSS.
-- Total First Load JS: ~98 kB.
+A few judgement calls worth remembering when extending the site:
 
-If you add real photos, run them through Next's image optimizer (`next/image`)
-or pre-compress them — that's typically the next-biggest win.
+- **Next 14.2.x on React 18.** The site needs nothing 15-only and 14 has
+  the widest deployment history.
+- **Tailwind v3 over v4** for ecosystem stability and Vercel build
+  determinism.
+- **No `lucide-react`.** The handful of icons (WhatsApp glyph, arrows,
+  plus, hamburger) are inlined SVGs. Keeps runtime deps to four packages.
+- **Radix Accordion for the FAQ.** Same primitive shadcn wraps, but used
+  bare — the rest of the site is custom Tailwind styling that wouldn't
+  benefit from a component library.
+- **No phone field in the intake form.** The user is on WhatsApp at the
+  point of submit; their number reaches us automatically.
+- **Live "carbon-copy" preview** of the WhatsApp message on desktop only.
+  Reassures the user what they're about to send. Hidden on mobile to save
+  vertical space.
+- **No email.** WhatsApp is the single contact channel. Setting up
+  `hello@webuybicycles.com.au` was out of scope for launch; the schema
+  and footer reflect that.
+- **`data-nav-bg="dark"`** convention. Any section that's a dark slab
+  marks itself with this attribute; the top nav and the sticky mobile CTA
+  watch the attribute and flip their colour treatment when scrolled over.
+- **Sticky mobile CTA is iOS-26-aware.** A `position: fixed` wrapper that
+  paints anything (background-color, backdrop-filter) — even at opacity
+  0 — gets sampled by iOS 26 Safari for its translucent URL-bar tint. The
+  pill works around this with a transparent fixed wrapper, an absolute
+  child carrying the visual bg, and a full unmount when offscreen. The
+  mobile menu overlay follows the same pattern.
+- **CRLF newlines (`\r\n`) for the WhatsApp message.** iOS WhatsApp's
+  `wa.me` URL handler is unreliable with bare LF newlines; `\r\n`
+  (`%0D%0A` after encoding) preserves the line breaks consistently.
+
+---
+
+## Performance notes
+
+- Fonts loaded via `next/font` with `display: "swap"` — no FOIT, minimal
+  layout shift.
+- Hero image set to `priority` (LCP candidate). All other imagery is
+  generated server-side via `next/og` (favicons, social card).
+- One client-side dependency (`@radix-ui/react-accordion`) gated behind
+  the FAQ section. Everything else is server-rendered HTML and CSS.
+- No third-party scripts, no analytics, no cookies → no consent banner
+  needed.
+- Total first-load JS: **~98 kB**.
+
+If you swap the Unsplash hero for a real photo, run it through `next/image`
+or pre-compress it — that's typically the next-biggest perf win.
