@@ -2,8 +2,8 @@ export type Faq = { q: string; a: string };
 
 export const faqs: Faq[] = [
   {
-    q: "How do you calculate an offer?",
-    a: "We start with what the bike (or its parts) is worth on the second-hand market, then factor in the work it'll need: a service, replacements, refinishing. You see the logic – we tell you what we're seeing and what we're offering, not just a number.",
+    q: "How much is my bike worth?",
+    a: "We start with what your road bike (or its parts) is worth on the second-hand market, then factor in the work it'll need: a service, replacements, refinishing. You see the logic – we tell you what we're seeing and what we're offering, not just a number.",
   },
   {
     q: "What if the bike isn't worth taking?",
@@ -15,7 +15,11 @@ export const faqs: Faq[] = [
   },
   {
     q: "What area do you cover?",
-    a: "We cover the greater Melbourne and Geelong metros, Bellarine included. Most pickups happen within an hour's drive of either CBD; further afield we work it out as part of the offer. WhatsApp us with your suburb and we'll let you know.",
+    a: "We cover the greater Melbourne metro – inner north, eastern suburbs, bayside, Mornington Peninsula – plus Geelong and the Bellarine. Most pickups happen within an hour's drive of either CBD; further afield we work it out as part of the offer. WhatsApp us with your suburb and we'll let you know.",
+  },
+  {
+    q: "Where can I sell my road bike in Melbourne or Geelong?",
+    a: "Right here – we're cash buyers of used road bikes, frames, wheelsets, and groupsets across both cities. Fill in the form, we'll come back within 24–48 hours, and if the numbers work we drive to you. No bike shop drop-off, no consignment, no waiting.",
   },
   {
     q: "How does payment work?",

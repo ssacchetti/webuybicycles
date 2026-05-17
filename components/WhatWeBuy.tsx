@@ -37,9 +37,10 @@ export default function WhatWeBuy() {
               </h2>
             </div>
             <p className="max-w-sm text-[0.98rem] leading-relaxed text-paper/70">
-              Road bikes, any condition – plus the bits that come off them. If
-              it has frame or parts value, it&apos;s worth a conversation.
-              Honest about the few things we can&apos;t take.
+              Road bikes, any condition – plus the bits that come off them.
+              We&apos;re cash buyers of used road bikes, frames, wheelsets, and
+              groupsets across Melbourne and Geelong. Honest about the few
+              things we can&apos;t take.
             </p>
           </header>
         </Reveal>

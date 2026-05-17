@@ -71,7 +71,8 @@ export default function HowItWorks() {
             </div>
             <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
               From &ldquo;it&apos;s been in the shed for two years&rdquo; to paid and gone.
-              No back-and-forth. No haggling games.
+              We buy used road bikes across Melbourne and Geelong &ndash; no back-and-forth,
+              no haggling games.
             </p>
           </header>
         </Reveal>

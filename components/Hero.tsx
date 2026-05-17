@@ -122,8 +122,9 @@ export default function Hero() {
                 <span className="whitespace-nowrap">Any condition</span>
               </p>
               <p className="mt-4 max-w-prose text-[1rem] leading-[1.55] text-ink/75">
-                Got an old bike going to waste? Tell us what you've got and
-                we'll make you a cash offer. Pickup included. No haggling.
+                Got an old road bike going to waste? Sell it for cash – we'll
+                make you a fair offer, come to you across Melbourne or Geelong,
+                and pay on the day. No haggling, no consignment.
               </p>
             </div>
 
