@@ -4,7 +4,6 @@ import Reveal from "@/components/Reveal";
 
 const inScope = [
   "Road bikes – any era, any groupset",
-  "Gravel & cyclocross frames",
   "Frames with decent parts, even if it doesn't roll",
   "Carbon frames with cosmetic damage (we'll assess)",
   "Wheelsets, groupsets, and high-end parts on their own",

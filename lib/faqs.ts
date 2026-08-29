@@ -19,7 +19,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Where can I sell my road bike in Melbourne or Geelong?",
-    a: "Right here – we're cash buyers of used road bikes, frames, wheelsets, and groupsets across both cities. Fill in the form, we'll come back within 24–48 hours, and if the numbers work we drive to you. No bike shop drop-off, no consignment, no waiting.",
+    a: "Right here – we're cash buyers of used road bikes, frames, wheelsets, and groupsets across both cities. Fill in the form, we'll come back in under 12 hours, and if the numbers work we drive to you. No bike shop drop-off, no consignment, no waiting.",
   },
   {
     q: "How does payment work?",
@@ -31,6 +31,6 @@ export const faqs: Faq[] = [
   },
   {
     q: "How quickly will I hear back?",
-    a: "Usually within 24 to 48 hours of receiving your message. If we need more info or photos, we'll just ask in the same WhatsApp thread.",
+    a: "Usually in under 12 hours of receiving your message. If we need more info or photos, we'll just ask in the same WhatsApp thread.",
   },
 ];

@@ -6,7 +6,7 @@ const items = [
   "Road bikes",
   "Any condition",
   "Free pickup",
-  "Offer in 24–48 hrs",
+  "Offer in 12 hrs",
   "No haggling",
   "No middlemen",
 ];

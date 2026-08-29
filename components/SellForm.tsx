@@ -14,7 +14,7 @@ const WHATSAPP_NUMBER = "61422880536";
 /* -------------------------------------------------------------------------- */
 /*  Field options                                                              */
 /* -------------------------------------------------------------------------- */
-const BIKE_TYPES = ["Road", "Gravel", "Other"] as const;
+const BIKE_TYPES = ["Road", "Other"] as const;
 type BikeType = (typeof BIKE_TYPES)[number];
 
 const AGE_OPTIONS = [
@@ -405,7 +405,7 @@ function SubmittedPanel({ onReset }: { onReset: () => void }) {
 
         <p className="mt-5 max-w-prose text-[1.05rem] leading-relaxed text-ink/80">
           We&apos;ve handed you off to WhatsApp with your details pre-filled.
-          Hit send there and we&apos;ll get back to you within 24-48 hours.
+          Hit send there and we&apos;ll get back to you in under 12 hours.
         </p>
         <p className="mt-3 max-w-prose text-[0.95rem] leading-relaxed text-muted">
           If WhatsApp didn&apos;t open, your browser may have blocked the

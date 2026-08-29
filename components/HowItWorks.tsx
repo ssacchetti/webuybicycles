@@ -19,7 +19,7 @@ const steps = [
     n: "02",
     title: "We make an offer",
     body:
-      "We come back within 24–48 hours with a fair, no-pressure cash number. If something's unclear, we ask in the same thread.",
+      "We come back in under 12 hours with a fair, no-pressure cash number. If something's unclear, we ask in the same thread.",
   },
   {
     n: "03",

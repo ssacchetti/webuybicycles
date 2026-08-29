@@ -24,14 +24,14 @@ export const metadata: Metadata = {
   title:
     "Sell Your Road Bike for Cash – Melbourne & Geelong | We Buy Bicycles",
   description:
-    "Sell your used road bike for cash across Melbourne and Geelong. Message us on WhatsApp, get a fair offer in 24–48 hours, pickup at your door. No haggling, no consignment.",
+    "Sell your used road bike for cash across Melbourne and Geelong. Message us on WhatsApp, get a fair offer in under 12 hours, pickup at your door. No haggling, no consignment.",
   metadataBase: new URL("https://webuybicycles.com.au"),
   alternates: { canonical: "/" },
   openGraph: {
     title:
       "Sell Your Road Bike for Cash – Melbourne & Geelong | We Buy Bicycles",
     description:
-      "Cash on the day for road bikes across Melbourne and Geelong. WhatsApp us, get an offer in 24–48 hours, pickup included.",
+      "Cash on the day for road bikes across Melbourne and Geelong. WhatsApp us, get an offer in under 12 hours, pickup included.",
     type: "website",
     url: "https://webuybicycles.com.au",
     siteName: "We Buy Bicycles",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title:
       "Sell Your Road Bike for Cash – Melbourne & Geelong | We Buy Bicycles",
     description:
-      "Cash on the day for road bikes across Melbourne and Geelong. WhatsApp us, get an offer in 24–48 hours.",
+      "Cash on the day for road bikes across Melbourne and Geelong. WhatsApp us, get an offer in under 12 hours.",
   },
 };
 

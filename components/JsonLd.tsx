@@ -99,7 +99,7 @@ const service = {
   offers: {
     "@type": "Offer",
     description:
-      "Free assessment, fair cash offer within 24-48 hours, free pickup.",
+      "Free assessment, fair cash offer within 12 hours, free pickup.",
     priceCurrency: "AUD",
   },
 };
