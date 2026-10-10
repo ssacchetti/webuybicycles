@@ -4,6 +4,7 @@ import * as Accordion from "@radix-ui/react-accordion";
 import { useState } from "react";
 import Reveal from "@/components/Reveal";
 import { faqs } from "@/lib/faqs";
+import { PAUSED } from "@/lib/site-status";
 
 export default function FAQ() {
   const [open, setOpen] = useState<string>("");
@@ -87,22 +88,24 @@ export default function FAQ() {
         </Accordion.Root>
 
         {/* Final nudge */}
-        <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p
-            className="text-[1.5rem] uppercase leading-tight sm:text-[1.9rem]"
-            style={{
-              fontVariationSettings: '"wdth" 80, "opsz" 48',
-              fontWeight: 700,
-              letterSpacing: "-0.025em",
-            }}
-          >
-            Still wondering if it&apos;s worth our time?
-          </p>
-          <a href="#sell" className="btn-yellow">
-            Send it anyway
-            <Arrow />
-          </a>
-        </div>
+        {!PAUSED && (
+          <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p
+              className="text-[1.5rem] uppercase leading-tight sm:text-[1.9rem]"
+              style={{
+                fontVariationSettings: '"wdth" 80, "opsz" 48',
+                fontWeight: 700,
+                letterSpacing: "-0.025em",
+              }}
+            >
+              Still wondering if it&apos;s worth our time?
+            </p>
+            <a href="#sell" className="btn-yellow">
+              Send it anyway
+              <Arrow />
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Local keyframes for accordion */}

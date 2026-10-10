@@ -12,6 +12,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { PAUSED } from "@/lib/site-status";
 
 const HERO_IMAGE = {
   src: "/hero.jpg",
@@ -22,6 +23,8 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  // While paused the poster is a <p>, not the <h1>, so it gets its own ref.
+  const posterRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -30,7 +33,7 @@ export default function Hero() {
     const apply = () => {
       const section = sectionRef.current;
       const image = imageRef.current;
-      const headline = headlineRef.current;
+      const headline = headlineRef.current ?? posterRef.current;
       if (!section || !image || !headline) return;
 
       const rect = section.getBoundingClientRect();
@@ -94,57 +97,107 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-page flex-col px-5 pb-10 pt-8 sm:px-8 sm:pb-14 sm:pt-12 lg:min-h-[820px] lg:px-12">
-        {/* Top strip – status pill only */}
-        <div className="flex items-start justify-end gap-4">
-          <NowBuyingPill />
-        </div>
+        {PAUSED ? (
+          <>
+            {/* Paused: the whole first screen is the notice. The brand and
+                keywords stay in the <h1> on the strap below. */}
+            <div className="flex items-start justify-end gap-4">
+              <PausedPill />
+            </div>
 
-        {/* The poster – spacer above pushes lock-up toward middle */}
-        <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
-          <h1
-            ref={headlineRef}
-            className="display-mega text-[clamp(3.4rem,15vw,11rem)] will-change-transform"
-          >
-            <span className="block animate-fade-up opacity-0 [animation-delay:500ms]">
-              We&nbsp;Buy
-            </span>
-            <span className="block animate-fade-up opacity-0 [animation-delay:700ms]">
-              <span className="highlight">Bicycles</span>
-              <span className="text-ink">.</span>
-            </span>
-          </h1>
-        </div>
-
-        {/* Bottom – strap of three scopes + CTA cluster */}
-        <div className="mt-auto border-t-[1.5px] border-ink pt-6 sm:pt-8">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:gap-6">
-            {/* Scope strap */}
-            <div className="sm:col-span-7 lg:col-span-7">
-              <p className="display-tight text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.05] text-ink">
-                <span className="whitespace-nowrap">Road bikes</span> <Dot />{" "}
-                <span className="whitespace-nowrap">Any era</span> <Dot />{" "}
-                <span className="whitespace-nowrap">Any condition</span>
-              </p>
-              <p className="mt-4 max-w-prose text-[1rem] leading-[1.55] text-ink/75">
-                Got an old road bike going to waste? Sell it for cash – we'll
-                make you a fair offer, come to you across Melbourne or Geelong,
-                and pay on the day. No haggling, no consignment.
+            <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
+              <p
+                ref={posterRef}
+                className="display-mega text-[clamp(3.4rem,15vw,11rem)] will-change-transform"
+              >
+                <span className="block animate-fade-up opacity-0 [animation-delay:500ms]">
+                  Back
+                </span>
+                <span className="block animate-fade-up opacity-0 [animation-delay:700ms]">
+                  <span className="highlight">Soon</span>
+                  <span className="text-ink">.</span>
+                </span>
               </p>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:col-span-5 sm:justify-end lg:col-span-5">
-              <a href="#sell" className="btn-yellow">
-                Talk to us
-                <ArrowRight />
-              </a>
-              <a href="#how-it-works" className="btn-ghost">
-                How it works
-                <ArrowDown />
-              </a>
+            <div className="mt-auto border-t-[1.5px] border-ink pt-6 sm:pt-8">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:gap-6">
+                <div className="sm:col-span-7 lg:col-span-7">
+                  <h1 className="display-tight text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.05] text-ink">
+                    <span className="whitespace-nowrap">We Buy Bicycles</span> <Dot />{" "}
+                    <span className="whitespace-nowrap">Road bikes</span> <Dot />{" "}
+                    <span className="whitespace-nowrap">Melbourne &amp; Geelong</span>
+                  </h1>
+                  <p className="mt-4 max-w-prose text-[1rem] leading-[1.55] text-ink/75">
+                    We're not buying bikes right now, but we'll be back soon.
+                    Check in again shortly.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:col-span-5 sm:justify-end lg:col-span-5">
+                  <a href="#how-it-works" className="btn-ghost">
+                    How it works
+                    <ArrowDown />
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        ) : (
+          <>
+            {/* Top strip – status pill only */}
+            <div className="flex items-start justify-end gap-4">
+              <NowBuyingPill />
+            </div>
+
+            {/* The poster – spacer above pushes lock-up toward middle */}
+            <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
+              <h1
+                ref={headlineRef}
+                className="display-mega text-[clamp(3.4rem,15vw,11rem)] will-change-transform"
+              >
+                <span className="block animate-fade-up opacity-0 [animation-delay:500ms]">
+                  We&nbsp;Buy
+                </span>
+                <span className="block animate-fade-up opacity-0 [animation-delay:700ms]">
+                  <span className="highlight">Bicycles</span>
+                  <span className="text-ink">.</span>
+                </span>
+              </h1>
+            </div>
+
+            {/* Bottom – strap of three scopes + CTA cluster */}
+            <div className="mt-auto border-t-[1.5px] border-ink pt-6 sm:pt-8">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:gap-6">
+                {/* Scope strap */}
+                <div className="sm:col-span-7 lg:col-span-7">
+                  <p className="display-tight text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.05] text-ink">
+                    <span className="whitespace-nowrap">Road bikes</span> <Dot />{" "}
+                    <span className="whitespace-nowrap">Any era</span> <Dot />{" "}
+                    <span className="whitespace-nowrap">Any condition</span>
+                  </p>
+                  <p className="mt-4 max-w-prose text-[1rem] leading-[1.55] text-ink/75">
+                    Got an old road bike going to waste? Sell it for cash – we'll
+                    make you a fair offer, come to you across Melbourne or Geelong,
+                    and pay on the day. No haggling, no consignment.
+                  </p>
+                </div>
+
+                {/* CTAs */}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:col-span-5 sm:justify-end lg:col-span-5">
+                  <a href="#sell" className="btn-yellow">
+                    Talk to us
+                    <ArrowRight />
+                  </a>
+                  <a href="#how-it-works" className="btn-ghost">
+                    How it works
+                    <ArrowDown />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
@@ -167,6 +220,18 @@ function NowBuyingPill() {
     >
       <span className="inline-block h-[0.42rem] w-[0.42rem] animate-ticker-pulse rounded-full bg-ink" />
       Now buying
+    </span>
+  );
+}
+
+function PausedPill() {
+  return (
+    <span
+      aria-label="Temporarily paused"
+      className="inline-flex items-center gap-2 border-[1.5px] border-ink bg-accent px-3 py-1.5 font-mono text-[0.68rem] uppercase tracking-cap text-ink"
+    >
+      <span className="inline-block h-[0.42rem] w-[0.42rem] animate-ticker-pulse rounded-full bg-ink" />
+      Temporarily paused
     </span>
   );
 }

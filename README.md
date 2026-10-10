@@ -57,6 +57,38 @@ No environment variables. No build overrides. No `vercel.json`.
 
 ---
 
+## Paused mode
+
+**File:** `lib/site-status.ts`
+
+```ts
+export const PAUSED = true;
+```
+
+While `true`, the site stays online and indexable but stops taking bikes:
+
+- The hero becomes a full-screen "Back soon." notice (the `<h1>` keeps
+  "We Buy Bicycles · Road bikes · Melbourne & Geelong").
+- A yellow "Paused – not buying bikes right now" strip sits in the sticky
+  nav, and the "Sell your bike" buttons are hidden.
+- The sell form is blurred and `inert` under an "Intake paused" card, and
+  its submit handler refuses to build a WhatsApp link.
+- The sticky mobile CTA, the FAQ/What-we-buy "send it anyway" nudges, the
+  footer contact links, and the error page's WhatsApp link are removed.
+- JSON-LD drops the 24/7 opening hours.
+
+Title, meta description, all section copy, `robots.txt`, `sitemap.xml`,
+and the 200 status are deliberately unchanged. Google's guidance for
+pauses longer than a few days is to keep the site up with limited
+functionality rather than return 503s, `noindex`, or block crawling,
+any of which can drop the site from search
+([Google: pause your online business](https://developers.google.com/search/docs/crawling-indexing/pause-online-business)).
+
+To reopen, set `PAUSED = false` and redeploy – the site renders exactly as
+it did before pausing.
+
+---
+
 ## What to change, and where
 
 All customisation points are intentionally small and obvious.
@@ -230,6 +262,7 @@ components/
 lib/
   faqs.ts              Source-of-truth FAQ array (rendered by FAQ.tsx and
                        embedded in the FAQPage schema)
+  site-status.ts       PAUSED flag – see "Paused mode"
   utils.ts             cn() className helper
 
 public/

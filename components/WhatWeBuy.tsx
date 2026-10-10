@@ -1,6 +1,7 @@
 // Two columns – what we buy / what we don't. Reads like a parts list.
 
 import Reveal from "@/components/Reveal";
+import { PAUSED } from "@/lib/site-status";
 
 const inScope = [
   "Road bikes – any era, any groupset",
@@ -113,16 +114,18 @@ export default function WhatWeBuy() {
         </div>
 
         {/* Closing line */}
-        <p className="mt-12 max-w-2xl border-t-[1.5px] border-paper/25 pt-8 text-[1rem] leading-relaxed text-paper/75 sm:text-[1.05rem]">
-          Not sure if yours fits?{" "}
-          <a
-            href="#sell"
-            className="underline decoration-accent decoration-[3px] underline-offset-4 transition-colors hover:text-accent"
-          >
-            Send the details anyway
-          </a>
-          . We&apos;d rather tell you straight than have you wonder.
-        </p>
+        {!PAUSED && (
+          <p className="mt-12 max-w-2xl border-t-[1.5px] border-paper/25 pt-8 text-[1rem] leading-relaxed text-paper/75 sm:text-[1.05rem]">
+            Not sure if yours fits?{" "}
+            <a
+              href="#sell"
+              className="underline decoration-accent decoration-[3px] underline-offset-4 transition-colors hover:text-accent"
+            >
+              Send the details anyway
+            </a>
+            . We&apos;d rather tell you straight than have you wonder.
+          </p>
+        )}
       </div>
     </section>
   );

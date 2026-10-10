@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { track } from "@vercel/analytics";
+import { PAUSED } from "@/lib/site-status";
 
 /**
  * Mobile-only floating CTA pill.
@@ -87,7 +88,9 @@ export default function StickyMobileCTA() {
     return () => window.clearTimeout(t);
   }, [show]);
 
-  if (!mounted) return null;
+  // Nothing to sell while paused – render nothing, so there's also no fixed
+  // element for iOS Safari to sample.
+  if (PAUSED || !mounted) return null;
 
   return (
     <div

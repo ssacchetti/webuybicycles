@@ -45,6 +45,7 @@ components/               One file per page section, each self-contained with it
 lib/
   faqs.ts                Source-of-truth FAQ array — shared by FAQ.tsx AND JsonLd.tsx's FAQPage
   utils.ts                cn() — a bare clsx wrapper, no tailwind-merge
+  site-status.ts          PAUSED flag — the one piece of config shared across components (see Gotchas)
 
 public/
   fonts/BricolageGrotesque-ExtraBold.ttf   Read from disk by the three next/og routes
@@ -88,6 +89,14 @@ public/
   Edit `globals.css` only; the Tailwind config doesn't need touching for a color-value change.
 
 ## Known gotchas
+
+- **The site is currently in PAUSED mode** (`lib/site-status.ts`, set 2026-10-10). The client has
+  stopped buying while new seller requirements are worked out. `PAUSED` is the one shared flag every
+  component checks (Hero, Nav, SellForm,
+  StickyMobileCTA, FAQ, WhatWeBuy, Footer, error.tsx, JsonLd). **Any new CTA, WhatsApp link, or
+  intake path must be hidden when `PAUSED` is true.** Never pause via 503/`noindex`/robots.txt; see
+  README "Paused mode" for the SEO reasoning. Setting it to `false` was verified to render the
+  pre-pause site identically.
 
 - **iOS 26 Safari toolbar-tint workaround spans 3 files** — don't "simplify" any of these without
   understanding why they exist: `Nav.tsx` (sticky header handles the top bar directly by swapping

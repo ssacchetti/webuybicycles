@@ -4,6 +4,7 @@ import { useMemo, useState, type FormEvent } from "react";
 import { track } from "@vercel/analytics";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
+import { PAUSED } from "@/lib/site-status";
 
 /* -------------------------------------------------------------------------- */
 /*  CONFIG – live WhatsApp number. Also hardcoded in app/error.tsx.            */
@@ -111,6 +112,9 @@ export default function SellForm() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // Belt and braces: the form is inert while paused, but never build a
+    // WhatsApp link even if something gets a submit through.
+    if (PAUSED) return;
     const errs = validate(form);
     setErrors(errs);
     if (Object.keys(errs).length > 0) {
@@ -160,16 +164,22 @@ export default function SellForm() {
                 Sell your bike.
               </h2>
             </div>
-            <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
-              Fill in what you know. The rest we&apos;ll sort out over WhatsApp.
-              <span className="mt-2 block text-[0.85rem] text-muted">
-                Required fields are marked
-                <span className="ml-1 inline-block bg-accent px-[0.3em] text-ink">
-                  ✱
+            {PAUSED ? (
+              <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
+                Intake is paused for now.
+              </p>
+            ) : (
+              <p className="max-w-sm text-[0.98rem] leading-relaxed text-ink/70">
+                Fill in what you know. The rest we&apos;ll sort out over WhatsApp.
+                <span className="mt-2 block text-[0.85rem] text-muted">
+                  Required fields are marked
+                  <span className="ml-1 inline-block bg-accent px-[0.3em] text-ink">
+                    ✱
+                  </span>
+                  .
                 </span>
-                .
-              </span>
-            </p>
+              </p>
+            )}
           </header>
         </Reveal>
 
@@ -180,7 +190,7 @@ export default function SellForm() {
           {submitted ? (
             <SubmittedPanel onReset={resetForm} />
           ) : (
-          <>
+          <PausedLock>
           {/* The form */}
           <form
             onSubmit={onSubmit}
@@ -374,11 +384,56 @@ export default function SellForm() {
               </p>
             </div>
           </aside>
-          </>
+          </PausedLock>
           )}
         </div>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Paused state – form stays visible but blurred and inert under a notice.    */
+/*  When not paused this is a bare fragment, so the normal layout is untouched. */
+/* -------------------------------------------------------------------------- */
+function PausedLock({ children }: { children: React.ReactNode }) {
+  if (!PAUSED) return <>{children}</>;
+  return (
+    <div className="relative md:col-span-12">
+      {/* `inert` blocks clicks, focus, typing and screen readers for
+          everything underneath. React 18's DOM layer doesn't know the
+          attribute (a boolean `true` is dropped with a warning), so it goes
+          in as a string – which also puts it in the server HTML. The cast
+          sidesteps @types/react typing it as boolean. */}
+      <div
+        {...({ inert: "" } as object)}
+        className="pointer-events-none grid select-none grid-cols-1 gap-12 blur-[6px] md:grid-cols-12 md:gap-10"
+      >
+        {children}
+      </div>
+
+      {/* Sticky card so it stays in view while scrolling past the (long,
+          on mobile) blurred form. */}
+      <div className="absolute inset-0 px-2 pt-6 sm:px-6 sm:pt-10">
+        <div className="sticky top-28 mx-auto max-w-xl border-[1.5px] border-ink bg-paper p-8 sm:p-10">
+          <div className="flex items-baseline gap-3">
+            <span className="font-mono text-[0.7rem] uppercase tracking-cap text-muted">
+              Status
+            </span>
+            <span className="inline-flex items-center gap-2 border-[1.5px] border-ink bg-accent px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-cap text-ink">
+              <span className="inline-block h-[0.42rem] w-[0.42rem] rounded-full bg-ink" />
+              Intake paused
+            </span>
+          </div>
+          <p className="display-mega mt-6 text-[clamp(2.2rem,6vw,4rem)]">
+            Not buying right now.
+          </p>
+          <p className="mt-4 text-[1.05rem] leading-relaxed text-ink/80">
+            Back soon.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 

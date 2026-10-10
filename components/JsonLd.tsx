@@ -1,4 +1,5 @@
 import { faqs } from "@/lib/faqs";
+import { PAUSED } from "@/lib/site-status";
 
 // Emits three schema.org graphs in a single <script> tag:
 //   - LocalBusiness (mobile / service-area business; no fixed trading address
@@ -40,8 +41,11 @@ const localBusiness = {
   "@type": "LocalBusiness",
   "@id": `${SITE_URL}/#business`,
   name: "We Buy Bicycles",
-  description:
-    "Cash buyers of used road bikes across the Melbourne and Geelong metros. Messages answered 24/7 on WhatsApp; pickups by appointment.",
+  // While paused, drop the 24/7 claims (Google advises updating hours
+  // during a pause). Undefined keys are omitted by JSON.stringify.
+  description: PAUSED
+    ? "Cash buyers of used road bikes across the Melbourne and Geelong metros."
+    : "Cash buyers of used road bikes across the Melbourne and Geelong metros. Messages answered 24/7 on WhatsApp; pickups by appointment.",
   url: SITE_URL,
   image: `${SITE_URL}/opengraph-image`,
   priceRange: "$$",
@@ -53,7 +57,7 @@ const localBusiness = {
     addressRegion: "VIC",
     addressCountry: "AU",
   },
-  openingHoursSpecification: [
+  openingHoursSpecification: PAUSED ? undefined : [
     {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: [

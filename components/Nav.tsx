@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { PAUSED } from "@/lib/site-status";
 
 const links = [
   { href: "#how-it-works", label: "How it works" },
@@ -150,19 +151,31 @@ export default function Nav() {
                 {l.label}
               </a>
             ))}
-            <a
-              href="#sell"
-              className={cn(
-                "inline-flex items-center gap-2 border-[1.5px] px-3.5 py-2 text-[0.78rem] font-semibold uppercase tracking-[0.08em] transition-colors",
-                onDark
-                  ? "border-accent bg-accent text-ink hover:bg-paper hover:border-paper"
-                  : "border-ink bg-ink text-paper hover:bg-accent hover:text-ink"
-              )}
-            >
-              Sell your bike
-            </a>
+            {!PAUSED && (
+              <a
+                href="#sell"
+                className={cn(
+                  "inline-flex items-center gap-2 border-[1.5px] px-3.5 py-2 text-[0.78rem] font-semibold uppercase tracking-[0.08em] transition-colors",
+                  onDark
+                    ? "border-accent bg-accent text-ink hover:bg-paper hover:border-paper"
+                    : "border-ink bg-ink text-paper hover:bg-accent hover:text-ink"
+                )}
+              >
+                Sell your bike
+              </a>
+            )}
           </nav>
         </div>
+
+        {/* Pause status strip. Sits BELOW the wordmark row so the header's
+            top edge – what iOS 26 Safari samples for its top-bar tint –
+            keeps the usual paper/ink swap. */}
+        {PAUSED && (
+          <p className="border-t-[1.5px] border-ink bg-accent px-5 py-2 text-center font-mono text-[0.68rem] uppercase tracking-cap text-ink">
+            <span aria-hidden="true">▮ </span>
+            Paused – not buying bikes right now
+          </p>
+        )}
       </header>
 
       {/* Mobile fullscreen menu – only mounted while opening / open / fading out */}
@@ -242,13 +255,15 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             {l.label}
           </a>
         ))}
-        <a
-          href="#sell"
-          onClick={onClose}
-          className="mt-6 inline-flex w-fit items-center gap-2 border-[1.5px] border-accent bg-accent px-5 py-3 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink transition-colors hover:bg-paper hover:border-paper"
-        >
-          Sell your bike →
-        </a>
+        {!PAUSED && (
+          <a
+            href="#sell"
+            onClick={onClose}
+            className="mt-6 inline-flex w-fit items-center gap-2 border-[1.5px] border-accent bg-accent px-5 py-3 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-ink transition-colors hover:bg-paper hover:border-paper"
+          >
+            Sell your bike →
+          </a>
+        )}
       </nav>
     </div>
   );

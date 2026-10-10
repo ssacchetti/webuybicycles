@@ -64,6 +64,13 @@ There is no database. The entire "data layer" is a handful of plain TypeScript t
   `Footer.tsx:8`, `MarqueeStrip.tsx:21`, `WhatWeBuy.tsx:25`. *Consumers* (poll it on scroll to flip
   their own light/dark treatment): `Nav.tsx:43-70`, `StickyMobileCTA.tsx:34-77`,
   `ToolbarBottomTint.tsx:32-58`. See Tech Debt below — this polling logic is copy-pasted three times.
+- **`lib/site-status.ts`'s `PAUSED`** — a build-time boolean imported by Hero, Nav, SellForm,
+  StickyMobileCTA, FAQ, WhatWeBuy, Footer, `app/error.tsx` and JsonLd. While true the page stays a
+  static 200 with all copy indexable, but every intake path is removed: Hero renders a "Back soon."
+  poster (with a `posterRef` the parallax effect falls back to), Nav adds a status strip *below*
+  the wordmark row (keeping the iOS top-bar tint on the header's top edge), and SellForm's
+  `PausedLock` blurs the form/preview inside an `inert` wrapper under a sticky notice card. When
+  false, `PausedLock` is a bare fragment and every branch renders the original markup.
 - **`lib/utils.ts`'s `cn()`** — a 5-line wrapper around `clsx` only (no `tailwind-merge`), used in
   2 of 12 components for conditional Tailwind classes.
 - **Implicit DOM-id coupling**: `StickyMobileCTA.tsx` hides itself when `#sell` (the id

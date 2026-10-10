@@ -1,6 +1,7 @@
 "use client";
 
 import { track } from "@vercel/analytics";
+import { PAUSED } from "@/lib/site-status";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -27,19 +28,25 @@ export default function Footer() {
 
           <div className="md:col-span-3">
             <span className="font-mono text-[0.7rem] uppercase tracking-cap text-accent">
-              Get in touch
+              {PAUSED ? "Status" : "Get in touch"}
             </span>
-            <ul className="mt-3 space-y-2 text-[0.95rem]">
-              <li>
-                <a
-                  href="#sell"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-accent"
-                >
-                  Sell your bike →
-                </a>
-              </li>
-              <li className="text-paper/55">WhatsApp via the form above</li>
-            </ul>
+            {PAUSED ? (
+              <p className="mt-3 text-[0.95rem] text-paper/55">
+                Not buying right now – back soon.
+              </p>
+            ) : (
+              <ul className="mt-3 space-y-2 text-[0.95rem]">
+                <li>
+                  <a
+                    href="#sell"
+                    className="inline-flex items-center gap-2 transition-colors hover:text-accent"
+                  >
+                    Sell your bike →
+                  </a>
+                </li>
+                <li className="text-paper/55">WhatsApp via the form above</li>
+              </ul>
+            )}
 
             <span className="mt-8 block font-mono text-[0.7rem] uppercase tracking-cap text-accent">
               Follow
