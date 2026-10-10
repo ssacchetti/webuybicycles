@@ -7,7 +7,8 @@
 //   - Headline leads scroll (~0.10×), drifting *against* the page
 // rAF-throttled, prefers-reduced-motion honoured.
 //
-// PLACEHOLDER PHOTO: sourced from Unsplash. Swap by editing HERO_IMAGE.
+// PLACEHOLDER PHOTO: an Unsplash image, self-hosted at public/hero.jpg.
+// Swap by replacing that file or editing HERO_IMAGE.
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
@@ -76,6 +77,9 @@ export default function Hero() {
             fill
             priority
             sizes="100vw"
+            // Shown faded and greyscale behind the type, so a lower quality
+            // than next/image's default 75 isn't visible and saves ~35%.
+            quality={50}
             className="object-cover object-[center_30%] opacity-40"
             style={{ filter: "grayscale(1) contrast(1.35) brightness(0.92)" }}
           />
