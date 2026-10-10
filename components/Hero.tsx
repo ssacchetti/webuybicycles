@@ -106,9 +106,12 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-1 flex-col justify-center py-8 sm:py-12">
+              {/* "Back soon." is much shorter than "We Buy Bicycles", so it
+                  can run far bigger on phones (36vw) and sit centred there.
+                  Desktop still hits the same 11rem cap as the normal hero. */}
               <p
                 ref={posterRef}
-                className="display-mega text-[clamp(3.4rem,15vw,11rem)] will-change-transform"
+                className="display-mega text-center text-[clamp(3.4rem,36vw,11rem)] will-change-transform sm:text-left"
               >
                 <span className="block animate-fade-up opacity-0 [animation-delay:500ms]">
                   Back
