@@ -52,10 +52,10 @@ There is no database. The entire "data layer" is a handful of plain TypeScript t
 ## Key abstractions
 
 - **`components/Reveal.tsx`** — a generic scroll-reveal wrapper. Props: `children` (required),
-  `className?`, `delay?` (default 0, never actually passed by any call site), `threshold?`
-  (default 0.15). Internally: one `IntersectionObserver`, sets `data-revealed={true}` on its
-  wrapper `<div>` on first intersection, then disconnects. Consuming components apply the
-  `.reveal-fade` CSS class (`app/globals.css:355-366`) which reads that attribute to drive an
+  `className?`, `threshold?` (default 0.15). Internally: one `IntersectionObserver`, sets
+  `data-revealed={true}` on its wrapper `<div>` on first intersection, then disconnects. Consuming
+  components apply the `.reveal-fade` CSS class (`app/globals.css:355-365`) which reads that
+  attribute to drive an
   opacity/translateY transition. Used by `FAQ.tsx`, `HowItWorks.tsx`, `SellForm.tsx`, `WhatWeBuy.tsx`
   — always wrapping just the section `<header>`.
 - **The `data-nav-bg="dark"` DOM-attribute convention** — the site's only cross-component
@@ -77,9 +77,9 @@ There is no database. The entire "data layer" is a handful of plain TypeScript t
   custom events fired from exactly 3 places: `Footer.tsx:54` (`instagram_click`),
   `SellForm.tsx:129-132` (`whatsapp_open`, with `type`/`condition` metadata),
   `StickyMobileCTA.tsx:101` (`sticky_cta_tap`). No cookies involved (Vercel Web Analytics is
-  cookieless); README.md's "no analytics" line predates this integration (see Surprising Things).
+  cookieless).
 - **`@radix-ui/react-accordion`** (`^1.2.2`) — the one client-side UI-library dependency, used bare
-  (not via shadcn) only in `components/FAQ.tsx`, gated behind that section.
+  (not via shadcn) only in `components/FAQ.tsx`. It's bundled into the page JS, not lazy-loaded.
 - **`next/font/google`** — `Bricolage_Grotesque` (variable, `opsz`/`wdth` axes) and `JetBrains_Mono`,
   both self-hosted at build time by Next (no runtime Google Fonts calls). The Bricolage ExtraBold
   weight is *also* separately self-hosted as a static `.ttf` in `public/fonts/` because the three
@@ -119,12 +119,15 @@ currently uses it.
    (IntersectionObserver → `data-revealed` → `.reveal-fade`), a hand-rolled second
    `IntersectionObserver` inside `HowItWorks.tsx:42-56` (used for the staggered `.step-rule`
    animation instead of extending `Reveal`), and pure CSS `animate-fade-up` with hardcoded
-   `animation-delay` in `Hero.tsx:104,107` (no scroll-trigger at all, since it's above the fold).
-3. **`Hero.tsx:10`'s comment is stale**: says "PLACEHOLDER PHOTO: sourced from Unsplash," but
-   `HERO_IMAGE.src` (`Hero.tsx:16`) is `/hero.jpg`, already self-hosted. The code was updated
-   without updating the comment.
-4. **README.md:5-6 says "no analytics"** — no longer true; `@vercel/analytics` is fully wired
-   (see Third-party integrations above). Likely just not updated after that feature landed.
+   `animation-delay` in `Hero.tsx:108,111` (no scroll-trigger at all, since it's above the fold).
+3. **The hero is still the Unsplash placeholder**, self-hosted at `public/hero.jpg` (2400×3600).
+   The source is pre-converted to greyscale (the CSS `grayscale(1)` filter hid the colour anyway)
+   and `Hero.tsx` sets `quality={50}`. Together these cut served WebP sizes from ~188 KB → ~115 KB
+   (phone, w=1200) and ~544 KB → ~276 KB (retina desktop, w=3840) with no visible change
+   (verified by screenshot diff, 2026-10-10). Locally, `.next/cache/images` is keyed by URL not
+   file contents, so swapping the file needs that cache cleared and the dev server restarted.
+4. **The WhatsApp number is duplicated**: `SellForm.tsx:12` (`WHATSAPP_NUMBER`) and the `wa.me`
+   link in `app/error.tsx:21`.
 5. **`cn()` usage is inconsistent** — used in only 2 of 12 components (`Nav.tsx`, `SellForm.tsx`);
    the other 9 use plain template-literal string concatenation for conditional classes. Not
    incorrect, just not uniform.
@@ -132,9 +135,9 @@ currently uses it.
    `tailwind.config.ts:18-26` all resolve to `var(--color-accent)`. A comment
    (`tailwind.config.ts:7-16`) explains this is deliberate — names kept from a prior ("workshop")
    palette for diff-clarity even though the values were repointed to a single hi-vis yellow.
-7. **`WHATSAPP_NUMBER` (`SellForm.tsx:12`) carries its own comment flagging it as a value to
-   replace** ("CONFIG – change me when you have the real number") — worth confirming with the
-   business owner whether `61422880536` is in fact live before treating it as production-final.
+7. **No ESLint.** It isn't installed and there's no config, so `npm run lint` would prompt to set
+   it up and `next build`'s lint step does nothing (type-checking still runs). `Hero.tsx:3` still carries an `eslint-disable` comment
+   from an earlier setup.
 8. **`dangerouslySetInnerHTML` in `JsonLd.tsx:116`** — the only use of it in the codebase. Justified
    inline by a comment: the JSON-LD graph is static, server-rendered, contains no user input, so
    there's no XSS surface. Correct reasoning, worth knowing it's there if `JsonLd.tsx` is ever
@@ -149,15 +152,7 @@ currently uses it.
 
 ## Open questions for the user
 
-- Is `61422880536` (`components/SellForm.tsx:12`) the real production WhatsApp number, or still a
-  placeholder? The comment immediately above it (`SellForm.tsx:9`) explicitly calls it out as
-  something to change "when you have the real number."
-- Is `public/hero.jpg` the final intended hero photo, or a locally-saved copy of the Unsplash
-  placeholder pending a real product photo? `Hero.tsx:10`'s comment still calls it a placeholder
-  even though it's now self-hosted rather than hotlinked.
-- Should the stale claims in `README.md` (line 5-6 "no analytics"; line 143's reference to an
-  `images.remotePatterns` block that no longer exists in `next.config.mjs`) be corrected? This is a
-  docs file, not application code, so it's likely in scope for a follow-up if you'd like it fixed.
-- Is the site's current `git status` (clean, on `main`, 5 most-recent commits about copy/dash/
-  favicon/analytics/Instagram changes) the intended state to document, or is there in-flight work
-  on another branch that should be reflected instead?
+- Will the Unsplash placeholder in `public/hero.jpg` be replaced with a real product photo?
+
+Resolved 2026-10-10: `61422880536` is the live WhatsApp number; README.md's stale claims
+(analytics, hero image, icon size, mobile preview, JS size) were corrected.

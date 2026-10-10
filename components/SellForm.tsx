@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
 
 /* -------------------------------------------------------------------------- */
-/*  CONFIG – change me when you have the real number.                          */
+/*  CONFIG – live WhatsApp number. Also hardcoded in app/error.tsx.            */
 /*  Use international format with no '+', spaces, or hyphens. e.g. 27821234567 */
 /* -------------------------------------------------------------------------- */
 const WHATSAPP_NUMBER = "61422880536";

@@ -136,7 +136,7 @@ export default function Nav() {
 
           {/* Desktop nav */}
           <nav className="ml-auto hidden items-center gap-7 md:flex">
-            {links.slice(0, 3).map((l) => (
+            {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
@@ -150,17 +150,6 @@ export default function Nav() {
                 {l.label}
               </a>
             ))}
-            <a
-              href="#faq"
-              className={cn(
-                "font-mono text-[0.72rem] uppercase tracking-cap transition-colors",
-                onDark
-                  ? "text-paper/80 hover:text-accent"
-                  : "text-ink/70 hover:text-ink"
-              )}
-            >
-              FAQ
-            </a>
             <a
               href="#sell"
               className={cn(

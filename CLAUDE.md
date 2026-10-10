@@ -77,8 +77,8 @@ public/
   When asked to make something configurable, follow this pattern rather than introducing new
   prop-drilling or a central config file.
 - **Motion always respects `prefers-reduced-motion`** — either via the global CSS override in
-  `app/globals.css:388-397`, a `motion-reduce:` Tailwind variant, or an explicit
-  `window.matchMedia("(prefers-reduced-motion: reduce)")` check (e.g. `Hero.tsx:26`). Any new
+  `app/globals.css:387-396`, a `motion-reduce:` Tailwind variant, or an explicit
+  `window.matchMedia("(prefers-reduced-motion: reduce)")` check (e.g. `Hero.tsx:27`). Any new
   animation must do one of these.
 - **Brand colors live in two places that must stay in sync**: CSS custom properties in
   `app/globals.css:9-16` (`--color-paper`, `--color-ink`, `--color-muted`, `--color-accent`,
@@ -107,17 +107,13 @@ public/
   (`SellForm.tsx:122-128`) — it's called before any `setState`, specifically to stay inside the
   click's "transient activation window," which iOS 26 Safari shrinks to ~0.5s. Moving it after
   `track()` or a state update risks the popup getting blocked.
-- **`WHATSAPP_NUMBER` (`SellForm.tsx:12`) is flagged in its own preceding comment as a placeholder
-  to replace** ("CONFIG – change me when you have the real number") — verify with the user before
-  assuming `61422880536` is the live production number.
-- **`Hero.tsx`'s top comment is stale.** It says "PLACEHOLDER PHOTO: sourced from Unsplash"
-  (`Hero.tsx:10`), but `HERO_IMAGE.src` (`Hero.tsx:16`) is already `"/hero.jpg"`, a locally self-hosted
-  file in `public/`. `next.config.mjs` has no `images.remotePatterns` block (nothing hotlinks
-  Unsplash anymore) — this matches README.md's documented "how to swap the hero image" instructions
-  having already been carried out, just without updating the comment.
-- **README.md has one stale claim**: it says "no analytics" (README.md:5-6), but
-  `@vercel/analytics` is a real dependency and `<Analytics />` is mounted in `app/layout.tsx:71`,
-  with `track()` calls in `Footer.tsx:54`, `SellForm.tsx:129-132`, and `StickyMobileCTA.tsx:101`.
-  Trust the code over that line of the README.
+- **The WhatsApp number lives in two places.** `WHATSAPP_NUMBER` (`SellForm.tsx:12`) is the live
+  production number (confirmed by the user, 2026-10-10), but `app/error.tsx:21` hardcodes the same
+  number in its `wa.me` link. Change both together.
+- **`public/hero.jpg` is still the Unsplash placeholder photo**, downloaded and self-hosted
+  (commit `8580d93`) rather than hotlinked. `Hero.tsx:10`'s "PLACEHOLDER PHOTO" comment is accurate;
+  whether a real product photo will replace it hasn't been decided. The file is saved as greyscale
+  and served at `quality={50}` to cut bytes; any replacement photo should be converted to greyscale
+  too (see README "Hero image").
 - **The favicon is 192×192, not the usual 16/32/64**, deliberately — `app/icon.tsx:5-11` explains
   Google Search only accepts favicon sizes that are multiples of 48.

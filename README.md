@@ -2,8 +2,8 @@
 
 Single-page marketing site for a Melbourne + Geelong business that pays cash
 for used road bikes. The intake form opens WhatsApp with a pre-filled
-message – there's no backend, no database, no API routes, no analytics, no
-cookies.
+message – there's no backend, no database, no API routes, no cookies. The
+only third-party service is Vercel Web Analytics (cookieless).
 
 Built with **Next.js 14 (App Router) · TypeScript · Tailwind CSS**, deployed
 on Vercel, domain at GoDaddy.
@@ -30,8 +30,9 @@ Every route is statically prerendered at build time (the build trace lists
 each one as `○ Static`), including the dynamic-looking ones like
 `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, and the favicons –
 those are all `next/og` and Metadata routes that resolve to PNGs / text
-at build. Output is therefore CDN-friendly and Node-free at request time;
-Vercel just serves it.
+at build. Output is therefore CDN-friendly; the one thing that runs at
+request time is Vercel's image optimiser, which resizes the hero photo
+(`/_next/image`) on first request and caches the result.
 
 ## Deploy to Vercel
 
@@ -71,6 +72,9 @@ const WHATSAPP_NUMBER = "61422880536";
 International format, no `+`, no spaces, no hyphens. (e.g. `+61 422 880 536`
 becomes `61422880536`.)
 
+The same number is also hardcoded in the "message us on WhatsApp" link in
+`app/error.tsx` – change both together.
+
 ### Brand colours
 
 Defined as CSS custom properties at the top of `app/globals.css` and read
@@ -98,10 +102,13 @@ licence or runtime-call concerns):
   both display and body, with CSS `font-variation-settings` switching
   between condensed-poster mode for headings and normal-width mode for
   paragraph text.
-- **JetBrains Mono** – used for eyebrows, form labels, and the marquee
-  ticker.
+- **JetBrains Mono** – used for eyebrows, form labels, and other small
+  uppercase labels. (The marquee ticker is Bricolage, not mono.)
 
-The Bricolage TTF is also self-hosted at `public/fonts/` as a fallback.
+A static Bricolage ExtraBold TTF is also kept at `public/fonts/`. It isn't
+used by the page itself – the `next/og` image routes (`icon.tsx`,
+`apple-icon.tsx`, `opengraph-image.tsx`) read it from disk because they
+can't use `next/font`.
 
 ### Copy
 
@@ -128,20 +135,31 @@ data arrays / strings at the top:
 
 ```ts
 const HERO_IMAGE = {
-  src: "https://images.unsplash.com/photo-1605271864611-58dd08d10547?...",
-  alt: "A used bicycle",
+  src: "/hero.jpg",
+  alt: "A used road bicycle",
 };
 ```
 
-Currently an Unsplash placeholder (free under the Unsplash License, treated
-to high-contrast grayscale at opacity 0.4 so it sits behind the type). To
-swap to a local photo:
+Currently an Unsplash placeholder (photo `1605271864611-58dd08d10547`, free
+under the Unsplash License), self-hosted at `public/hero.jpg` (2400×3600).
+It's treated with CSS to high-contrast greyscale at opacity 0.4 so it sits
+behind the type, and served through `next/image` at `quality={50}` – the
+fade hides the lower quality.
 
-1. Drop the file into `public/` (e.g. `public/hero.jpg`).
-2. Change `HERO_IMAGE.src` to `"/hero.jpg"`.
+The source file is itself saved as greyscale. The CSS would make it grey
+anyway, so the colour data was never visible – removing it cuts the served
+files by about 40% (roughly 115 KB to a phone, 275 KB to a retina desktop).
+To swap the photo:
+
+1. Convert it to greyscale first (macOS:
+   `sips -m "/System/Library/ColorSync/Profiles/Generic Gray Profile.icc" in.jpg --out public/hero.jpg`).
+2. Replace `public/hero.jpg` (or point `HERO_IMAGE.src` at a new file).
 3. Update `HERO_IMAGE.alt` to describe the actual photo.
-4. Remove the `images.remotePatterns` block in `next.config.mjs` – no longer
-   needed once nothing's hotlinking Unsplash.
+4. Check the crop on both mobile (tall) and desktop (wide) – the image
+   fills the hero with `object-cover` at `object-[center_30%]`.
+5. Locally, Next caches optimised images by URL, not file contents – delete
+   `.next/cache/images` and restart `npm run dev` or you may keep seeing the
+   old photo. (Vercel starts each deploy with a fresh cache.)
 
 ### Structured data / JSON-LD
 
@@ -153,8 +171,9 @@ service-area is encoded as two `GeoCircle` entries (Melbourne CBD with a
 larger circle, because a Melbourne-centred radius that covered Geelong
 would also sweep in far-north suburbs that aren't actually serviced.
 
-Update the constants at the top (`SITE_URL`, `serviceAreas`, `sameAs`) when
-adding social profiles or expanding the service area.
+Update `SITE_URL` and `serviceAreas` at the top, or `sameAs` inside the
+`localBusiness` object, when adding social profiles or expanding the
+service area.
 
 ---
 
@@ -166,7 +185,9 @@ app/
   error.tsx              Runtime error boundary ("Something broke.")
   globals.css            Brand tokens, base styles, .eyebrow, .btn-*,
                          form styles, scroll-reveal classes, motion-reduce
-  icon.tsx               64×64 favicon, generated by next/og
+  favicon.ico            Static fallback favicon
+  icon.tsx               192×192 favicon, generated by next/og (a multiple
+                         of 48, so Google Search will show it)
   layout.tsx             Root layout – fonts, metadata, viewport, JsonLd
   not-found.tsx          404 ("Off the map.")
   opengraph-image.tsx    1200×630 social card, generated by next/og
@@ -186,7 +207,7 @@ components/
                        scroll-into-view (IntersectionObserver)
   WhatWeBuy.tsx        Two-column in-scope / out-of-scope list, dark section
   SellForm.tsx         Intake form with radio tiles, selects, validation,
-                       live message preview (desktop only), WhatsApp deep
+                       live message preview, WhatsApp deep
                        link with CRLF newlines for iOS WhatsApp's URL
                        handler
   FAQ.tsx              Radix Accordion, custom inline keyframes for the
@@ -198,6 +219,9 @@ components/
                        fixed wrapper + absolute child + unmount-when-hidden
                        so iOS 26 Safari can't sample its colour for the
                        URL-bar tint.
+  ToolbarBottomTint.tsx Invisible 12px fixed strip at the viewport bottom
+                       that flips paper/ink so iOS 26 Safari's bottom bar
+                       tint matches the section underneath
   JsonLd.tsx           Schema.org graphs – LocalBusiness, FAQPage, Service
   Reveal.tsx           IntersectionObserver wrapper that toggles
                        data-revealed on its children, used with the
@@ -209,7 +233,8 @@ lib/
   utils.ts             cn() className helper
 
 public/
-  fonts/               Self-hosted Bricolage Grotesque TTF
+  fonts/               Bricolage Grotesque ExtraBold TTF (for next/og)
+  hero.jpg             Hero background photo
 ```
 
 ---
@@ -244,21 +269,23 @@ A few judgement calls worth remembering when extending the site:
 - **Tailwind v3 over v4** for ecosystem stability and Vercel build
   determinism.
 - **No `lucide-react`.** The handful of icons (WhatsApp glyph, arrows,
-  plus, hamburger) are inlined SVGs. Keeps runtime deps to four packages.
+  plus, hamburger) are inlined SVGs. Runtime deps are just Next/React,
+  Radix Accordion, `clsx`, and Vercel Analytics.
 - **Radix Accordion for the FAQ.** Same primitive shadcn wraps, but used
   bare – the rest of the site is custom Tailwind styling that wouldn't
   benefit from a component library.
 - **No phone field in the intake form.** The user is on WhatsApp at the
   point of submit; their number reaches us automatically.
-- **Live "carbon-copy" preview** of the WhatsApp message on desktop only.
-  Reassures the user what they're about to send. Hidden on mobile to save
-  vertical space.
+- **Live "carbon-copy" preview** of the WhatsApp message. Reassures the
+  user what they're about to send. Sits beside the form on desktop and
+  stacks below it on mobile.
 - **No email.** WhatsApp is the single contact channel. Setting up
   `hello@webuybicycles.com.au` was out of scope for launch; the schema
   and footer reflect that.
 - **`data-nav-bg="dark"`** convention. Any section that's a dark slab
-  marks itself with this attribute; the top nav and the sticky mobile CTA
-  watch the attribute and flip their colour treatment when scrolled over.
+  marks itself with this attribute; the top nav, the sticky mobile CTA,
+  and the bottom toolbar-tint strip watch the attribute and flip their
+  colour treatment when scrolled over.
 - **Sticky mobile CTA is iOS-26-aware.** A `position: fixed` wrapper that
   paints anything (background-color, backdrop-filter) – even at opacity
   0 – gets sampled by iOS 26 Safari for its translucent URL-bar tint. The
@@ -275,13 +302,12 @@ A few judgement calls worth remembering when extending the site:
 
 - Fonts loaded via `next/font` with `display: "swap"` – no FOIT, minimal
   layout shift.
-- Hero image set to `priority` (LCP candidate). All other imagery is
-  generated server-side via `next/og` (favicons, social card).
-- One client-side dependency (`@radix-ui/react-accordion`) gated behind
-  the FAQ section. Everything else is server-rendered HTML and CSS.
-- No third-party scripts, no analytics, no cookies → no consent banner
-  needed.
-- Total first-load JS: **~98 kB**.
-
-If you swap the Unsplash hero for a real photo, run it through `next/image`
-or pre-compress it – that's typically the next-biggest perf win.
+- Hero image set to `priority` (LCP candidate) and served via `next/image`.
+  All other imagery is generated at build via `next/og` (favicons, social
+  card).
+- The only client-side UI library is `@radix-ui/react-accordion`, used by
+  the FAQ. Every section is prerendered to HTML; interactive sections
+  hydrate on the client.
+- Vercel Web Analytics is first-party (served from `/_vercel/insights`)
+  and cookieless → no consent banner needed.
+- Total first-load JS: **~108 kB**.

@@ -7,18 +7,14 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
  * the wrapper when the element scrolls into view. Children use the
  * `.reveal-fade` CSS class (defined in globals.css) to drive the
  * fade-up motion off that attribute.
- *
- * Set `delay` (ms) for staggered sequences.
  */
 export default function Reveal({
   children,
   className,
-  delay = 0,
   threshold = 0.15,
 }: {
   children: ReactNode;
   className?: string;
-  delay?: number;
   threshold?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -41,12 +37,7 @@ export default function Reveal({
   }, [threshold]);
 
   return (
-    <div
-      ref={ref}
-      data-revealed={revealed}
-      className={className}
-      style={{ transitionDelay: delay ? `${delay}ms` : undefined }}
-    >
+    <div ref={ref} data-revealed={revealed} className={className}>
       {children}
     </div>
   );
